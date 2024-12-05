@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:22:05 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/03 18:09:57 by marvin           ###   ########.fr       */
+/*   Updated: 2024/12/05 12:57:03 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,10 @@ typedef struct n_img
 typedef struct s_atof
 {
 	double	num;
+	double	fraction;
 	int		sign;
 	int		is_double;
-	double	fraction;
+	int		i;
 }	t_atof;
 
 typedef struct s_mlx_vars

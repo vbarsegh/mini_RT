@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 18:08:21 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/02 17:17:10 by vbarsegh         ###   ########.fr       */
+/*   Updated: 2024/12/05 12:52:07 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	*parse_camera(char **matrix, t_scene *scene)
 
 	if (if_only_digit(matrix[3]) == -1)
 		exit_and_free_matrix(matrix,"Error: bad arguments for camera", scene);
-	camera->fov = atof(matrix[3]);
+	camera->fov = ft_atof(matrix[3]);
 	if (!(camera->fov >= 0 && camera->fov <= 180))
 		exit_and_free_matrix(matrix, "Error: bad value fov", scene);
 	printf("exav\n");
