@@ -36,15 +36,6 @@ int	compute_shadow(t_scene *scene, t_figure *obj, t_light *light)
 	// t_vector	p;
 
 	tmp = NULL;
-	// light_ray = vector_sub((*obj)->point.hit_pos, light->coordinate);
-	// normalize_vector(&light_ray);
-	
-    // p = sum_vect(scene->camera->center, num_product_vect(scene->ray, closest_dot));
-	// ray_norm(scene, obj, p);//p-n spherayi ketna,aveli konkret charagayti u spherayi hatman ketna
-    
-	// printf("ligh coord.x = %f ligh coord.y = %f ligh coord.z = %f\n", obj->point.inter_pos.x, obj->point.inter_pos.y ,obj->point.inter_pos.z);
-	
-	
 	light_ray = vec_subtract(obj->point.inter_pos, light->coords);//ketic depi luysi axbyur
 	vec_normalize(&light_ray);
     

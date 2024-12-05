@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder_inter.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:25:01 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/02 17:11:33 by vbarsegh         ###   ########.fr       */
+/*   Updated: 2024/12/03 18:12:08 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void    solve_cylinder(t_vector pos, t_vector ray, t_figure *obj,
 		return ;
 	dot->x1 = ((dot->b * (-1)) - sqrt(dot->disc)) / (2 * dot->a);
 	dot->x2 = ((dot->b * (-1)) + sqrt(dot->disc)) / (2 * dot->a);
-	obj->point.dist = fmin(dot->x1, dot->x2);
+	// obj->point.dist = fmin(dot->x1, dot->x2);
+	find_hit_distance(&obj, *dot);
 }
 
 double	check_caps(t_vector pos, t_vector ray, t_figure *obj, t_math *dot)

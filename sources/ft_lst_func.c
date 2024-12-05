@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lst_func.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 16:27:57 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/02 17:38:15 by vbarsegh         ###   ########.fr       */
+/*   Updated: 2024/12/03 17:26:42 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ t_figure	*ft_lstlast_figure(t_figure *figure)
 		figure = figure->next;
 	return (figure);
 }
+
 t_light	*lst_create_light(t_scene *scene, char **matrix)
 {
 	t_light	*light;

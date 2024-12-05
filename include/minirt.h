@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:22:05 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/02 17:25:39 by vbarsegh         ###   ########.fr       */
+/*   Updated: 2024/12/03 18:09:57 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -366,7 +366,7 @@ double	sphere_intersect(t_vector center, t_vector ray, t_figure *obj);
 double	plane_inter(t_vector pos, t_vector ray, t_figure *obj);
 double	closest_inter(t_vector pos, t_vector ray, t_figure *figure, t_figure **tmp);
 int	color_in_current_pixel(t_scene *scene);
-
+void	find_hit_distance(t_figure **obj, t_math dot);
 //////////////cylinder.c//////////////
 double	cylinder_intersection(t_vector pos, t_vector ray, t_figure *obj);
 double	caps_inter(t_vector pos, t_vector ray, t_vector norm, t_vector center);
