@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_func.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 15:44:25 by adel              #+#    #+#             */
-/*   Updated: 2024/12/05 15:48:24 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/05 21:12:09 by vbarsegh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_figure	*lst_create_figure(t_scene *scene, char **matrix, int type)
 		figure->cylinder = parse_cylinder(matrix, scene);
 		figure->color = figure->cylinder->color;
 	}
-	figure->type = type; 
+	figure->type = type;
 	figure->next = NULL;
 	return (figure);
 }

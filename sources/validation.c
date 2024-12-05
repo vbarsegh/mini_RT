@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 13:15:48 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/05 15:57:36 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/05 20:46:20 by vbarsegh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	validation(int ac, char **av, t_scene *scene)
 		map = spliting(read_line, scene);
 		parsing(map, scene);
 		free_matrix(map);
-	system("leaks miniRT");
+	//system("leaks miniRT");
 	}
 	return (0);
 }

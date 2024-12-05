@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:03:40 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/05 15:45:29 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/05 21:00:26 by vbarsegh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ char	*get_next_line(int fd)
 	if (arr == NULL)
 		arr = ft_strdup("");
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if(!buffer)
+	if (!buffer)
 		return (NULL);
 	return (check(fd, &arr, buffer));
 }

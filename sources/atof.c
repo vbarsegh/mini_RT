@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   atof.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 23:42:27 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/05 15:40:20 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/05 20:53:41 by vbarsegh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
 #include <ctype.h>
 
-void init_atof(t_atof *v)
+void	init_atof(t_atof *v)
 {
 	v->is_double = 0;
 	v->sign = 1;
@@ -35,12 +35,12 @@ void	sign(t_atof *v, char *str)
 void	fraction(t_atof *v, char*str)
 {
 	if (v->is_double)
-		{
-			v->num += (str[v->i] - '0') * v->fraction;
-			v->fraction *= 0.1;
-		}
-		else
-			v->num = v->num * 10.0 + (str[v->i] - '0');
+	{
+		v->num += (str[v->i] - '0') * v->fraction;
+		v->fraction *= 0.1;
+	}
+	else
+		v->num = v->num * 10.0 + (str[v->i] - '0');
 }
 
 double	ft_atof(char *str)
@@ -55,7 +55,7 @@ double	ft_atof(char *str)
 	{
 		if (str[v.i] >= '0' && str[v.i] <= '9')
 			fraction(&v, str);
-		else if(str[v.i] == '.')
+		else if (str[v.i] == '.')
 		{
 			if (v.is_double)
 				break ;

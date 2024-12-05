@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checking.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 16:01:41 by adel              #+#    #+#             */
-/*   Updated: 2024/12/05 16:08:00 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/05 20:54:15 by vbarsegh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	is_white_space(char c)
 	return (0);
 }
 
-int if_char_and_digit(char *line, char c)
+int	if_char_and_digit(char *line, char c)
 {
 	int	i;
 
@@ -53,7 +53,8 @@ int	if_str_and_digit(char *line, char *set)
 	i = 0;
 	while (line[i])
 	{
-		if ((line[i] >= 48 && line[i] <= 57) || have_this_char_in_set(line[i], set) == 1
+		if ((line[i] >= 48 && line[i] <= 57)
+			|| have_this_char_in_set(line[i], set) == 1
 			|| line[i] == '-' || line[i] == '+')
 			i++;
 		else
@@ -62,7 +63,7 @@ int	if_str_and_digit(char *line, char *set)
 	return (1);
 }
 
-int if_only_digit(char *line)
+int	if_only_digit(char *line)
 {
 	int	i;
 

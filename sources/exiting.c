@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   exiting.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 15:42:20 by adel              #+#    #+#             */
-/*   Updated: 2024/12/05 15:43:06 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/05 20:59:31 by vbarsegh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
 
-void	exit_and_free_str(char *str_free, char *str_err ,t_scene *scene)
+void	exit_and_free_str(char *str_free, char *str_err, t_scene *scene)
 {
 	err(str_err);
 	free (str_free);
 	free_scene_members(scene);
-	system("leaks miniRT");
+	//system("leaks miniRT");
 	exit (1);
 }
 
@@ -26,7 +26,7 @@ void	exit_and_free_matrix(char **map, char *str_err, t_scene *scene)
 	free_matrix(map);
 	err(str_err);
 	free_scene_members(scene);
-	system("leaks miniRT");
+	//system("leaks miniRT");
 	exit(1);
 }
 

@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder_inter.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:25:01 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/05 15:41:49 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/05 20:58:48 by vbarsegh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
 
-void	solve_cylinder(t_vector pos, t_vector ray, t_figure *obj, 
-	t_math *dot)
+void	solve_cylinder(t_vector pos, t_vector ray, t_figure *obj, t_math *dot)
 {
 	t_vector	v;
 	t_vector	u;
@@ -42,13 +41,13 @@ double	check_caps(t_vector pos, t_vector ray, t_figure *obj, t_math *dot)
 
 	dist = 0;
 	obj->point.inter_pos = sum_vect(pos, num_product_vect(ray,
-		obj->point.dist));
-	dot->m1 = vec_dot_product(obj->cylinder->orient, 
-		vec_subtract(obj->point.inter_pos, obj->cylinder->center));
-	dot->m2 = vec_dot_product(obj->cylinder->orient, 
-		vec_subtract(obj->point.inter_pos, obj->cylinder->center1));//center1=@ chshtel incha vor sarqenq mer mot
-	if (dot->m1 > 0 && dot->m2 < 0)//es ify anhaskanalia,kisat chi?urish depq petq chi stugel?
-		dist = obj->point.dist;//esi en mer closest_dotna?
+				obj->point.dist));
+	dot->m1 = vec_dot_product(obj->cylinder->orient,
+			vec_subtract(obj->point.inter_pos, obj->cylinder->center));
+	dot->m2 = vec_dot_product(obj->cylinder->orient,
+			vec_subtract(obj->point.inter_pos, obj->cylinder->center1));
+	if (dot->m1 > 0 && dot->m2 < 0)
+		dist = obj->point.dist;
 	return (dist);
 }
 
@@ -85,6 +84,7 @@ double	cylinder_intersection(t_vector pos, t_vector ray, t_figure *obj)
 {
 	double	dist;
 	t_math	dot;
+
 	obj->cylinder->cap = 0;
 	obj->cylinder->flag = 0;
 	solve_cylinder(pos, ray, obj, &dot);

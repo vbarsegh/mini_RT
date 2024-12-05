@@ -6,7 +6,7 @@
 /*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 15:25:01 by adel              #+#    #+#             */
-/*   Updated: 2024/12/05 18:44:39 by vbarsegh         ###   ########.fr       */
+/*   Updated: 2024/12/05 20:56:14 by vbarsegh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	calculate_sph_norm(t_figure *obj)
 {
-	obj->point.inter_normal_vec = vec_subtract(obj->point.inter_pos, obj->sphere->center);
+	obj->point.inter_normal_vec = vec_subtract(obj->point.inter_pos,
+			obj->sphere->center);
 	vec_normalize(&obj->point.inter_normal_vec);
 }
 
@@ -35,8 +36,10 @@ void	calculate_cyl_norm(t_figure *obj)
 
 	vec = vec_subtract(obj->point.inter_pos, obj->cylinder->center);
 	proj_len = vec_dot_product(vec, obj->cylinder->orient);
-	proj = sum_vect(obj->cylinder->center, num_product_vect(obj->cylinder->orient, proj_len));
-	obj->point.inter_normal_vec = vec_subtract(obj->point.inter_pos, proj);
+	proj = sum_vect(obj->cylinder->center,
+			num_product_vect(obj->cylinder->orient, proj_len));
+	obj->point.inter_normal_vec = vec_subtract(obj->point.inter_pos,
+			proj);
 	vec_normalize(&obj->point.inter_normal_vec);
 }
 
@@ -53,7 +56,8 @@ void	set_inter_normal_vec(t_scene *scene, t_figure *obj)
 		if (vec_dot_product(obj->cylinder->orient, scene->ray) < 0)
 			obj->point.inter_normal_vec = obj->cylinder->orient;
 		else
-			obj->point.inter_normal_vec = num_product_vect(obj->cylinder->orient, -1);
+			obj->point.inter_normal_vec
+				= num_product_vect(obj->cylinder->orient, -1);
 		vec_normalize(&obj->point.inter_normal_vec);
 		obj->cylinder->cap = 0;
 	}
@@ -64,14 +68,15 @@ t_color	compute_light(t_scene *scene, t_figure *obj, t_color *specular)
 	t_color		light_in_vec;
 	t_light		*light_tmp;
 
-	light_in_vec = calc_rgb_light(scene->ambient->light, scene->ambient->ratio_lighting);
+	light_in_vec = calc_rgb_light(scene->ambient->light,
+			scene->ambient->ratio_lighting);
 	light_tmp = scene->light;
 	while (light_tmp)
 	{
-		
 		if (compute_shadow(scene, obj, light_tmp))
 		{
-			light_in_vec = add_rgb_light(diffuse_light(obj, light_tmp), light_in_vec);
+			light_in_vec = add_rgb_light(diffuse_light(obj,
+						light_tmp), light_in_vec);
 			*specular = specular_light(scene, light_tmp, obj);
 		}
 		light_tmp = light_tmp->next;

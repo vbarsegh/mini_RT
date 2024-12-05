@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 20:07:48 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/05 15:49:12 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/05 21:16:32 by vbarsegh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
 
-int main(int ac, char **av)
+int	main_a(int ac, char **av)
 {
-	t_scene 	*scene;
+	t_scene	*scene;
 
 	scene = malloc(sizeof(t_scene));
 	if (!scene)
@@ -24,12 +24,18 @@ int main(int ac, char **av)
 	{
 		init_mlx(scene);
 		free_scene_members(scene);
-		system("leaks miniRT");
-		return 0;
+		//system("leaks miniRT");
+		return (0);
 	}
 	free_scene_members(scene);
-	system("leaks miniRT");
-	return 1;
+	// //system("leaks miniRT");
+	return (1);
+}
+
+int	main(int ac, char **av)
+{
+	main_a(ac, av);
+	//system("leaks miniRT");
 }
 
 void	free_scene_members(t_scene *scene)
@@ -75,5 +81,4 @@ void	init_scene(t_scene *scene)
 	scene->height = HEIGHT;
 	scene->count.count_ambient = 0;
 	scene->count.count_camera = 0;
-	
 }

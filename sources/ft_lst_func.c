@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lst_func.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 16:27:57 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/05 15:44:37 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/05 21:00:08 by vbarsegh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ t_figure	*ft_lstlast_figure(t_figure *figure)
 {
 	if (figure == NULL)
 		return (NULL);
-	while
-	 (figure && figure->next)
+	while (figure && figure->next)
 		figure = figure->next;
 	return (figure);
 }
@@ -25,7 +24,7 @@ t_figure	*ft_lstlast_figure(t_figure *figure)
 t_light	*lst_create_light(t_scene *scene, char **matrix)
 {
 	t_light	*light;
-	
+
 	light = parse_light(matrix, scene);
 	light->next = NULL;
 	return (light);
