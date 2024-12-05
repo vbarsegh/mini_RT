@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 18:08:21 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/05 16:29:45 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/05 19:37:33 by vbarsegh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	found_what_scene_is_it(char **matrix, t_scene *scene)
 
 void	*parse_camera(char **matrix, t_scene *scene)
 {
-	int		i;
+	int			i;
 	t_camera	*camera;
 	if (scene->camera)
 		free(scene->camera);
@@ -73,13 +73,11 @@ void	*parse_camera(char **matrix, t_scene *scene)
 			|| (ft_strstr_alt(matrix[i], ",,")))
 			exit_and_free_matrix(matrix,"Error: bad arguments", scene);
 	}
-
 	init_coords(&camera->center ,matrix, scene, 1);
-
 	init_orient(&camera->direction, matrix, scene, 2);
-
 	if (if_only_digit(matrix[3]) == -1)
 		exit_and_free_matrix(matrix,"Error: bad arguments for camera", scene);
+	
 	camera->fov = ft_atof(matrix[3]);
 	if (!(camera->fov >= 0 && camera->fov <= 180))
 		exit_and_free_matrix(matrix, "Error: bad value fov", scene);

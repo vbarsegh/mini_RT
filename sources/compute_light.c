@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   compute_light.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 15:25:01 by adel              #+#    #+#             */
-/*   Updated: 2024/12/05 15:25:30 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/05 18:44:39 by vbarsegh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ t_color	compute_light(t_scene *scene, t_figure *obj, t_color *specular)
 	light_tmp = scene->light;
 	while (light_tmp)
 	{
+		
 		if (compute_shadow(scene, obj, light_tmp))
 		{
 			light_in_vec = add_rgb_light(diffuse_light(obj, light_tmp), light_in_vec);

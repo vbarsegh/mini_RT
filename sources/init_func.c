@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_func.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 15:22:00 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/05 15:45:57 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/05 19:35:20 by vbarsegh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,9 @@ void	init_color(t_color *color, char **matrix, t_scene *scene, int i)
 		exit_and_free_matrix(matrix, "Error: malloc" ,scene);
 	if (matrix_row(split_2_line) != 3)
 		exit_and_free(matrix, "Error: bad arguments for ambient2", scene, split_2_line);
+	if (checkk(split_2_line[0]) == -1 || checkk(split_2_line[1]) == -1 ||
+			checkk(split_2_line[2]) == -1)
+		exit_and_free(matrix, "Error: value of color out is range", scene, split_2_line);
 	color->red = ft_atoi(split_2_line[0]);
 	color->green = ft_atoi(split_2_line[1]);
 	color->blue = ft_atoi(split_2_line[2]);
@@ -79,3 +82,15 @@ void	init_color(t_color *color, char **matrix, t_scene *scene, int i)
 
 }
 
+int	checkk(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	printf("atoi = %lld\n",ft_atoi(str));
+	if (i > 11 || ft_atoi(str) > INT_MAX || ft_atoi(str) < INT_MIN)
+		return (-1);
+	return (1);
+}

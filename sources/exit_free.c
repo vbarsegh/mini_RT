@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_free.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 20:56:26 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/05 15:42:51 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/05 18:45:52 by vbarsegh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	err(char *str)
 	return (1);
 }
 
-void	free_list_of_light(t_light *light)//check Nar
+void	free_list_of_light(t_light *light)
 {
 	t_light	*tmp;
 
@@ -32,7 +32,7 @@ void	free_list_of_light(t_light *light)//check Nar
 	}
 }
 
-void	free_list_of_figure(t_figure *figure)//check Nar
+void	free_list_of_figure(t_figure *figure)
 {
 	t_figure	*tmp;
 

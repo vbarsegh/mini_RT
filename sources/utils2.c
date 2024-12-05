@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 16:46:38 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/05 16:07:50 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/05 19:31:49 by vbarsegh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
 
-int	ft_atoi(const char *str)
+long long	ft_atoi(const char *str)
 {
 	int	i;
-	int	num;
+	long long	num;
 	int	sign;
 
 	sign = 1;
@@ -36,6 +36,7 @@ int	ft_atoi(const char *str)
 		num = (num * 10) + (str[i] - 48);
 		i++;
 	}
+	
 	return (sign * num);
 }
 

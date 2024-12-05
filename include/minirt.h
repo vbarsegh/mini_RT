@@ -3,16 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:22:05 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/05 17:18:06 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/05 19:31:59 by vbarsegh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
-
+#  define ESC	53
+#  define LEFT	123
+#  define RIGHT	124
+#  define DOWN	125
+#  define UP	126
+#  define A	0
+#  define S	1
+#  define D	2
+#  define W	13
 # define WIDTH 1000
 # define HEIGHT 700
 # include <stdio.h>
@@ -25,33 +33,33 @@
 # include "../include/mlx.h"
 # include "../include/get_next_line.h"
 
-# ifdef __linux__
-#  define ESC	65307
-#  define LEFT	65361
-#  define RIGHT	65363
-#  define DOWN	65364
-#  define UP	65362
-#  define A	97
-#  define S	115
-#  define D	100
-#  define W	119
-#  define C	99
-#  define T	116
-#  define B	98
-# else
-#  define ESC	53
-#  define LEFT	123
-#  define RIGHT	124
-#  define DOWN	125
-#  define UP	126
-#  define A	0
-#  define S	1
-#  define D	2
-#  define W	13
-#  define C	8
-#  define T	17
-#  define B	11
-# endif
+// # ifdef __linux__
+// #  define ESC	65307
+// #  define LEFT	65361
+// #  define RIGHT	65363
+// #  define DOWN	65364
+// #  define UP	65362
+// #  define A	97
+// #  define S	115
+// #  define D	100
+// #  define W	119
+// #  define C	99
+// #  define T	116
+// #  define B	98
+// # else
+// #  define ESC	53
+// #  define LEFT	123
+// #  define RIGHT	124
+// #  define DOWN	125
+// #  define UP	126
+// #  define A	0
+// #  define S	1
+// #  define D	2
+// #  define W	13
+// #  define C	8
+// #  define T	17
+// #  define B	11
+// # endif
 
 typedef enum e_figure_type
 {
@@ -267,7 +275,7 @@ int			only_trim_simbols(char *str);
 int			cur_line_is_com(char *str);
 
 /////////////////utils2/////////////////////////////
-int			ft_atoi(const char *str);
+long long			ft_atoi(const char *str);
 int 		if_char_and_digit(char *line, char c);
 int			matrix_row(char **matrix);
 double		ft_atof(char *str);
@@ -280,7 +288,7 @@ int			only_new_line_or_spaces(char *res);
 /////////////////validation////////////////////////
 int			validation(int ac, char **av, t_scene *scene);
 int			is_rt(char *str);
-
+int			checkk(char *str);
 /////////////////init_func////////////////////////////
 void		init_coords(t_vector *coords, char **matrix, t_scene *scene, int i);
 void		init_color(t_color *color, char **matrix, t_scene *scene, int i);

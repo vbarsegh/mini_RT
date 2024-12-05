@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_hooks.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 14:13:51 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/05 16:49:10 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/05 18:52:33 by vbarsegh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int	handler(int keypress, t_scene *scene)
 {
-	printf("%d\n", keypress);
 	if (keypress == ESC)
 	{
 		mlx_destroy_image(scene->mlx->mlx, scene->img->img_ptr);
 		mlx_clear_window(scene->mlx->mlx, scene->mlx->win);
 		mlx_destroy_window(scene->mlx->mlx, scene->mlx->win);
+		// system("miniRT leaks");
 		exit(0);
 	}
 	if (scene->figure && scene->camera && scene->ambient)
@@ -45,6 +45,8 @@ int	mouse_close(t_scene *scene)
 	mlx_destroy_image(scene->mlx->mlx, scene->img->img_ptr);
 	mlx_clear_window(scene->mlx->mlx, scene->mlx->win);
 	mlx_destroy_window(scene->mlx->mlx, scene->mlx->win);
-	exit(0);//lavem are vor pakelem?
+		system("miniRT leaks");
+	
+	exit(0);
 	return (0);
 }
