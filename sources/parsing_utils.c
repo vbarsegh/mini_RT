@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 18:08:21 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/05 12:52:07 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/05 16:29:45 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,6 @@ void	*parse_camera(char **matrix, t_scene *scene)
 	camera->fov = ft_atof(matrix[3]);
 	if (!(camera->fov >= 0 && camera->fov <= 180))
 		exit_and_free_matrix(matrix, "Error: bad value fov", scene);
-	printf("exav\n");
-	printf("-----%f\n",camera->fov);
 	return (camera);
 }
 
@@ -110,8 +108,6 @@ void	*parse_ambient(char **matrix, t_scene *scene)
 	ambient->ratio_lighting = ft_atof(matrix[1]);
 	if (!(ambient->ratio_lighting >= 0.0 && ambient->ratio_lighting <= 1.0))
 		exit_and_free_matrix(matrix, "Error: bad value ambient ratio_lighting", scene);
-
-	printf("hres=%f\n",ambient->ratio_lighting);
 	init_color(&ambient->light, matrix, scene, 2);
 	return (ambient);
 }

@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 23:42:27 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/05 13:33:37 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/05 15:40:20 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	sign(t_atof *v, char *str)
 		v->i++;
 	}
 }
+
 void	fraction(t_atof *v, char*str)
 {
 	if (v->is_double)

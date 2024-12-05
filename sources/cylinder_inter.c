@@ -3,25 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder_inter.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:25:01 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/03 18:12:08 by marvin           ###   ########.fr       */
+/*   Updated: 2024/12/05 15:41:49 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
 
-
-//t^2(D . D - (D . A)^2) + 2t((D . OC) - (D . A)(OC . A)) + (OC . OC - (OC . A)^2 - r^2) = 0
-// Центр основания цилиндра C,
-// Направление оси цилиндра A (нормализованный вектор),//cyl->orient
-//OC eto vec!!!!(OC=O−C — вектор от центра основания цилиндра до начала луча,)
-// vec — это векторное представление начального смещения между лучом и цилиндром.
-// Он определяет, насколько далеко камера (или начальная точка луча) находится от центра цилиндра, что критически важно для правильного вычисления точек пересечения.
-
-
-void    solve_cylinder(t_vector pos, t_vector ray, t_figure *obj, 
+void	solve_cylinder(t_vector pos, t_vector ray, t_figure *obj, 
 	t_math *dot)
 {
 	t_vector	v;
@@ -42,7 +33,6 @@ void    solve_cylinder(t_vector pos, t_vector ray, t_figure *obj,
 		return ;
 	dot->x1 = ((dot->b * (-1)) - sqrt(dot->disc)) / (2 * dot->a);
 	dot->x2 = ((dot->b * (-1)) + sqrt(dot->disc)) / (2 * dot->a);
-	// obj->point.dist = fmin(dot->x1, dot->x2);
 	find_hit_distance(&obj, *dot);
 }
 
@@ -74,7 +64,7 @@ int	solve_caps(t_vector pos, t_vector ray, t_figure *obj)
 	obj->point.dist = p.x1;
 	if (p.x1 > p.x2)
 	{
-		obj->cylinder->flag = 1;//ete 1 a uremn taki krujoki heta hatumy,ete 0 uremn vervini heta hatumy
+		obj->cylinder->flag = 1;
 		obj->point.dist = p.x2;
 	}
 	obj->point.inter_pos = sum_vect(pos, num_product_vect(ray,
@@ -85,7 +75,7 @@ int	solve_caps(t_vector pos, t_vector ray, t_figure *obj)
 		surf = vec_subtract(obj->point.inter_pos, obj->cylinder->center);
 	if (vec_dot_product(surf, surf) < pow(obj->cylinder->radius, 2))
 	{
-		obj->cylinder->cap = 1;//ete 1 a uremn verevi kam nerqevi krujok hatela,ete 0a uremn chi hate
+		obj->cylinder->cap = 1;
 		return (1);
 	}
 	return (0);
@@ -95,7 +85,6 @@ double	cylinder_intersection(t_vector pos, t_vector ray, t_figure *obj)
 {
 	double	dist;
 	t_math	dot;
-	//pos=> camera center
 	obj->cylinder->cap = 0;
 	obj->cylinder->flag = 0;
 	solve_cylinder(pos, ray, obj, &dot);

@@ -6,7 +6,6 @@ CFLAGS = -Wall -Wextra -Werror -I mlx -g3 -fsanitize=address
 # MLXFLAGS = -lmlx -framework OpenGL -framework AppKit
 MLXFLAGS = -Lminilibx-linux -lmlx -lX11 -lXext -lm
 
-
 HEADERS = include/get_next_line.h include/minirt.h include/mlx.h
 
 SRCS_DIR = sources/
@@ -27,10 +26,11 @@ SRCS_NAME = minirt.c \
 			atof.c \
 			key_hooks.c \
 			ft_lst_func.c \
-			scene.c vector.c ray_tracing_2.c init_mlx.c \
+			vector.c ray_tracing_2.c init_mlx.c \
 			compute_light.c plane_inter.c cylinder_inter.c matrix.c \
 			move_and_rottate.c figure_rotate.c sphere_intersect.c \
 			color_functions.c shadow.c compute_light2.c \
+			lst_func.c exiting.c vector_utils.c checking.c rotation.c\
 
 OBJS = $(addprefix $(OBJS_DIR), $(OBJS_NAME))
 OBJS_NAME = $(SRCS_NAME:.c=.o)

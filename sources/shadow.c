@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   shadow.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/05 15:51:17 by adel              #+#    #+#             */
+/*   Updated: 2024/12/05 15:51:17 by adel             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minirt.h"
 
 int	in_shadow(t_scene *scene, t_vector ray, t_light	*light, \
@@ -10,11 +22,10 @@ int	in_shadow(t_scene *scene, t_vector ray, t_light	*light, \
 	dot = INFINITY;
 	closest_dot = INFINITY;
 	tmp = scene->figure;
-	// printf("skizbna?->%d\n", tmp->type);
 	while (tmp)
 	{
 		dot = closest_inter_dlya_shadow(light->coords, ray, tmp);
-		if (dot > __FLT_EPSILON__ && dot < closest_dot)//dot > __FLT_EPSILON__ nayi tg um grvacy
+		if (dot > __FLT_EPSILON__ && dot < closest_dot)
 		{
 			closest_dot = dot;
 			*obj = tmp;
@@ -22,10 +33,7 @@ int	in_shadow(t_scene *scene, t_vector ray, t_light	*light, \
 		tmp = tmp->next;
 	}
 	if (closest_dot != INFINITY)
-	{
-		// printf("0 ov\n");
 		return (1);
-	}
 	return (0);
 }
 
@@ -33,45 +41,11 @@ int	compute_shadow(t_scene *scene, t_figure *obj, t_light *light)
 {
 	t_figure	*tmp;
 	t_vector	light_ray;
-	// t_vector	p;
 
 	tmp = NULL;
-	light_ray = vec_subtract(obj->point.inter_pos, light->coords);//ketic depi luysi axbyur
+	light_ray = vec_subtract(obj->point.inter_pos, light->coords);
 	vec_normalize(&light_ray);
-    
-    if (in_shadow(scene, light_ray, light, &tmp) && tmp == obj)//indz tvuma es 2rdy petq chi vortev in shadow-i mej unenq ->dot > __FLT_EPSILON__
-	{
-		// printf("stexic pti helni\n");
+	if (in_shadow(scene, light_ray, light, &tmp) && tmp == obj)
 		return (1);
-	}
-	// printf("senc depq unenq vapshe???????????\n");
 	return (0);
 }
-
-// int compute_shadow(t_scene *scene, t_figure **obj, t_light *light, double closest_dot) {
-//     t_figure *tmp = NULL;
-//     t_vector p = sum_vect(scene->camera->center, num_product_vect(scene->ray, closest_dot));
-
-//     // Вычисляем нормаль в точке пересечения
-//     t_vector normal;
-//     if ((*obj)->type == SPHERE)
-//         normal = calculate_sph_norm(p, *obj);
-//     // else if ((*obj)->type == PLANE)
-//     //     normal = (*obj)->plane.normal;
-//     // else if ((*obj)->type == CYLINDER)
-//     //     normal = calculate_cylinder_norm(p, *obj); // Создайте эту функцию
-//     vec_normalize(&normal);
-
-//     // Смещаем точку
-//     // p = sum_vect(p, num_product_vect(normal, 0.001));
-
-//     // Рассчитываем направление луча света
-//     t_vector light_ray = vec_subtract(p, light->coords);
-//     vec_normalize(&light_ray);
-
-//     // Проверяем тени
-//     if (in_shadow(scene, light_ray, light, &tmp)) {
-//         return 0; // В тени
-//     }
-//     return 1; // Свет доступен
-// }

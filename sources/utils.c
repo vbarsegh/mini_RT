@@ -3,40 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 13:30:00 by aeminian          #+#    #+#             */
-/*   Updated: 2024/11/27 23:45:13 by marvin           ###   ########.fr       */
+/*   Updated: 2024/12/05 16:03:27 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
-
-
-int	malloc_check(char *s)
-{
-	if (!s)
-		return(err("Malloc error!"));
-	return (0);
-}
-
-int	check1(char c, char const *set)
-{
-	while (*set != '\0')
-	{
-		if (*set == c)
-			return (1);
-		set++;
-	}
-	return (0);
-}
-
-int	is_white_space(char c)
-{
-	if ((c >= 9 && c <= 13) || c == 32)
-		return (1);
-	return (0);
-}
 
 int	only_trim_simbols(char *str)
 {

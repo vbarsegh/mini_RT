@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 20:07:48 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/02 17:01:45 by vbarsegh         ###   ########.fr       */
+/*   Updated: 2024/12/05 15:49:12 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,13 @@ int main(int ac, char **av)
 	if (!scene)
 		return (1);
 	init_scene(scene);
-	// printf("hasav\n");
 	if (validation(ac, av, scene) == 0)
 	{
-		printf("chjoka\n");
 		init_mlx(scene);
 		free_scene_members(scene);
 		system("leaks miniRT");
 		return 0;
 	}
-	printf("steeeeeeeeeee???\n");
-	// err("Error: Incorrect file");
 	free_scene_members(scene);
 	system("leaks miniRT");
 	return 1;
@@ -70,8 +66,8 @@ void	init_scene(t_scene *scene)
 	scene->light = NULL;
 	scene->figure = NULL;
 	scene->vplane = NULL;
-	scene->i = 0;//
-	scene->j = 0;//
+	scene->i = 0;
+	scene->j = 0;
 	scene->ray = new_vector(0, 0, 0);
 	scene->mlx = NULL;
 	scene->img = NULL;

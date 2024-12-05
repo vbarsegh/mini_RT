@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 19:40:50 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/05 14:51:58 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/05 16:26:33 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,30 +15,24 @@
 t_vplane	*get_view_plane(t_scene *scene)
 {
 	t_vplane	*vplane;
-	double      aspect_ratio;
+	double		aspect_ratio;
 
-    vplane = malloc(sizeof(t_vplane));
-    if (!vplane)
-    {
-        printf("ha vor?");
-        exit (77777);
-    }
-    aspect_ratio = WIDTH / scene->height;
+	vplane = malloc(sizeof(t_vplane));
+	if (!vplane)
+		exit (1);
+	aspect_ratio = WIDTH / scene->height;
 	vplane->mlx_x = 0;
 	vplane->mlx_y = 0;
 	vplane->width = 2 * tan(scene->camera->fov / 2 * (M_PI / 180));
-    // printf("xooii\n");
 	vplane->height = vplane->width / aspect_ratio;
 	vplane->pixel_x = vplane->width / WIDTH;
 	vplane->pixel_y = vplane->height / scene->height;
-    // printf("bafrev\n");
 	return (vplane);
 }
 
 
 t_vector	 look_at(t_scene	*scene, double ray_x, double ray_y)
 {
-    // Այս ֆունկցիան ստեղծում է վեկտոր՝ ճառագայթը տեսախցիկից դեպի տեսադաշտի որոշակի կետ ուղղելու համար:
 	t_vector	up;
 	t_vector	new;
 	t_vector	right;
@@ -47,45 +41,32 @@ t_vector	 look_at(t_scene	*scene, double ray_x, double ray_y)
 	up = new_vector(0, 1, 0);
 	if (fabs(vec_dot_product(scene->camera->direction, up)) > 0.999)
 		up = new_vector(0, 0, 1);
-	right = vec_cross_product(scene->camera->direction, up);
-	// printf("do up-> %f %f %f\n",  right.x, right.y,  right.z);
-
+	right = vec_cross_product(scene->camera->direction, up);\
 	vec_normalize(&right);
-
-
-	// printf("posle up-> %f %f %f\n",  right.x, right.y,  right.z);
-
 	new = vec_cross_product(right, scene->camera->direction);
 	vec_normalize(&new);
-
 	ray_dir = sum_vect(sum_vect(num_product_vect(right, ray_x), \
 		num_product_vect(new, ray_y)), scene->camera->direction);
-	vec_normalize(&ray_dir);//это направление луча из камеры через определенную точку на виртуальной видовой плоскости (vplane). Она вычисляется как сумма трёх компонентов:
-	//ray_dir=right⋅ray_x+new⋅ray_y+camera direction
-    // Оно говорит: сдвинь луч вправо на ray_x, вверх на ray_y, и направь его вперёд вдоль направления камеры.
-    return (ray_dir);
+	vec_normalize(&ray_dir);
+	return (ray_dir);
 }
 
 void	ray_tracing(t_scene *scene)
 {
-	// int			color;
 	double		ray_x;
 	double		ray_y;
-	// t_vector	ray;
-    // printf("ee->%f\n", scene->height);
-    scene->vplane = get_view_plane(scene);
+	scene->vplane = get_view_plane(scene);
 	scene->vplane->y_angle = scene->height / 2;
 	while (scene->vplane->y_angle >= (scene->height / 2) * (-1))
 	{
-		scene->vplane->mlx_x = 0;
-            // printf("steeeeeeeeeeee\n");
+		scene->vplane->mlx_x = 0;\
 		ray_y = scene->vplane->pixel_y * scene->vplane->y_angle;
 		scene->vplane->x_angle = (scene->width / 2) * (-1);
 		while (scene->vplane->x_angle <= scene->width / 2)
 		{
 			ray_x = scene->vplane->pixel_x * scene->vplane->x_angle;
 			scene->ray = look_at(scene, ray_x, ray_y);
-            my_mlx_pixel_put(scene->img, scene->vplane->mlx_x, scene->vplane->mlx_y, color_in_current_pixel(scene));
+			my_mlx_pixel_put(scene->img, scene->vplane->mlx_x, scene->vplane->mlx_y, color_in_current_pixel(scene));
 			scene->vplane->mlx_x++;
 			scene->vplane->x_angle++;
 		}
@@ -93,7 +74,6 @@ void	ray_tracing(t_scene *scene)
 		scene->vplane->y_angle--;
 	}
 }
-
 
 void	get_pixel_color(int *color, t_figure *obj, t_scene *scene)
 {
@@ -105,13 +85,9 @@ void	get_pixel_color(int *color, t_figure *obj, t_scene *scene)
 	obj->point.inter_pos = sum_vect(scene->camera->center, num_product_vect(scene->ray,
 		obj->point.dist));
 	set_inter_normal_vec(scene, obj);
-	// printf("exxx->%p\n", obj->color);
 	*color = rgb_color_to_hex(obj->color);
-	// printf("hres->%d\n", *color);
 	specular = new_color(0, 0, 0);
 	light_in_vec = compute_light(scene, obj, &specular);
-	// printf("col.x = %d col.y = %d col.z = %d\n", obj->color.red, obj->color.green, obj->color.blue);
-	// printf ("specular.x = %d specular.y = %d specular.z = %d\n", specular.red, specular.green, specular.blue);
 	*color = rgb_color_to_hex(add_rgb_light(multiply_rgbs(light_in_vec, \
 		(obj->color)), specular));
 }
@@ -123,20 +99,14 @@ int	color_in_current_pixel(t_scene *scene)
 	double		closest_dot;
 
 	closest_dot = INFINITY;
-	// obj = scene->figure;//senca exe naxkinum
-	obj = NULL;//uzumem poxem senc
+	obj = NULL;
 	closest_dot = closest_inter(scene->camera->center, scene->ray, scene->figure, &obj);
 	if (closest_dot == INFINITY)
-	{
 		color = 0;
-	}
 	else
-	{
 		get_pixel_color(&color, obj, scene);
-	}
 	return (color);
 }
-
 
 double	closest_inter(t_vector pos, t_vector ray, t_figure *figure, t_figure **obj)
 {
@@ -166,10 +136,8 @@ double	closest_inter(t_vector pos, t_vector ray, t_figure *figure, t_figure **ob
 double	closest_inter_dlya_shadow(t_vector pos, t_vector ray, t_figure *figure)
 {
 	double		dot;
-	// double		closest_dot;
 
 	dot = INFINITY;
-	// closest_dot = INFINITY;
 	if (figure->type == SPHERE)
 		dot = sphere_intersect(pos, ray, figure);
 	else if (figure->type == PLANE)

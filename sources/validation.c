@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 13:15:48 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/05 14:36:06 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/05 15:57:36 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,10 @@ char **spliting(char *read_line, t_scene *scene)
 	if (!trim_line)
 		exit_and_free_str(read_line, "cannot do trim", scene);
 	free(read_line);
-	map = split_char(trim_line, '\n');//esi vaaaapshe lav chi
+	map = split_char(trim_line, '\n');
 	if (!map)
 		exit_and_free_str(trim_line, "malloc error", scene);
 	free(trim_line);
-	printf("axxxxxxx\n");
 	return (get_end_trim_map(map, scene, 0, 0));
 }
 
@@ -103,24 +102,13 @@ int	validation(int ac, char **av, t_scene *scene)
 		if (is_rt(av[1]))
 			return(err("Error: Wrong argument: Try this way: ./rt filename.rt"));
 		read_line = get_line(av[1]);
-		printf("read_line=%s\n",read_line);
 		if (!read_line)
-			return (1);//minchev ste leak chka
-		map = spliting(read_line, scene);//minchev ste leak chka
-		printf("asenq te\n");
+			return (1);
+		map = spliting(read_line, scene);
 		parsing(map, scene);
-		// printf("badaxrichneri qanaky sxala\n");
-		// int i = 0;
-		// while (**map && map[i])
-		// {
-		// 	printf("boo:%s\n", map[i]);
-		// 	i++;
-		// }
-		free_matrix(map);//////
+		free_matrix(map);
 	system("leaks miniRT");
-	// 	exit(1);
 	}
-		// system("leaks miniRT");
 	return (0);
 }
 

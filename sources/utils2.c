@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 16:46:38 by aeminian          #+#    #+#             */
-/*   Updated: 2024/08/19 15:22:21 by vbarsegh         ###   ########.fr       */
+/*   Updated: 2024/12/05 16:07:50 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
-
 
 int	ft_atoi(const char *str)
 {
@@ -40,39 +39,6 @@ int	ft_atoi(const char *str)
 	return (sign * num);
 }
 
-int if_char_and_digit(char *line, char c)
-{
-	int	i;
-
-	i = 0;
-	while (line[i])
-	{
-		if ((line[i] >= 48 && line[i] <= 57) || line[i] == c
-			|| line[i] == '-' || line[i] == '+')
-			i++;
-		else
-			return (-1);
-	}
-	return (1);
-}
-
-int	if_str_and_digit(char *line, char *set)
-{
-	int	i;
-
-	i = 0;
-	while (line[i])
-	{
-		if ((line[i] >= 48 && line[i] <= 57) || have_this_char_in_set(line[i], set) == 1
-			|| line[i] == '-' || line[i] == '+')
-			i++;
-		else
-			return (-1);
-	}
-	return (1);
-}
-
-
 int	have_this_char_in_set(char c, char *set)
 {
 	int	i;
@@ -97,21 +63,6 @@ int	matrix_row(char **matrix)
 	return (row);
 }
 
-int if_only_digit(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] >= 48 && line[i] <= 57)
-			i++;
-		else
-			return (-1);
-	}
-	return (1);
-}
-
 int	only_new_line_or_spaces(char *res)
 {
 	int	i;
@@ -125,4 +76,11 @@ int	only_new_line_or_spaces(char *res)
 			return (-1);
 	}
 	return (1);
+}
+
+int	malloc_check(char *s)
+{
+	if (!s)
+		return(err("Malloc error!"));
+	return (0);
 }
