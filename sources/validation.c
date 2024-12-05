@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 13:15:48 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/02 17:28:35 by vbarsegh         ###   ########.fr       */
+/*   Updated: 2024/12/05 14:36:06 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,34 +43,29 @@ char	*get_line(char *av)
 	return (res);
 }
 
-char **get_end_trim_map(char **map, t_scene *scene)
+char **get_end_trim_map(char **map, t_scene *scene, int row, int j)
 {
-	int		i;
-	int		row;
 	char	**trim_map;
-	int 	j;
 
-	row = 0;
-	j = 0;
 	while (map[row])
 		row++;
 	trim_map = malloc(sizeof(char *) * (row + 1));
 	if (!trim_map)
 		exit_and_free_matrix(map, "cannot do split", scene);
-	i = 0;
-	while (map[i])
+	row = 0;
+	while (map[row])
 	{
-		if (!(only_trim_simbols(map[i]) == 1) && !(cur_line_is_com(map[i]) == 1))
-			trim_map[j] =  ft_strtrim(map[i], " \n\v\f\r\t");
+		if (!(only_trim_simbols(map[row]) == 1) && !(cur_line_is_com(map[row]) == 1))
+			trim_map[j] =  ft_strtrim(map[row], " \n\v\f\r\t");
 		else
 		{
-			i++;
+			row++;
 			continue;
 		}
 		if(!trim_map[j])
 			exit_and_free_matrix(map, "cannot do split", scene);
-		i++;
 		j++;
+		row++;
 	}
 	trim_map[j] = NULL;
 	free_matrix(map);
@@ -91,7 +86,7 @@ char **spliting(char *read_line, t_scene *scene)
 		exit_and_free_str(trim_line, "malloc error", scene);
 	free(trim_line);
 	printf("axxxxxxx\n");
-	return (get_end_trim_map(map, scene));
+	return (get_end_trim_map(map, scene, 0, 0));
 }
 
 int	validation(int ac, char **av, t_scene *scene)

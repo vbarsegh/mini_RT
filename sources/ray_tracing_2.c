@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_tracing_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 19:40:50 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/03 19:29:23 by marvin           ###   ########.fr       */
+/*   Updated: 2024/12/05 14:51:58 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,4 +161,20 @@ double	closest_inter(t_vector pos, t_vector ray, t_figure *figure, t_figure **ob
 		figure = figure->next;
 	}
 	return (closest_dot);
+}
+
+double	closest_inter_dlya_shadow(t_vector pos, t_vector ray, t_figure *figure)
+{
+	double		dot;
+	// double		closest_dot;
+
+	dot = INFINITY;
+	// closest_dot = INFINITY;
+	if (figure->type == SPHERE)
+		dot = sphere_intersect(pos, ray, figure);
+	else if (figure->type == PLANE)
+		dot = plane_inter(pos, ray, figure);
+	else if (figure->type == CYLINDER)
+		dot = cylinder_intersection(pos, ray, figure);
+	return (dot);
 }

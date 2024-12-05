@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:22:05 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/05 12:57:03 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/05 15:38:01 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -411,10 +411,13 @@ void	free_scene(t_scene *scene);
 void	init_scene(t_scene *scene);
 /////////////////compute_light.c/////////////////
 t_color	compute_light(t_scene *scene, t_figure *obj, t_color *specular);
-double	compute_spec(t_scene *scene, t_vector light, double n_dot_l, t_figure *fig);
 void	set_inter_normal_vec(t_scene *scene, t_figure *obj);
 void	calculate_sph_norm(t_figure *obj);
 void	calculate_plane_norm(t_figure *obj, t_vector ray);
+t_color	diffuse_light(t_figure *obj, t_light *light_fig);
+t_color	specular_light(t_scene *scene, t_light *light_fig, t_figure *obj);
+void	set_inter_normal_vec(t_scene *scene, t_figure *obj);
+t_vector	reflect_ray(t_vector light, t_vector p_normal);
 
 // double	compute_spec(t_scene *scene, t_vector light, double n_dot_l, t_figure *fig);
 t_color	diffuse_light(t_figure *obj, t_light *light);
@@ -424,5 +427,5 @@ t_vector	reflect_ray(t_vector ray, t_vector p_normal);
 int	compute_shadow(t_scene *scene, t_figure *obj, t_light *light);
 int	in_shadow(t_scene *scene, t_vector ray, t_light	*light, \
 	t_figure **obj);
-
+double	closest_inter_dlya_shadow(t_vector pos, t_vector ray, t_figure *figure);
 #endif

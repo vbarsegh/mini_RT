@@ -13,7 +13,7 @@ int	in_shadow(t_scene *scene, t_vector ray, t_light	*light, \
 	// printf("skizbna?->%d\n", tmp->type);
 	while (tmp)
 	{
-		dot = closest_inter(light->coords, ray, tmp, obj);
+		dot = closest_inter_dlya_shadow(light->coords, ray, tmp);
 		if (dot > __FLT_EPSILON__ && dot < closest_dot)//dot > __FLT_EPSILON__ nayi tg um grvacy
 		{
 			closest_dot = dot;

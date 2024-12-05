@@ -1,17 +1,16 @@
-//* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   goxcac.c                                           :+:      :+:    :+:   */
+/*   compute_light.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/19 20:26:29 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/08/31 15:38:40 by vbarsegh         ###   ########.fr       */
+/*   Created: 2024/12/05 15:25:01 by adel              #+#    #+#             */
+/*   Updated: 2024/12/05 15:25:30 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
-
 
 void	calculate_sph_norm(t_figure *obj)
 {
@@ -41,7 +40,6 @@ void	calculate_cyl_norm(t_figure *obj)
 	vec_normalize(&obj->point.inter_normal_vec);
 }
 
-
 void	set_inter_normal_vec(t_scene *scene, t_figure *obj)
 {
 	if (obj->type == SPHERE)
@@ -59,10 +57,7 @@ void	set_inter_normal_vec(t_scene *scene, t_figure *obj)
 		vec_normalize(&obj->point.inter_normal_vec);
 		obj->cylinder->cap = 0;
 	}
-	// printf("Normal length: %f\n", sqrt(vec_dot_product(obj->point.inter_normal_vec, obj->point.inter_normal_vec)));
-
 }
-
 
 t_color	compute_light(t_scene *scene, t_figure *obj, t_color *specular)
 {
@@ -70,8 +65,6 @@ t_color	compute_light(t_scene *scene, t_figure *obj, t_color *specular)
 	t_light		*light_tmp;
 
 	light_in_vec = calc_rgb_light(scene->ambient->light, scene->ambient->ratio_lighting);
-	// if (obj->point.is_inside)
-		// return (col);
 	light_tmp = scene->light;
 	while (light_tmp)
 	{
@@ -84,81 +77,3 @@ t_color	compute_light(t_scene *scene, t_figure *obj, t_color *specular)
 	}
 	return (light_in_vec);
 }
-
-
-
-t_color	diffuse_light(t_figure *obj, t_light *light_fig)
-{
-	double		intens;
-	double		n_dot_l;
-	t_vector	light;
-
-	intens = 0;
-	light = vec_subtract(light_fig->coords, obj->point.inter_pos);
-	vec_normalize(&light);
-	n_dot_l = vec_dot_product(obj->point.inter_normal_vec, light);
-	if (n_dot_l > 0)
-		intens = light_fig->brightness * n_dot_l;
-	return (calc_rgb_light(light_fig->color, intens));
-}
-
-t_color	specular_light(t_scene *scene, t_light *light_fig, t_figure *obj)
-{
-	double		spec;
-	t_vector	light;
-	t_vector	vec_V;
-	t_vector	reflected;
-
-	spec = 0;
-	light = vec_subtract(light_fig->coords,  obj->point.inter_pos);
-	vec_normalize(&light);
-	vec_V = vec_subtract(scene->camera->center,  obj->point.inter_pos);
-	vec_normalize(&vec_V);
-	// printf("Normal length: %f\n", sqrt(vec_dot_product(vec_V, vec_V)));
-	reflected = reflect_ray(light, obj->point.inter_normal_vec);
-	vec_normalize(&reflected);
-	// printf("Normal length: %f\n", sqrt(vec_dot_product(reflected, reflected)));
-	if (vec_dot_product(reflected, vec_V) > 0)
-	{
-		spec = light_fig->brightness * pow(vec_dot_product(reflected, vec_V), \
-			obj->specular);
-	}
-	return (calc_rgb_light(light_fig->color, spec));
-}
-
-t_vector	reflect_ray(t_vector light, t_vector p_normal)
-{
-	t_vector	reflected;
-
-	reflected = num_product_vect(p_normal, 2 * vec_dot_product(light, p_normal));
-	reflected = vec_subtract(reflected, light);
-	return (reflected);
-}
-// void	set_hit_normal(t_figure **obj, t_vector ray)
-// {
-// 	if (obj->type == SPHERE)
-// 		 = calculate_sph_normobj;
-	// else if ((*obj)->type == PLANE)
-	// 	(*obj)->point.hit_norm = calculate_pln_norm(*obj, ray);
-	// else if ((*obj)->type == CYLINDER && (*obj)->cyl->cap == 0)
-	// 	(*obj)->point.hit_norm = calculate_cyl_norm(*obj);
-	// else if ((*obj)->type == CYLINDER && (*obj)->cyl->cap == 1)
-	// {
-	// 	if (vec_dot_product((*obj)->cyl->axis, ray) < 0)
-	// 		(*obj)->point.hit_norm = (*obj)->cyl->axis;
-	// 	else
-	// 		(*obj)->point.hit_norm = vector_prod((*obj)->cyl->axis, -1);
-	// 	(*obj)->cyl->cap = 0;
-	// }
-	// else if ((*obj)->type == CONE && (*obj)->cone->cap == 1)
-	// {
-	// 	if (vec_dot_product((*obj)->cone->axis, ray) < 0)
-	// 		(*obj)->point.hit_norm = (*obj)->cone->axis;
-	// 	else
-	// 		(*obj)->point.hit_norm = vector_prod((*obj)->cone->axis, -1);
-	// 	(*obj)->cone->cap = 0;
-	// }
-	// else if ((*obj)->type == CONE && (*obj)->cone->cap == 0)
-	// (*obj)->point.hit_norm = calculate_cone_norm(*obj);
-	// vec_normalize(&obj->point.hit_norm);
-// }  /     PETQ KGA!!!!

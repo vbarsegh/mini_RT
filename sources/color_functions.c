@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 17:22:32 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/02 17:02:59 by vbarsegh         ###   ########.fr       */
+/*   Updated: 2024/12/05 15:23:02 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	rgb_color_to_hex(t_color rgb)
 t_color	calc_rgb_light(t_color col, double ratio)
 {
 	t_color	rgb;
-	// printf("ratio->%f\n", ratio);
+
 	rgb.red = col.red * ratio;
 	rgb.green = col.green * ratio;
 	rgb.blue = col.blue * ratio;
@@ -40,7 +40,6 @@ t_color	calc_rgb_light(t_color col, double ratio)
 		rgb.green = 255;
 	if (rgb.blue > 255)
 		rgb.blue = 255;
-	// printf("red = %d blue = %d green = %d\n", rgb.red, rgb.green, rgb.blue);
 	return (rgb);
 }
 
