@@ -27,6 +27,7 @@ SRCS_NAME = minirt.c \
 			key_hooks.c \
 			ft_lst_func.c \
 			ray_tracing_utils.c \
+			init_texture.c \
 			vector.c ray_tracing.c init_mlx.c \
 			compute_light.c plane_inter.c cylinder_inter.c matrix.c \
 			move_and_rottate.c figure_rotate.c sphere_intersect.c \

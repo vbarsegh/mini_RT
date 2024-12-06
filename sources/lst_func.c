@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_func.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 15:44:25 by adel              #+#    #+#             */
-/*   Updated: 2024/12/05 21:12:09 by vbarsegh         ###   ########.fr       */
+/*   Updated: 2024/12/06 18:30:59 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ t_figure	*lst_create_figure(t_scene *scene, char **matrix, int type)
 	default_init_fig(figure);
 	if (type == SPHERE)
 	{
+	printf("%p\n", scene->figure);
+
 		figure->sphere = parse_sphere(matrix, scene);
 		figure->color = figure->sphere->color;
 	}

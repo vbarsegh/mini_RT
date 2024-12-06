@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 14:53:05 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/05 21:21:48 by vbarsegh         ###   ########.fr       */
+/*   Updated: 2024/12/06 18:57:03 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,9 +117,9 @@ t_sphere	*parse_sphere(char **matrix, t_scene *scene)
 
 	sphere = malloc(sizeof(t_sphere));
 	i = 0;
-	if (matrix_row(matrix) != 4)
+	if (!(matrix_row(matrix) > 3 && matrix_row(matrix) < 7))
 		exit_and_free_matrix(matrix,
-			"Error: wrong qanaki arguments for sphere", scene);
+			"Error: wrong arguments for sphere", scene);
 	while (matrix[++i])
 	{
 		if (matrix[i][0] == ',' || matrix[i][ft_strlen(matrix[i]) - 1] == ','
@@ -131,6 +131,8 @@ t_sphere	*parse_sphere(char **matrix, t_scene *scene)
 		exit_and_free_matrix(matrix, "Error: bad simbols for sphere", scene);
 	sphere->radius = ft_atof(matrix[2]) / 2;
 	init_color(&sphere->color, matrix, scene, 3);
+	if (init_texture(matrix[4], sphere))
+		exit_and_free_matrix(matrix, "Error: invalid xpm", scene);
 	return (sphere);
 }
 

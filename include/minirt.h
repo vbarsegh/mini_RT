@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:22:05 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/06 13:55:35 by marvin           ###   ########.fr       */
+/*   Updated: 2024/12/06 18:55:20 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <math.h>
+# include <stdbool.h>
 # include "../include/mlx.h"
 # include "../include/get_next_line.h"
 
@@ -137,6 +138,8 @@ typedef struct s_sphere
 	t_vector	center;
 	double		radius;
 	t_color		color;
+	char 		*texture;
+	bool		has_texture;
 }	t_sphere;
 
 typedef struct s_plane
@@ -399,5 +402,8 @@ int			in_shadow(t_scene *scene, t_vector ray, t_light	*light, \
 	t_figure **obj);
 t_vector	look_at(t_scene	*scene, double ray_x, double ray_y);
 double		closest_inter_dlya_shadow(t_vector pos, t_vector ray, t_figure *figure);
+
+//init_texture
+int		init_texture(char *xpm, t_sphere *sphere);
 
 #endif
