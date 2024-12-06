@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:22:05 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/05 20:44:11 by vbarsegh         ###   ########.fr       */
+/*   Updated: 2024/12/06 13:55:35 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,11 +148,10 @@ typedef struct s_plane
 
 typedef struct s_cylinder
 {
-	t_vector	center;
-	t_vector	orient;//n_coord
-	t_vector	center1;
+	t_vector	center;//nerqevi shrjani (krujoki) kentronna
+	t_vector	orient;//arancqna
+	t_vector	center1;//verevi shrjani (krujoki) kentronna
 	double		radius;
-	
 	double		height;
 	int			cap;
 	int			flag;
