@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 14:53:05 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/06 18:57:03 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/06 22:58:09 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ t_sphere	*parse_sphere(char **matrix, t_scene *scene)
 	t_sphere	*sphere;
 
 	sphere = malloc(sizeof(t_sphere));
+	sphere->has_texture = false;
 	i = 0;
 	if (!(matrix_row(matrix) > 3 && matrix_row(matrix) < 7))
 		exit_and_free_matrix(matrix,
@@ -131,8 +132,11 @@ t_sphere	*parse_sphere(char **matrix, t_scene *scene)
 		exit_and_free_matrix(matrix, "Error: bad simbols for sphere", scene);
 	sphere->radius = ft_atof(matrix[2]) / 2;
 	init_color(&sphere->color, matrix, scene, 3);
-	if (init_texture(matrix[4], sphere))
-		exit_and_free_matrix(matrix, "Error: invalid xpm", scene);
+	if (matrix_row(matrix) == 5 || matrix_row(matrix) == 6)
+	{
+		if (init_texture(matrix[4], sphere))
+			exit_and_free_matrix(matrix, "Error: invalid xpm", scene);
+	}
 	return (sphere);
 }
 

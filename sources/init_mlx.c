@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_mlx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 15:31:32 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/05 21:15:21 by vbarsegh         ###   ########.fr       */
+/*   Updated: 2024/12/06 22:58:09 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	init_mlx(t_scene *scene)
 			&scene->img->line_len, &scene->img->endian);
 	scene->img->width = scene->width;
 	scene->img->height = scene->height;
+	get_texture(scene);
 	ray_tracing(scene);
 	mlx_put_image_to_window(scene->mlx->mlx,
 		scene->mlx->win, scene->img->img_ptr, 0, 0);
@@ -62,3 +63,4 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	if (dst >= img->img_pixels_ptr && dst < addr_end)
 		*(unsigned int *)dst = color;
 }
+

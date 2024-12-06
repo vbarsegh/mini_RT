@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 15:44:25 by adel              #+#    #+#             */
-/*   Updated: 2024/12/06 18:30:59 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/06 22:58:09 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ t_figure	*lst_create_figure(t_scene *scene, char **matrix, int type)
 	default_init_fig(figure);
 	if (type == SPHERE)
 	{
-	printf("%p\n", scene->figure);
-
 		figure->sphere = parse_sphere(matrix, scene);
 		figure->color = figure->sphere->color;
 	}

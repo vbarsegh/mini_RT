@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:22:05 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/06 18:55:20 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/06 23:06:02 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ typedef struct n_img
 	int		bits_per_pixel;//mi piqselyb te qani bita zbaxecnum
 	int		endian;
 	int		line_len;//plangi erkarutyan vra qani pixela texavorvum
-	double	height;//ha vor?
-	double	width;//ha vor?
+	int		height;//ha vor?
+	int		width;//ha vor?
 }	t_img;
 
 typedef struct s_atof
@@ -104,6 +104,7 @@ typedef struct s_color
 
 typedef struct s_ambient
 {
+	double intensity;
 	double	ratio_lighting;
 	t_color	light;
 	int		count;
@@ -138,8 +139,9 @@ typedef struct s_sphere
 	t_vector	center;
 	double		radius;
 	t_color		color;
-	char 		*texture;
+	t_img 		texture;
 	bool		has_texture;
+	char		*path;
 }	t_sphere;
 
 typedef struct s_plane
@@ -404,6 +406,14 @@ t_vector	look_at(t_scene	*scene, double ray_x, double ray_y);
 double		closest_inter_dlya_shadow(t_vector pos, t_vector ray, t_figure *figure);
 
 //init_texture
-int		init_texture(char *xpm, t_sphere *sphere);
-
+int	init_texture(char *xpm, t_sphere *sphere);
+void	get_texture(t_scene *scene);
+t_vector vector_normalize(t_vector v);
+int get_texture_color(t_img *texture, double u, double v);
+void get_sphere_uv(t_sphere *sphere, t_vector point, double *u, double *v);
+int color_in_current_pixel2(t_scene *scene);
+t_vector vec_scale(t_vector v, double scalar);
+t_color create_color(double r, double g, double b);
+int create_int_from_color(t_color color);
+t_color default_shading(t_scene *scene, t_figure *figure);
 #endif

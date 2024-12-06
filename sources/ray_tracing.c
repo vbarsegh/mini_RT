@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray_tracing_2.c                                    :+:      :+:    :+:   */
+/*   ray_tracing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 19:40:50 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/05 16:56:40 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/06 22:58:09 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ray_tracing(t_scene *scene)
 
 void	get_pixel_color(int *color, t_figure *obj, t_scene *scene)
 {
-	t_color specular;
+	t_color	specular;
 	t_color	light_in_vec;
 
 	if (!obj)
@@ -59,11 +59,19 @@ int	color_in_current_pixel(t_scene *scene)
 	t_figure	*obj;
 	double		closest_dot;
 
+
 	closest_dot = INFINITY;
 	obj = NULL;
 	closest_dot = closest_inter(scene->camera->center, scene->ray, scene->figure, &obj);
 	if (closest_dot == INFINITY)
 		color = 0;
+	if (scene->figure->sphere->has_texture)
+	{
+		double u, v;
+		t_vector intersection_point = sum_vect(scene->camera->center, vec_scale(scene->ray, closest_dot));
+		get_sphere_uv(scene->figure->sphere, intersection_point, &u, &v);
+		return get_texture_color(&scene->figure->sphere->texture, u, v);
+	}
 	else
 		get_pixel_color(&color, obj, scene);
 	return (color);

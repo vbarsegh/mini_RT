@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 13:15:48 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/05 20:46:20 by vbarsegh         ###   ########.fr       */
+/*   Updated: 2024/12/06 23:01:20 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char **get_end_trim_map(char **map, t_scene *scene, int row, int j)
 	while (map[row])
 	{
 		if (!(only_trim_simbols(map[row]) == 1) && !(cur_line_is_com(map[row]) == 1))
-			trim_map[j] =  ft_strtrim(map[row], " \n\v\f\r\t");
+			trim_map[j] =  ft_strtrim(map[row], " \n\v\f\r    ");
 		else
 		{
 			row++;
@@ -77,7 +77,7 @@ char **spliting(char *read_line, t_scene *scene)
 	char	**map;
 	char	*trim_line;
 
-	trim_line = ft_strtrim(read_line, " \n\v\f\r\t");
+	trim_line = ft_strtrim(read_line, " \n\v\f\r    ");
 	if (!trim_line)
 		exit_and_free_str(read_line, "cannot do trim", scene);
 	free(read_line);

@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 15:58:41 by adel              #+#    #+#             */
-/*   Updated: 2024/12/05 15:59:28 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/06 23:02:59 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,40 @@ void	vec_normalize(t_vector *vec)
 	vec->x /= length;
 	vec->y /= length;
 	vec->z /= length;
+}
+
+
+t_vector vector_normalize(t_vector v)
+{
+	double		magnitude;
+	t_vector	zero_vector;
+	t_vector	normalized_vector;
+
+	magnitude = sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+	if (magnitude == 0)
+	{
+		zero_vector.x = 0.0;
+		zero_vector.y = 0.0;
+		zero_vector.z = 0.0;
+		zero_vector.w = 0.0;
+		return (zero_vector);
+	}
+
+	normalized_vector.x = v.x / magnitude;
+	normalized_vector.y = v.y / magnitude;
+	normalized_vector.z = v.z / magnitude;
+	normalized_vector.w = 0.0;
+
+	return normalized_vector;
+}
+
+
+t_vector vec_scale(t_vector v, double scalar)
+{
+	t_vector	result;
+	
+	result.x = v.x * scalar;
+	result.y = v.y * scalar;
+	result.z = v.z * scalar;
+	return (result);
 }
