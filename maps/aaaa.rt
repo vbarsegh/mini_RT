@@ -1,6 +1,5 @@
-sp  1,1,1         2  100,0,105 txm:xpms/rock.xpm
-sp  0,0,0         1  100,0,105 txm:xpms/checkerboard.xpm
-sp  1,0,0     1      100,0,105
+sp  -2,1,1         2  100,0,105 txm:xpms/earthmap1k.xpm
+sp  0,0,0         1  100,0,105 txm:xpms/moonmap1k.xpm
 C   0,0,-5      0,0,1     70 
 L   10.0,10.0,-10.0     0.8   255,255,255
 A   0.2     255,255,255
