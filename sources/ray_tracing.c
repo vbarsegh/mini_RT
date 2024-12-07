@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 19:40:50 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/06 22:58:09 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/07 20:34:12 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,16 @@ int	color_in_current_pixel(t_scene *scene)
 	closest_dot = INFINITY;
 	obj = NULL;
 	closest_dot = closest_inter(scene->camera->center, scene->ray, scene->figure, &obj);
-	if (closest_dot == INFINITY)
-		color = 0;
-	if (scene->figure->sphere->has_texture)
+	if (obj && obj->type == SPHERE && obj->sphere->has_texture == true)
 	{
+		// printf(scene->figure->plane);
 		double u, v;
 		t_vector intersection_point = sum_vect(scene->camera->center, vec_scale(scene->ray, closest_dot));
 		get_sphere_uv(scene->figure->sphere, intersection_point, &u, &v);
 		return get_texture_color(&scene->figure->sphere->texture, u, v);
 	}
+	if (closest_dot == INFINITY)
+		color = 0;
 	else
 		get_pixel_color(&color, obj, scene);
 	return (color);

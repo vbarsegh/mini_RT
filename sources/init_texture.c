@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 17:11:57 by adel              #+#    #+#             */
-/*   Updated: 2024/12/06 23:07:33 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/07 20:42:32 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	init_texture(char *xpm, t_sphere *sphere)
 	{
 		sphere->has_texture = true;
 		sphere->path = line[1];
+		printf("da\n");
 		return (0);
 	}
 	else
@@ -29,17 +30,23 @@ int	init_texture(char *xpm, t_sphere *sphere)
 
 void	get_texture(t_scene *scene)
 {
-	if (scene->figure->sphere->has_texture == true)
+	t_figure *tmp = scene->figure;
+	while (tmp)
 	{
-		scene->figure->sphere->has_texture = true;
-		scene->figure->sphere->texture.img_ptr = mlx_xpm_file_to_image(scene->mlx->mlx,
-			scene->figure->sphere->path, &scene->figure->sphere->texture.width, &scene->figure->sphere->texture.height);
-		if (!scene->figure->sphere->texture.img_ptr)
-			err("no xpm\n");
-		scene->figure->sphere->texture.img_pixels_ptr = mlx_get_data_addr(scene->figure->sphere->texture.img_ptr,
-				&scene->figure->sphere->texture.bits_per_pixel, &scene->figure->sphere->texture.line_len,
-				&scene->figure->sphere->texture.endian);
+		if (tmp->sphere->has_texture == true)
+		{
+			tmp->sphere->texture.img_ptr = mlx_xpm_file_to_image(scene->mlx->mlx,
+				tmp->sphere->path, &tmp->sphere->texture.width, &tmp->sphere->texture.height);
+			if (!tmp->sphere->texture.img_ptr)
+				err("no xpm\n");
+			tmp->sphere->texture.img_pixels_ptr = mlx_get_data_addr(tmp->sphere->texture.img_ptr,
+					&tmp->sphere->texture.bits_per_pixel, &tmp->sphere->texture.line_len,
+					&tmp->sphere->texture.endian);
+			printf("%s\n",tmp->sphere->path);
+		}
+		tmp = tmp->next;
 	}
+	
 }
 void get_sphere_uv(t_sphere *sphere, t_vector point, double *u, double *v)
 {

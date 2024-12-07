@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 15:31:32 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/06 22:58:09 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/07 20:40:04 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,13 @@ void	init_mlx(t_scene *scene)
 			&scene->img->line_len, &scene->img->endian);
 	scene->img->width = scene->width;
 	scene->img->height = scene->height;
-	get_texture(scene);
+	// t_figure *tmp = scene->figure;
+	// while (tmp)
+	// {
+		get_texture(scene);
+		
+	// 	tmp = tmp->next;
+	// }
 	ray_tracing(scene);
 	mlx_put_image_to_window(scene->mlx->mlx,
 		scene->mlx->win, scene->img->img_ptr, 0, 0);
