@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:22:05 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/08 14:56:01 by vbarsegh         ###   ########.fr       */
+/*   Updated: 2024/12/08 18:25:36 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,9 +140,9 @@ typedef struct s_sphere
 	double		radius;
 	t_color		color;
 	t_img 		texture;
-	t_img 		bamp;
+	t_img 		bump;
 	bool		has_texture;
-	bool		has_bamp;
+	bool		has_bump;
 	char		*path;
 	char		*bmp_map;
 }	t_sphere;
@@ -243,6 +243,12 @@ typedef struct s_scene
 	int			j;
 }	t_scene;
 
+typedef struct s_texture
+{
+    int         width;
+    int         height;
+    t_color     *buffer; // Pointer to the pixel data
+}               t_texture;
 /////////////////exit_free////////////////////////
 int			err(char *str);
 void		exit_and_free_str(char *str_free, char *str_err, t_scene *scene);
@@ -419,7 +425,7 @@ t_vector vec_scale(t_vector v, double scalar);
 t_color create_color(double r, double g, double b);
 int create_int_from_color(t_color color);
 t_color default_shading(t_scene *scene, t_figure *figure);
-t_vector bump_normal(t_sphere *sphere, t_vector normal, double u, double v);
-// int	init_bump(char *bmp, t_sphere *sphere);
+t_vector bump_normal(t_img *bump_map, t_vector normal, t_vector inter_pos, t_sphere *sphere);
+int	init_bump(char *bmp, t_sphere *sphere);
 void	get_bmp(t_scene *scene);
 #endif

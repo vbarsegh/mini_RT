@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 14:53:05 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/08 15:23:58 by vbarsegh         ###   ########.fr       */
+/*   Updated: 2024/12/08 19:15:42 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ t_sphere	*parse_sphere(char **matrix, t_scene *scene)
 
 	sphere = malloc(sizeof(t_sphere));
 	sphere->has_texture = false;
-	sphere->has_bamp = false;
+	sphere->has_bump = false;
 
 	i = 0;
 	if (!(matrix_row(matrix) > 3 && matrix_row(matrix) < 7))
@@ -147,8 +147,9 @@ t_sphere	*parse_sphere(char **matrix, t_scene *scene)
 	{
 		if (init_texture(matrix[4], sphere))
 			exit_and_free_matrix(matrix, "Error: invalid xpm", scene);
-		// if (init_bump(matrix[5], sphere))
-		// 	exit_and_free_matrix(matrix, "Error: invalid bmp", scene);
+		if (init_bump(matrix[5], sphere))
+			exit_and_free_matrix(matrix, "Error: invalid bmp", scene);
+		printf("alo\n");
 	}
 	return (sphere);
 }

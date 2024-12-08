@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_tracing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 19:40:50 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/08 15:34:06 by vbarsegh         ###   ########.fr       */
+/*   Updated: 2024/12/08 19:15:49 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,37 @@ void	ray_tracing(t_scene *scene)
 	}
 }
 
+t_vector color_to_vector(t_color bump_color) {
+    // Normalize the bump map color to a vector
+    double scale = 2.0 / 255.0; // Map range from 0-255 to -1.0 to 1.0
+    return (t_vector){
+        .x = (bump_color.red * scale - 1.0),
+        .y = (bump_color.green * scale - 1.0),
+        .z = (bump_color.blue * scale - 1.0)
+    };
+}
+
+t_vector vec_normalize2(t_vector v) {
+    double magnitude = sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+    if (magnitude == 0.0)
+        return (t_vector){.x = 0, .y = 0, .z = 0}; // Handle zero-length vector
+    return (t_vector){
+        .x = v.x / magnitude,
+        .y = v.y / magnitude,
+        .z = v.z / magnitude
+    };
+}
+void perturb_normal(t_vector *normal, t_vector bump) {
+    // Adjust the normal by the bump vector
+    *normal = vec_normalize2(sum_vect(*normal, bump));
+}
+
 void	get_pixel_color(int *color, t_figure *obj, t_scene *scene)
 {
 	t_color	specular;
 	t_color	light_in_vec;
 	t_color texture_color;
+	double u, v;
 
 	if (!obj)
 		return ;
@@ -48,25 +74,18 @@ void	get_pixel_color(int *color, t_figure *obj, t_scene *scene)
 	obj->point.inter_pos = sum_vect(scene->camera->center, num_product_vect(scene->ray,
 		obj->point.dist));
 	set_inter_normal_vec(scene, obj);
-	// t_figure *tmp = scene->figure;
-	// while (tmp)
-	// {
-	// 	if (tmp->type == SPHERE)
-	// 	{
-	// 		printf("hres-?%d\n", tmp->sphere->has_texture);
-	// 	}
-	// 	tmp = tmp->next;
-	// }
-	// printf("obj->%u\n", obj->type );
-	// if (obj && obj->type == SPHERE)
-	// 	printf("ba ste->>>%p\n", obj->sphere->path);
-
 	if (obj && obj->type == SPHERE && obj->sphere->has_texture == true)
 	{
-		double u, v;
 		t_vector intersection_point = sum_vect(scene->camera->center, vec_scale(scene->ray, obj->point.dist));
 		get_sphere_uv(obj->sphere, intersection_point, &u, &v);
-		texture_color = get_texture_color(&obj->sphere->texture, u, v);
+		if (obj->sphere->has_texture)
+			texture_color = get_texture_color(&obj->sphere->texture, u, v);
+		if (obj->sphere->has_bump)
+		{
+			t_color bump_sample = get_texture_color(&obj->sphere->bump, u, v);
+			t_vector bump_vector = color_to_vector(bump_sample);
+			perturb_normal(&obj->point.inter_normal_vec, bump_vector);
+		}
 	}
 	*color = rgb_color_to_hex(obj->color);
 	specular = new_color(0, 0, 0);
@@ -74,6 +93,7 @@ void	get_pixel_color(int *color, t_figure *obj, t_scene *scene)
 	*color = rgb_color_to_hex(add_rgb_light(multiply_rgbs(light_in_vec, \
 		(texture_color)), specular));
 }
+
 
 
 int	color_in_current_pixel(t_scene *scene)
