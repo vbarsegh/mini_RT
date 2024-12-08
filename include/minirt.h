@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:22:05 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/07 21:53:39 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/08 14:56:01 by vbarsegh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -412,7 +412,7 @@ double		closest_inter_dlya_shadow(t_vector pos, t_vector ray, t_figure *figure);
 int	init_texture(char *xpm, t_sphere *sphere);
 void	get_texture(t_scene *scene);
 t_vector vector_normalize(t_vector v);
-int get_texture_color(t_img *texture, double u, double v);
+t_color get_texture_color(t_img *texture, double u, double v);
 void get_sphere_uv(t_sphere *sphere, t_vector point, double *u, double *v);
 int color_in_current_pixel2(t_scene *scene);
 t_vector vec_scale(t_vector v, double scalar);
@@ -420,6 +420,6 @@ t_color create_color(double r, double g, double b);
 int create_int_from_color(t_color color);
 t_color default_shading(t_scene *scene, t_figure *figure);
 t_vector bump_normal(t_sphere *sphere, t_vector normal, double u, double v);
-int	init_bump(char *bmp, t_sphere *sphere);
+// int	init_bump(char *bmp, t_sphere *sphere);
 void	get_bmp(t_scene *scene);
 #endif

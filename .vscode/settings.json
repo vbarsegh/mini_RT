@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "minirt.h": "c",
-        "sstream": "c"
+        "sstream": "c",
+        "iterator": "c"
     }
 }

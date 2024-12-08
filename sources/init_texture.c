@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_texture.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 17:11:57 by adel              #+#    #+#             */
-/*   Updated: 2024/12/07 23:33:37 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/08 15:42:14 by vbarsegh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,15 @@ void	get_texture(t_scene *scene)
 	t_figure *tmp = scene->figure;
 	while (tmp)
 	{
-		if (tmp->sphere->has_texture == true)
+		if (tmp->type == SPHERE && tmp->sphere->has_texture == true)
 		{
 			tmp->sphere->texture.img_ptr = mlx_xpm_file_to_image(scene->mlx->mlx,
 				tmp->sphere->path, &tmp->sphere->texture.width, &tmp->sphere->texture.height);
 			if (!tmp->sphere->texture.img_ptr)
-				err("no xpm\n");
+			{
+				err("no xpm");//avelacnel freenry
+				exit(777);
+			}
 			tmp->sphere->texture.img_pixels_ptr = mlx_get_data_addr(tmp->sphere->texture.img_ptr,
 					&tmp->sphere->texture.bits_per_pixel, &tmp->sphere->texture.line_len,
 					&tmp->sphere->texture.endian);
@@ -63,18 +66,22 @@ void get_sphere_uv(t_sphere *sphere, t_vector point, double *u, double *v)
 	*u = (phi + M_PI) / (2 * M_PI);
 	*v = theta / M_PI;
 }
-
-int	get_texture_color(t_img *texture, double u, double v)
+t_color	get_texture_color(t_img *texture, double u, double v)
 {
 	int		x;
 	int		y;
 	char	*pixel;
+	t_color color;
 
 	x = (int)(u * texture->width) % texture->width;
 	y = (int)(v * texture->height) % texture->height;
 	pixel = texture->img_pixels_ptr + (y * texture->line_len + x * (texture->bits_per_pixel / 8));
-	return (*(int *)pixel);
+	color.red = *(unsigned char *)(pixel + 2); // Assuming the red channel is the third byte
+	color.green = *(unsigned char *)(pixel + 1); // Assuming the green channel is the second byte
+	color.blue = *(unsigned char *)(pixel); // Assuming the blue channel is the first byte
+	return (color);
 }
+
 
 int	color_in_current_pixel2(t_scene *scene)
 {

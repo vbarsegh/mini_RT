@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_tracing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 19:40:50 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/07 23:33:17 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/08 15:34:06 by vbarsegh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,27 +40,39 @@ void	get_pixel_color(int *color, t_figure *obj, t_scene *scene)
 {
 	t_color	specular;
 	t_color	light_in_vec;
+	t_color texture_color;
 
 	if (!obj)
 		return ;
+	texture_color = obj->color;
 	obj->point.inter_pos = sum_vect(scene->camera->center, num_product_vect(scene->ray,
 		obj->point.dist));
 	set_inter_normal_vec(scene, obj);
-	// if (obj->sphere->has_bamp)
+	// t_figure *tmp = scene->figure;
+	// while (tmp)
 	// {
-	// 	obj->point.inter_normal_vec = bump_normal(
-	// 				obj->sphere,
-	// 				obj->point.inter_normal_vec,
-	// 				obj->point.inter_pos,
-	// 				obj->sphere
-	// 	);	
-		
+	// 	if (tmp->type == SPHERE)
+	// 	{
+	// 		printf("hres-?%d\n", tmp->sphere->has_texture);
+	// 	}
+	// 	tmp = tmp->next;
 	// }
+	// printf("obj->%u\n", obj->type );
+	// if (obj && obj->type == SPHERE)
+	// 	printf("ba ste->>>%p\n", obj->sphere->path);
+
+	if (obj && obj->type == SPHERE && obj->sphere->has_texture == true)
+	{
+		double u, v;
+		t_vector intersection_point = sum_vect(scene->camera->center, vec_scale(scene->ray, obj->point.dist));
+		get_sphere_uv(obj->sphere, intersection_point, &u, &v);
+		texture_color = get_texture_color(&obj->sphere->texture, u, v);
+	}
 	*color = rgb_color_to_hex(obj->color);
 	specular = new_color(0, 0, 0);
 	light_in_vec = compute_light(scene, obj, &specular);
 	*color = rgb_color_to_hex(add_rgb_light(multiply_rgbs(light_in_vec, \
-		(obj->color)), specular));
+		(texture_color)), specular));
 }
 
 
@@ -74,13 +86,7 @@ int	color_in_current_pixel(t_scene *scene)
 	closest_dot = INFINITY;
 	obj = NULL;
 	closest_dot = closest_inter(scene->camera->center, scene->ray, scene->figure, &obj);
-	if (obj && obj->type == SPHERE && obj->sphere->has_texture == true)
-	{
-		double u, v;
-		t_vector intersection_point = sum_vect(scene->camera->center, vec_scale(scene->ray, closest_dot));
-		get_sphere_uv(obj->sphere, intersection_point, &u, &v);
-		return get_texture_color(&obj->sphere->texture, u, v);
-	}
+	
 	if (closest_dot == INFINITY)
 		color = 0;
 	else

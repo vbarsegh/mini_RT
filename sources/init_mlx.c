@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_mlx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 15:31:32 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/07 22:04:23 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/08 14:59:17 by vbarsegh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ void	init_mlx(t_scene *scene)
 	// while (tmp)
 	// {
 		get_texture(scene);
-		get_bmp(scene);
+		
+		// get_bmp(scene);
 
 		
 	// 	tmp = tmp->next;
