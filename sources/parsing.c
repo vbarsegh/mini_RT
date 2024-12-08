@@ -6,40 +6,11 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 14:53:05 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/08 23:27:30 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/08 23:49:35 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
-
-void	ft_check_minimum_requirements(t_scene *scene, char **map)
-{
-	if (!scene->camera || scene->count.count_camera != 1)
-	{
-		free_matrix(map);
-		free_scene_members(scene);
-		//system("leaks miniRT");
-		write (1, "Requirement: non existing camera or count is not 1\n", 51);
-		exit(11);
-	}
-	if (!scene->ambient || scene->count.count_ambient != 1)
-	{
-		free_matrix(map);
-		free_scene_members(scene);
-		//system("leaks miniRT");
-		write (1,
-			"Requirement: non existing ambient light or count is not 1\n", 58);
-		exit(11);
-	}
-	if (!scene->light)
-	{
-		free_matrix(map);
-		free_scene_members(scene);
-		//system("leaks miniRT");
-		write (1, "Requirement: non existing light\n", 32);
-		exit(11);
-	}
-}
 
 void	parsing(char **map, t_scene *scene)
 {
@@ -108,19 +79,6 @@ t_plane	*parse_plane(char **matrix, t_scene *scene)
 	init_orient(&plane->orient, matrix, scene, 2);
 	init_color(&plane->color, matrix, scene, 3);
 	return (plane);
-}
-void	texture(char **matrix, t_sphere	*sphere, t_scene *scene)
-{
-	if (matrix[4])
-	{
-		if (init_texture(matrix[4], sphere))
-			exit_and_free_matrix(matrix, "Error: invalid xpm", scene);
-	}
-	if (matrix[5])
-	{
-		if (init_bump(matrix[5], sphere))
-			exit_and_free_matrix(matrix, "Error: invalid bmp", scene);
-	}
 }
 
 t_sphere	*parse_sphere(char **matrix, t_scene *scene)

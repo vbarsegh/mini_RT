@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 18:08:21 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/06 22:58:09 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/09 02:16:52 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,48 @@ void	*parse_ambient(char **matrix, t_scene *scene)
 			"Error: bad value ambient ratio_lighting", scene);
 	init_color(&ambient->light, matrix, scene, 2);
 	return (ambient);
+}
+
+void	ft_check_minimum_requirements(t_scene *scene, char **map)
+{
+	if (!scene->camera || scene->count.count_camera != 1)
+	{
+		free_matrix(map);
+		free_scene_members(scene);
+		//system("leaks miniRT");
+		write (1, "Requirement: non existing camera or count is not 1\n", 51);
+		exit(11);
+	}
+	if (!scene->ambient || scene->count.count_ambient != 1)
+	{
+		free_matrix(map);
+		free_scene_members(scene);
+		//system("leaks miniRT");
+		write (1,
+			"Requirement: non existing ambient light or count is not 1\n", 58);
+		exit(11);
+	}
+	if (!scene->light)
+	{
+		free_matrix(map);
+		free_scene_members(scene);
+		//system("leaks miniRT");
+		write (1, "Requirement: non existing light\n", 32);
+		exit(11);
+	}
+}
+
+int	if_only_digit(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] >= 48 && line[i] <= 57)
+			i++;
+		else
+			return (-1);
+	}
+	return (1);
 }

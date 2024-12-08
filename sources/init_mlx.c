@@ -6,19 +6,12 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 15:31:32 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/08 23:05:57 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/09 02:13:34 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
 
-void	geting_texture(t_scene *scene)
-{
-	if (scene->figure->sphere->has_texture)
-		get_texture(scene);
-	if (scene->figure->sphere->has_bump)
-		get_bmp(scene);
-}
 void	init_mlx(t_scene *scene)
 {
 	scene->mlx = (t_mlx_vars *)malloc(sizeof(t_mlx_vars));
@@ -48,26 +41,38 @@ void	init_mlx(t_scene *scene)
 	//system("leaks miniRT");
 }
 
-int	draw(t_scene *scene)
+int	init_texture(char *xpm, t_sphere *sphere)
 {
-	scene->img->img_ptr = mlx_new_image(scene->mlx->mlx, WIDTH, HEIGHT);
-	scene->img->img_pixels_ptr = mlx_get_data_addr(scene->img->img_ptr, \
-	&scene->img->bits_per_pixel, &scene->img->line_len, &scene->img->endian);
-	ray_tracing(scene);
-	mlx_put_image_to_window(scene->mlx->mlx,
-		scene->mlx->win, scene->img->img_ptr, 0, 0);
-	return (0);
+	char	**line;
+
+	if (!xpm || !sphere)
+		return (1);
+	line = split_char(xpm, ':');
+	if (!(ft_strcmp(line[0], "txm")))
+	{
+		sphere->has_texture = true;
+		if (open(line[1], O_RDONLY) <= 0)
+			return (1);
+		sphere->path = line[1];
+		return (0);
+	}
+	else
+		return (1);
 }
 
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
+int	init_bump(char *bmp, t_sphere *sphere)
 {
-	char	*dst;
-	char	*addr_end;
-
-	addr_end = img->img_pixels_ptr + (HEIGHT * img->line_len);
-	dst = img->img_pixels_ptr
-		+(y * img->line_len + x * (img->bits_per_pixel / 8));
-	if (dst >= img->img_pixels_ptr && dst < addr_end)
-		*(unsigned int *)dst = color;
+	char	**line;
+	
+	if (!bmp || !sphere)
+		return (1);
+	line = split_char(bmp, ':');
+	if (!(ft_strcmp(line[0], "bmp")))
+	{
+		sphere->has_bump = true;
+		sphere->bmp_map = line[1];
+		return (0);
+	}
+	else
+		return (1);
 }
-

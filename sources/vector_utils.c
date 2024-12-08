@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 15:58:41 by adel              #+#    #+#             */
-/*   Updated: 2024/12/08 23:35:15 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/09 02:26:16 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,3 +83,17 @@ t_vector vec_scale(t_vector v, double scalar)
 	result.z = v.z * scalar;
 	return (result);
 }
+
+
+t_vector vec_normalize2(t_vector v)
+{
+	double magnitude = sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+	if (magnitude == 0.0)
+		return (t_vector){.x = 0, .y = 0, .z = 0};
+	return (t_vector){
+		.x = v.x / magnitude,
+		.y = v.y / magnitude,
+		.z = v.z / magnitude
+	};
+}
+

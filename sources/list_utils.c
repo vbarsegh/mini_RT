@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 15:44:25 by adel              #+#    #+#             */
-/*   Updated: 2024/12/06 22:58:09 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/09 02:00:20 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,4 @@ t_figure	*lst_create_figure(t_scene *scene, char **matrix, int type)
 	figure->type = type;
 	figure->next = NULL;
 	return (figure);
-}
-
-void	ft_lstadd_back_figure(t_figure **figure, t_figure *new)
-{
-	t_figure	*ptr;
-
-	if (!*figure)
-	{
-		*figure = new;
-		return ;
-	}
-	ptr = ft_lstlast_figure(*figure);
-	ptr -> next = new;
 }

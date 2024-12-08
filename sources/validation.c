@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 13:15:48 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/06 23:01:20 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/09 01:36:43 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*get_line(char *av)
 	return (res);
 }
 
-char **get_end_trim_map(char **map, t_scene *scene, int row, int j)
+char	**get_end_trim_map(char **map, t_scene *scene, int row, int j)
 {
 	char	**trim_map;
 
@@ -51,35 +51,35 @@ char **get_end_trim_map(char **map, t_scene *scene, int row, int j)
 		row++;
 	trim_map = malloc(sizeof(char *) * (row + 1));
 	if (!trim_map)
-		exit_and_free_matrix(map, "cannot do split", scene);
+		exit_and_free_matrix(map, "cannot split", scene);
 	row = 0;
 	while (map[row])
 	{
-		if (!(only_trim_simbols(map[row]) == 1) && !(cur_line_is_com(map[row]) == 1))
+		if (!(only_trim_symbols(map[row]) == 1) && !(comment_line(map[row]) == 1))
 			trim_map[j] =  ft_strtrim(map[row], " \n\v\f\r    ");
 		else
 		{
 			row++;
 			continue;
 		}
-		if(!trim_map[j])
-			exit_and_free_matrix(map, "cannot do split", scene);
+		if (!trim_map[j])
+			exit_and_free_matrix(map, "cannot split", scene);
 		j++;
 		row++;
 	}
 	trim_map[j] = NULL;
 	free_matrix(map);
-	return(trim_map);
+	return (trim_map);
 }
 
-char **spliting(char *read_line, t_scene *scene)
+char	**spliting(char *read_line, t_scene *scene)
 {
 	char	**map;
 	char	*trim_line;
 
 	trim_line = ft_strtrim(read_line, " \n\v\f\r    ");
 	if (!trim_line)
-		exit_and_free_str(read_line, "cannot do trim", scene);
+		exit_and_free_str(read_line, "cannot trim", scene);
 	free(read_line);
 	map = split_char(trim_line, '\n');
 	if (!map)
@@ -112,22 +112,3 @@ int	validation(int ac, char **av, t_scene *scene)
 	return (0);
 }
 
-int	is_rt(char *str)
-{
-	size_t	len;
-
-	if (!str || !*str)
-		return (1);
-	len = ft_strlen(str) - 1;
-	if (len > 3)
-	{
-		if (str[len--] != 't')
-			return (1);
-		if (str[len--] != 'r')
-			return (1);
-		if (str[len--] != '.')
-			return (1);
-		return (0);
-	}
-	return (1);
-}

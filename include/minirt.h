@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:22:05 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/08 23:23:02 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/09 02:34:01 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,12 +202,6 @@ typedef struct s_figure
 	struct s_figure	*next;
 }	t_figure;
 
-typedef struct s_hatum
-{
-	double		dot;
-	t_figure	*figure;
-}	t_hatum;
-
 typedef struct s_vplane
 {
 	int		mlx_x;
@@ -243,23 +237,19 @@ typedef struct s_scene
 	int			j;
 }	t_scene;
 
-typedef struct s_texture
-{
-    int         width;
-    int         height;
-    t_color     *buffer; // Pointer to the pixel data
-}               t_texture;
-/////////////////exit_free////////////////////////
-int			err(char *str);
-void		exit_and_free_str(char *str_free, char *str_err, t_scene *scene);
-void		exit_and_free_matrix(char **map, char *str_err, t_scene *scene);
-void		exit_and_free(char **map, char *str_err, t_scene *scene, char **matrix);
-void		free_matrix(char **matrix);
-void		free_scene_members(t_scene *scene);
-void		free_list_of_light(t_light *light);
-void		free_list_of_figure(t_figure *figure);
-void		free_cam(t_scene *scene);
-void		free_ambient(t_scene *scene);
+/////////////////////light_utils/////////////////
+t_color		diffuse_light(t_figure *obj, t_light *light_fig);
+t_color		specular_light(t_scene *scene, t_light *light_fig, t_figure *obj);
+t_vector	reflect_ray(t_vector light, t_vector p_normal);
+t_color		calc_rgb_light(t_color col, double ratio);
+t_color		add_rgb_light(t_color a, t_color b);
+
+//////////////cylinder//////////////
+void		solve_cylinder(t_vector pos, t_vector ray, t_figure *obj, t_math *dot);
+double		cylinder_intersection(t_vector pos, t_vector ray, t_figure *obj);
+double		caps_inter(t_vector pos, t_vector ray, t_vector norm, t_vector center);
+double		check_caps(t_vector pos, t_vector ray, t_figure *obj, t_math *dot);
+int			solve_caps(t_vector pos, t_vector ray, t_figure *obj);
 
 /////////////////parsing//////////////////////////////
 void		parsing(char **map, t_scene *scene);
@@ -268,50 +258,75 @@ t_sphere	*parse_sphere(char **matrix, t_scene *scene);
 t_cylinder	*parse_cylinder(char **matrix, t_scene *scene);
 t_plane		*parse_plane(char **matrix, t_scene *scene);
 
-/////////////////parsing_utils////////////////////////
-void		found_what_scene_is_it(char **matrix, t_scene *scene);
-void		*parse_camera(char **matrix, t_scene *scene);
+/////////////////parsing_utils//////////////////////////////
 void		*parse_ambient(char **matrix, t_scene *scene);
-
-/////////////////init_mlx////////////////////////////
-void		init_mlx(t_scene *scene);
-void		init_scene(t_scene *scene);
-void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
-
-/////////////////utils///////////////////////////////
-int			malloc_check(char *s);
-int			check1(char c, char const *set);
-int			is_white_space(char c);
-int			ft_strcmp(const char *s1, const char *s2);
-char		*ft_strstr_alt(char *str, char *to_find);
-int			only_trim_simbols(char *str);
-int			cur_line_is_com(char *str);
-
-/////////////////utils2/////////////////////////////
-long long			ft_atoi(const char *str);
-int 		if_char_and_digit(char *line, char c);
-int			matrix_row(char **matrix);
-double		ft_atof(char *str);
+void		*parse_camera(char **matrix, t_scene *scene);
+void		found_what_scene_is_it(char **matrix, t_scene *scene);
+void		ft_check_minimum_requirements(t_scene *scene, char **map);
 int			if_only_digit(char *line);
-int			if_str_and_digit(char *line, char *set);
-int			have_this_char_in_set(char c, char *set);
-char		*ft_strchr(const char *s, int c);
-int			only_new_line_or_spaces(char *res);
+
+/////////////////list_functions////////////////////////////
+t_light		*lst_create_light(t_scene *scene, char **matrix);
+void		ft_lstadd_back_light(t_light **lst, t_light *new);
+t_light		*ft_lstlast_light(t_light *lst);
+void		ft_lstadd_back_figure(t_figure **figure, t_figure *new);
+t_figure	*ft_lstlast_figure(t_figure *figure);
+
+/////////////////list_utils////////////////////////////
+t_figure	*lst_create_figure(t_scene *scene, char **matrix, int type);
+void		default_init_fig(t_figure *figure);
+
+/////////////////compute_light.c/////////////////
+void		calculate_sph_norm(t_figure *obj);
+void		calculate_plane_norm(t_figure *obj, t_vector ray);
+void		calculate_cyl_norm(t_figure *obj);
+void		set_inter_normal_vec(t_scene *scene, t_figure *obj);
+t_color		compute_light(t_scene *scene, t_figure *obj, t_color *specular);
+
+/////////////////add_texture//////////////////////////////
+void		texture(char **matrix, t_sphere	*sphere, t_scene *scene);
+void		geting_texture(t_scene *scene);
+void		get_xpm(t_scene *scene);
+void		get_bmp(t_scene *scene);
+
+/////////////////////figure_rotate/////////////////
+void		rotate_sphere(t_sphere *sph, t_matrix matrix);
+void		rotate_plane(t_plane *plane, t_matrix matrix);
+void		rotate_light(t_light *light, t_matrix matrix);
+void		rotate_cylinder(t_cylinder *cylinder, t_matrix matrix);
+
+//////////////////color/////////////////////
+int			rgb_color_to_hex(t_color rgb);
+t_color		multiply_rgbs(t_color a, t_color b);
+t_color		create_color(double r, double g, double b);
+t_vector	color_to_vector(t_color bump_color);
 
 /////////////////validation////////////////////////
+char		*get_line(char *av);
+char		**get_end_trim_map(char **map, t_scene *scene, int row, int j);
 int			validation(int ac, char **av, t_scene *scene);
-int			is_rt(char *str);
-int			checkk(char *str);
-/////////////////init_func////////////////////////////
-void		init_coords(t_vector *coords, char **matrix, t_scene *scene, int i);
-void		init_color(t_color *color, char **matrix, t_scene *scene, int i);
-void		init_orient(t_vector *orient, char **matrix, t_scene *scene, int i);
+char		**spliting(char *read_line, t_scene *scene);
 
-/////////////////split_char////////////////////////////
-int			foo_sum_tar_(char const *s, char c);
-int			func_count_word_(const char *s, char c);
-char		**split_char(char const *s, char c);
-int			ft_strlen(const char *str);
+/////////////////validation_utils////////////////////////
+int			only_trim_symbols(char *str);
+int			is_rt(char *str);
+int			comment_line(char *str);
+int			only_new_line_or_spaces(char *res);
+char		*ft_strchr(const char *s, int c);
+
+/////////////////free_exit////////////////////////
+int			err(char *str);
+void		free_list_of_light(t_light *light);
+void		free_list_of_figure(t_figure *figure);
+void		free_cam(t_scene *scene);
+void		free_ambient(t_scene *scene);
+
+/////////////////free_objs////////////////////////
+void		exit_and_free_str(char *str_free, char *str_err, t_scene *scene);
+void		exit_and_free_matrix(char **map, char *str_err, t_scene *scene);
+void		exit_and_free(char **map, char *str_err, t_scene *scene, char **matrix);
+void		free_matrix(char **matrix);
+void		free_scene_members(t_scene *scene);
 
 /////////////////split////////////////////////////
 int			check_00(char **arr, const char *s, int count);
@@ -320,24 +335,104 @@ char		**split(char const *s);
 /////////////////trim////////////////////////////
 char		*strtrim_end(char *str);
 char		*ft_strtrim(char *s1, char *set);
+int			symbol_check(char c, char const *set);
+
+/////////////////init_func////////////////////////////
+void		init_coords(t_vector *coords, char **matrix, t_scene *scene, int i);
+void		init_color(t_color *color, char **matrix, t_scene *scene, int i);
+void		init_orient(t_vector *orient, char **matrix, t_scene *scene, int i);
+void		init_scene(t_scene *scene);
 
 /////////////////gnl////////////////////////////
 char		*ft_strdup(char *s);
 char		*ft_strjoin(const char *s1, const char *s2);
 char		*ft_strchr_gnl(const char *str, int c);
 
+/////////////////////matrix/////////////////
+t_vector	multi_mat_vect(t_matrix m, t_vector v);
+t_matrix	new_zero_matrix(void);
+
+/////////////////////texture_utils/////////////////
+t_color		get_xpm_color(t_img *texture, double u, double v);
+void		get_sphere_uv(t_sphere *sphere, t_vector point, double *u, double *v);
+t_color		default_shading(t_scene *scene, t_figure *figure);
+
+/////////////////init_mlx////////////////////////////
+void		init_mlx(t_scene *scene);
+int			init_texture(char *xpm, t_sphere *sphere);
+int			init_bump(char *bmp, t_sphere *sphere);
+
 /////////////////key_hooks////////////////////////////
 int			handler(int keysym, t_scene *scene);
 int			mouse_close(t_scene *scene);
 
-/////////////////list_functions////////////////////////////
-void		default_init_fig(t_figure *figure);
-t_light		*lst_create_light(t_scene *scene, char **matrix);
-void		ft_lstadd_back_light(t_light **lst, t_light *new);
-t_light		*ft_lstlast_light(t_light *lst);
-t_figure	*lst_create_figure(t_scene *scene, char **matrix, int type);
-void		ft_lstadd_back_figure(t_figure **figure, t_figure *new);
-t_figure	*ft_lstlast_figure(t_figure *figure);
+/////////////////move_and_rotate.c////////////////////////////
+void		_rotate_(int keypress, t_scene *scene);
+void		rotate_scene_up(t_scene *scene);
+void		rotate_scene_left(t_scene *scene);
+void		rotate_scene_right(t_scene *scene);
+void		rotate_scene_down(t_scene *scene);
+
+/////////////////draw_utils/////////////////////////////
+int			draw(t_scene *scene);
+void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
+void		get_pixel_color(int *color, t_figure *obj, t_scene *scene);
+void		perturb_normal(t_vector *normal, t_vector bump);
+int			color_in_current_pixel(t_scene *scene);
+
+/////////////////ray_tracing.c////////////////////////////
+t_vector	look_at(t_scene	*scene, double ray_x, double ray_y);
+t_vplane	*get_view_plane(t_scene *scene);
+double		closest_inter(t_vector pos, t_vector ray, t_figure *figure, t_figure **tmp);
+void		ray_tracing(t_scene *scene);
+double		closest_inter_dlya_shadow(t_vector pos, t_vector ray, t_figure *figure);
+
+/////////////////rotation///////////////////////////////
+t_matrix	get_rotation_z(double angle);
+t_matrix	get_rotation_y(double angle);
+t_matrix	get_rotation_x(double angle);
+
+/////////////////////shadow.c/////////////////
+int			compute_shadow(t_scene *scene, t_figure *obj, t_light *light);
+int			in_shadow(t_scene *scene, t_vector ray, t_light	*light, \
+	t_figure **obj);
+
+/////////////////sphere_inter.c////////////////////////////
+double		sphere_intersect(t_vector center, t_vector ray, t_figure *obj);
+void		find_hit_distance(t_figure **obj, t_math dot);
+
+/////////////////split_char////////////////////////////
+int			foo_sum_tar_(char const *s, char c);
+int			func_count_word_(const char *s, char c);
+char		**split_char(char const *s, char c);
+int			ft_strlen(const char *str);
+
+
+
+
+
+
+/////////////////utils///////////////////////////////
+int			ft_strcmp(const char *s1, const char *s2);
+char		*ft_strstr_alt(char *str, char *to_find);
+
+/////////////////utils2/////////////////////////////
+long long	ft_atoi(const char *str);
+int			have_this_char_in_set(char c, char *set);
+int			malloc_check(char *s);
+
+/////////////////checkings/////////////////////////////
+int			is_white_space(char c);
+
+/////////////////init_utils/////////////////////////////
+int 		if_char_and_digit(char *line, char c);
+int			if_str_and_digit(char *line, char *set);
+int			matrix_row(char **matrix);
+int			overflow_check(char *str);
+
+
+
+
 
 /////////////////vector.c////////////////////////////
 t_vector	new_vector(double x, double y, double z);
@@ -351,81 +446,20 @@ t_vector	sum_vect(t_vector v1, t_vector v2);
 double		dist_vect(t_vector v1, t_vector v2);
 t_vector	vec_cross_product(t_vector vec1, t_vector vec2);
 
-//////////////////color_functions.c/////////////////////
-t_color		calc_rgb_light(t_color col, double ratio);
-int			rgb_color_to_hex(t_color rgb);
-t_color		add_rgb_light(t_color a, t_color b);
-t_color		new_color(int r, int g, int b);
-t_color		multiply_rgbs(t_color a, t_color b);
 
-/////////////////ray_tracing.c////////////////////////////
-void		ray_tracing(t_scene *scene);
-void		get_pixel_color(int *color, t_figure *obj, t_scene *scene);
-t_vplane	*get_view_plane(t_scene *scene);////ray_tracing_2.c
-double		sphere_intersect(t_vector center, t_vector ray, t_figure *obj);
 double		plane_inter(t_vector pos, t_vector ray, t_figure *obj);
-double		closest_inter(t_vector pos, t_vector ray, t_figure *figure, t_figure **tmp);
 int			color_in_current_pixel(t_scene *scene);
-void		find_hit_distance(t_figure **obj, t_math dot);
 
-//////////////cylinder.c//////////////
-double		cylinder_intersection(t_vector pos, t_vector ray, t_figure *obj);
-double		caps_inter(t_vector pos, t_vector ray, t_vector norm, t_vector center);
 
-void		_rotate_(int keypress, t_scene *scene);
-void		_move_(int keypress, t_scene *scene);
-void		_rotate_(int keypress, t_scene *scene);
-int			draw(t_scene *scene);
-void		rotate_scene_up(t_scene *scene);
-void		rotate_scene_left(t_scene *scene);
-void		rotate_scene_right(t_scene *scene);
-void		rotate_scene_down(t_scene *scene);
 
-void		rotate_sphere(t_sphere *sph, t_matrix matrix);
-void		rotate_plane(t_plane *plane, t_matrix matrix);
-void		rotate_light(t_light *light, t_matrix matrix);
-void		rotate_cylinder(t_cylinder *cylinder, t_matrix matrix);
 
-t_matrix	get_rotation_z(double angle);
-t_matrix	get_rotation_y(double angle);
-t_matrix	get_rotation_x(double angle);
 
-t_vector	multi_mat_vect(t_matrix m, t_vector v);
-t_matrix	new_zero_matrix(void);
-void		init_scene(t_scene *scene);
 
-/////////////////compute_light.c/////////////////
-t_color		compute_light(t_scene *scene, t_figure *obj, t_color *specular);
-void		set_inter_normal_vec(t_scene *scene, t_figure *obj);
-void		calculate_sph_norm(t_figure *obj);
-void		calculate_plane_norm(t_figure *obj, t_vector ray);
-t_color		diffuse_light(t_figure *obj, t_light *light_fig);
-t_color		specular_light(t_scene *scene, t_light *light_fig, t_figure *obj);
-void		set_inter_normal_vec(t_scene *scene, t_figure *obj);
-t_vector	reflect_ray(t_vector light, t_vector p_normal);
-t_color		diffuse_light(t_figure *obj, t_light *light);
-t_color		specular_light(t_scene *scene, t_light *light, t_figure *obj);
-t_vector	reflect_ray(t_vector ray, t_vector p_normal);
-
-/////////////////////shadow.c/////////////////
-int			compute_shadow(t_scene *scene, t_figure *obj, t_light *light);
-int			in_shadow(t_scene *scene, t_vector ray, t_light	*light, \
-	t_figure **obj);
-t_vector	look_at(t_scene	*scene, double ray_x, double ray_y);
-double		closest_inter_dlya_shadow(t_vector pos, t_vector ray, t_figure *figure);
+void		set_inter_normal_vec(t_scene *scene, t_figure *obj);\
 
 //init_texture
-int	init_texture(char *xpm, t_sphere *sphere);
-void	get_texture(t_scene *scene);
-t_vector vector_normalize(t_vector v);
-t_color get_texture_color(t_img *texture, double u, double v);
-void get_sphere_uv(t_sphere *sphere, t_vector point, double *u, double *v);
 
-t_vector vec_scale(t_vector v, double scalar);
-t_color create_color(double r, double g, double b);
-int create_int_from_color(t_color color);
-t_color default_shading(t_scene *scene, t_figure *figure);
-t_vector bump_normal(t_img *bump_map, t_vector normal, t_vector inter_pos, t_sphere *sphere);
-int	init_bump(char *bmp, t_sphere *sphere);
-void	get_bmp(t_scene *scene);
+t_vector	vector_normalize(t_vector v);
+t_vector	vec_scale(t_vector v, double scalar);
+double		ft_atof(char *str);
 #endif

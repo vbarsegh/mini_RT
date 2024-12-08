@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 16:27:57 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/06 22:58:09 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/09 02:00:23 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,17 @@ t_light	*ft_lstlast_light(t_light *lst)
 	while (lst && lst->next)
 		lst = lst->next;
 	return (lst);
+}
+
+void	ft_lstadd_back_figure(t_figure **figure, t_figure *new)
+{
+	t_figure	*ptr;
+
+	if (!*figure)
+	{
+		*figure = new;
+		return ;
+	}
+	ptr = ft_lstlast_figure(*figure);
+	ptr -> next = new;
 }

@@ -6,43 +6,11 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 13:30:00 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/06 23:01:32 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/09 01:14:03 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
-
-int	only_trim_simbols(char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-	{
-		if ((str[i] != '\n' && str[i] != '\v' 
-		&& str[i] != '\f' && str[i] != '\r'
-		&& str[i] != '\t') && ((str[i] < 9 || str[i] > 13) 
-		&& str[i] != 32))
-		return (-1);
-		else
-			i++;
-	}
-	return (1);
-}
-
-int	cur_line_is_com(char *str)
-{
-	int i;
-
-	i = 0;
-	while ((str[i] && (str[i] >= 9 && str[i] <= 13)) || str[i] == 32)
-	{
-		i++;
-	}
-	if (str[i] == '#')
-		return (1);
-	return (-1);
-}
 
 int	ft_strcmp(const char *s1, const char *s2)
 {
@@ -82,19 +50,4 @@ char	*ft_strstr_alt(char *str, char *to_find)
 		i++;
 	}
 	return (0);
-}
-
-char	*ft_strchr(const char *s, int c)
-{
-	if (c < 0)
-		return ((char *)s);
-	while (*s)
-	{
-		if (*s == (char)c)
-			return ((char *)s);
-		s++;
-	}
-	if (c == '\0')
-		return ((char *)s);
-	return (NULL);
 }

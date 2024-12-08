@@ -6,11 +6,49 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 19:40:50 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/08 23:33:26 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/09 02:26:03 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
+
+t_vplane	*get_view_plane(t_scene *scene)
+{
+	t_vplane	*vplane;
+	double		aspect_ratio;
+
+	vplane = malloc(sizeof(t_vplane));
+	if (!vplane)
+		exit (1);
+	aspect_ratio = WIDTH / scene->height;
+	vplane->mlx_x = 0;
+	vplane->mlx_y = 0;
+	vplane->width = 2 * tan(scene->camera->fov / 2 * (M_PI / 180));
+	vplane->height = vplane->width / aspect_ratio;
+	vplane->pixel_x = vplane->width / WIDTH;
+	vplane->pixel_y = vplane->height / scene->height;
+	return (vplane);
+}
+
+t_vector	 look_at(t_scene	*scene, double ray_x, double ray_y)
+{
+	t_vector	up;
+	t_vector	new;
+	t_vector	right;
+	t_vector	ray_dir;
+
+	up = new_vector(0, 1, 0);
+	if (fabs(vec_dot_product(scene->camera->direction, up)) > 0.999)
+		up = new_vector(0, 0, 1);
+	right = vec_cross_product(scene->camera->direction, up);\
+	vec_normalize(&right);
+	new = vec_cross_product(right, scene->camera->direction);
+	vec_normalize(&new);
+	ray_dir = sum_vect(sum_vect(num_product_vect(right, ray_x), \
+		num_product_vect(new, ray_y)), scene->camera->direction);
+	vec_normalize(&ray_dir);
+	return (ray_dir);
+}
 
 void	ray_tracing(t_scene *scene)
 {
@@ -34,84 +72,6 @@ void	ray_tracing(t_scene *scene)
 		scene->vplane->mlx_y++;
 		scene->vplane->y_angle--;
 	}
-}
-
-t_vector color_to_vector(t_color bump_color)
-{
-	double scale = 2.0 / 255.0;
-	return (t_vector){
-		.x = (bump_color.red * scale - 1.0),
-		.y = (bump_color.green * scale - 1.0),
-		.z = (bump_color.blue * scale - 1.0)
-	};
-}
-
-t_vector vec_normalize2(t_vector v)
-{
-	double magnitude = sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
-	if (magnitude == 0.0)
-		return (t_vector){.x = 0, .y = 0, .z = 0};
-	return (t_vector){
-		.x = v.x / magnitude,
-		.y = v.y / magnitude,
-		.z = v.z / magnitude
-	};
-}
-
-void perturb_normal(t_vector *normal, t_vector bump)
-{
-	*normal = vec_normalize2(sum_vect(*normal, bump));
-}
-
-void	get_pixel_color(int *color, t_figure *obj, t_scene *scene)
-{
-	t_color	specular;
-	t_color	light_in_vec;
-	t_color texture_color;
-	double u, v;
-
-	if (!obj)
-		return ;
-	texture_color = obj->color;
-	obj->point.inter_pos = sum_vect(scene->camera->center, num_product_vect(scene->ray,
-		obj->point.dist));
-	set_inter_normal_vec(scene, obj);
-	if (obj && obj->type == SPHERE && obj->sphere->has_texture == true)
-	{
-		t_vector intersection_point = sum_vect(scene->camera->center, vec_scale(scene->ray, obj->point.dist));
-		get_sphere_uv(obj->sphere, intersection_point, &u, &v);
-		if (obj->sphere->has_texture)
-			texture_color = get_texture_color(&obj->sphere->texture, u, v);
-		if (obj->sphere->has_bump)
-		{
-			t_color bump_sample = get_texture_color(&obj->sphere->bump, u, v);
-			t_vector bump_vector = color_to_vector(bump_sample);
-			perturb_normal(&obj->point.inter_normal_vec, bump_vector);
-		}
-	}
-	*color = rgb_color_to_hex(obj->color);
-	specular = new_color(0, 0, 0);
-	light_in_vec = compute_light(scene, obj, &specular);
-	*color = rgb_color_to_hex(add_rgb_light(multiply_rgbs(light_in_vec, \
-		(texture_color)), specular));
-}
-
-int	color_in_current_pixel(t_scene *scene)
-{
-	int			color;
-	t_figure	*obj;
-	double		closest_dot;
-
-
-	closest_dot = INFINITY;
-	obj = NULL;
-	closest_dot = closest_inter(scene->camera->center, scene->ray, scene->figure, &obj);
-	
-	if (closest_dot == INFINITY)
-		color = 0;
-	else
-		get_pixel_color(&color, obj, scene);
-	return (color);
 }
 
 double	closest_inter(t_vector pos, t_vector ray, t_figure *figure, t_figure **obj)

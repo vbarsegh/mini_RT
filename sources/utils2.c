@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 16:46:38 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/08 23:34:56 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/09 01:13:30 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,31 +52,6 @@ int	have_this_char_in_set(char c, char *set)
 		i++;
 	}
 	return (-1);
-}
-
-int	matrix_row(char **matrix)
-{
-	int	row;
-
-	row = 0;
-	while (matrix[row])
-		row++;
-	return (row);
-}
-
-int	only_new_line_or_spaces(char *res)
-{
-	int	i;
-
-	i = 0;
-	while(res[i])
-	{
-		if (res[i] == '\n' || res[i] == 32)
-			i++;
-		else
-			return (-1);
-	}
-	return (1);
 }
 
 int	malloc_check(char *s)

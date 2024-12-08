@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exiting.c                                          :+:      :+:    :+:   */
+/*   free_objs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 15:42:20 by adel              #+#    #+#             */
-/*   Updated: 2024/12/06 22:58:09 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/08 23:45:02 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,31 @@ void	free_matrix(char **matrix)
 	while (matrix[i])
 		free(matrix[i++]);
 	free(matrix);
+}
+
+void	free_scene_members(t_scene *scene)
+{
+	if (scene->camera)
+		free_cam(scene);
+	if (scene->ambient)
+		free_ambient(scene);
+	if (scene->light)
+	{
+		free_list_of_light(scene->light);
+		scene->light = NULL;
+	}
+	if (scene->figure)
+	{
+		free_list_of_figure(scene->figure);
+		scene->figure = NULL;
+	}
+	if (scene->vplane)
+	{
+		free(scene->vplane);
+		scene->vplane = NULL;
+	}
+	free(scene->mlx);
+	free(scene->img);
+	free(scene);
+	scene = NULL;
 }
