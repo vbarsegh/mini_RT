@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_mlx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 15:31:32 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/08 14:59:17 by vbarsegh         ###   ########.fr       */
+/*   Updated: 2024/12/08 22:39:56 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,10 @@ void	init_mlx(t_scene *scene)
 			&scene->img->line_len, &scene->img->endian);
 	scene->img->width = scene->width;
 	scene->img->height = scene->height;
-	// t_figure *tmp = scene->figure;
-	// while (tmp)
-	// {
+	if (scene->figure->sphere->has_texture)
 		get_texture(scene);
-		
-		// get_bmp(scene);
-
-		
-	// 	tmp = tmp->next;
-	// }
+	if (scene->figure->sphere->has_bump)
+		get_bmp(scene);
 	ray_tracing(scene);
 	mlx_put_image_to_window(scene->mlx->mlx,
 		scene->mlx->win, scene->img->img_ptr, 0, 0);

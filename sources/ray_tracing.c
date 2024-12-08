@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 19:40:50 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/08 19:15:49 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/08 22:09:47 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,12 @@ void	get_pixel_color(int *color, t_figure *obj, t_scene *scene)
 		get_sphere_uv(obj->sphere, intersection_point, &u, &v);
 		if (obj->sphere->has_texture)
 			texture_color = get_texture_color(&obj->sphere->texture, u, v);
-		if (obj->sphere->has_bump)
-		{
-			t_color bump_sample = get_texture_color(&obj->sphere->bump, u, v);
-			t_vector bump_vector = color_to_vector(bump_sample);
-			perturb_normal(&obj->point.inter_normal_vec, bump_vector);
-		}
+		// if (obj->sphere->has_bump)
+		// {
+		// 	t_color bump_sample = get_texture_color(&obj->sphere->bump, u, v);
+		// 	t_vector bump_vector = color_to_vector(bump_sample);
+		// 	perturb_normal(&obj->point.inter_normal_vec, bump_vector);
+		// }
 	}
 	*color = rgb_color_to_hex(obj->color);
 	specular = new_color(0, 0, 0);

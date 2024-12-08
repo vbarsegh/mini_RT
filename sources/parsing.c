@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 14:53:05 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/08 19:15:42 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/08 22:38:22 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,7 @@ void	parsing(char **map, t_scene *scene)
 		i++;
 	}
 	ft_check_minimum_requirements(scene, map);
-		//system("leaks miniRT");
-	// t_figure *tmp = scene->figure;
-	// while (tmp)
-	// {
-	// 	if (tmp->type == SPHERE)
-	// 	{
-	// 		printf("hressssss-?%s\n", tmp->sphere->path);
-	// 	}
-	// 	tmp = tmp->next;
-	// }
+		system("leaks miniRT");
 }
 
 t_cylinder	*parse_cylinder(char **matrix, t_scene *scene)
@@ -145,11 +136,16 @@ t_sphere	*parse_sphere(char **matrix, t_scene *scene)
 	init_color(&sphere->color, matrix, scene, 3);
 	if (matrix_row(matrix) == 5 || matrix_row(matrix) == 6)
 	{
-		if (init_texture(matrix[4], sphere))
-			exit_and_free_matrix(matrix, "Error: invalid xpm", scene);
-		if (init_bump(matrix[5], sphere))
-			exit_and_free_matrix(matrix, "Error: invalid bmp", scene);
-		printf("alo\n");
+		if (matrix[4])
+		{
+			if (init_texture(matrix[4], sphere))
+				exit_and_free_matrix(matrix, "Error: invalid xpm", scene);
+		}
+		if (matrix[5])
+		{
+			if (init_bump(matrix[5], sphere))
+				exit_and_free_matrix(matrix, "Error: invalid bmp", scene);
+		}
 	}
 	return (sphere);
 }

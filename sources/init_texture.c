@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 17:11:57 by adel              #+#    #+#             */
-/*   Updated: 2024/12/08 19:11:27 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/08 22:43:11 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,16 @@
 int	init_texture(char *xpm, t_sphere *sphere)
 {
 	char	**line;
-	
+
+	if (!xpm || !sphere)
+		return (1);
 	line = split_char(xpm, ':');
 	if (!(ft_strcmp(line[0], "txm")))
 	{
 		sphere->has_texture = true;
+		if (open(line[1], O_RDONLY) <= 0)
+			return (1);
 		sphere->path = line[1];
-		printf("da\n");
 		return (0);
 	}
 	else
@@ -185,6 +188,8 @@ int	init_bump(char *bmp, t_sphere *sphere)
 {
 	char	**line;
 	
+	if (!bmp || !sphere)
+		return (1);
 	line = split_char(bmp, ':');
 	if (!(ft_strcmp(line[0], "bmp")))
 	{
