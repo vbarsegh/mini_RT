@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 14:53:05 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/07 20:25:39 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/07 22:03:15 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,8 @@ t_sphere	*parse_sphere(char **matrix, t_scene *scene)
 
 	sphere = malloc(sizeof(t_sphere));
 	sphere->has_texture = false;
+	sphere->has_bamp = false;
+
 	i = 0;
 	if (!(matrix_row(matrix) > 3 && matrix_row(matrix) < 7))
 		exit_and_free_matrix(matrix,
@@ -134,9 +136,10 @@ t_sphere	*parse_sphere(char **matrix, t_scene *scene)
 	init_color(&sphere->color, matrix, scene, 3);
 	if (matrix_row(matrix) == 5 || matrix_row(matrix) == 6)
 	{
-		printf("barev\n");
 		if (init_texture(matrix[4], sphere))
 			exit_and_free_matrix(matrix, "Error: invalid xpm", scene);
+		if (init_bump(matrix[5], sphere))
+			exit_and_free_matrix(matrix, "Error: invalid bmp", scene);
 	}
 	return (sphere);
 }

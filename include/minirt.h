@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:22:05 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/06 23:06:02 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/07 21:53:39 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,8 +140,11 @@ typedef struct s_sphere
 	double		radius;
 	t_color		color;
 	t_img 		texture;
+	t_img 		bamp;
 	bool		has_texture;
+	bool		has_bamp;
 	char		*path;
+	char		*bmp_map;
 }	t_sphere;
 
 typedef struct s_plane
@@ -416,4 +419,7 @@ t_vector vec_scale(t_vector v, double scalar);
 t_color create_color(double r, double g, double b);
 int create_int_from_color(t_color color);
 t_color default_shading(t_scene *scene, t_figure *figure);
+t_vector bump_normal(t_sphere *sphere, t_vector normal, double u, double v);
+int	init_bump(char *bmp, t_sphere *sphere);
+void	get_bmp(t_scene *scene);
 #endif

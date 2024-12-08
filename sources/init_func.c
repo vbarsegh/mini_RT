@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 15:22:00 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/06 22:58:09 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/07 22:11:13 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	init_coords(t_vector *coords, char **matrix, t_scene *scene, int i)
 	if (matrix_row(split_2_line) != 3)
 		exit_and_free(matrix, "Error: bad arguments for camera",
 			scene, split_2_line);
-	coords->x = ft_atof(split_2_line[0]);
+	coords->x = -ft_atof(split_2_line[0]);
 	coords->y = ft_atof(split_2_line[1]);
 	coords->z = ft_atof(split_2_line[2]);
 	coords->w = 1.0;

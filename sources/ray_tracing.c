@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 19:40:50 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/07 21:11:00 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/07 23:33:17 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,23 @@ void	get_pixel_color(int *color, t_figure *obj, t_scene *scene)
 	obj->point.inter_pos = sum_vect(scene->camera->center, num_product_vect(scene->ray,
 		obj->point.dist));
 	set_inter_normal_vec(scene, obj);
+	// if (obj->sphere->has_bamp)
+	// {
+	// 	obj->point.inter_normal_vec = bump_normal(
+	// 				obj->sphere,
+	// 				obj->point.inter_normal_vec,
+	// 				obj->point.inter_pos,
+	// 				obj->sphere
+	// 	);	
+		
+	// }
 	*color = rgb_color_to_hex(obj->color);
 	specular = new_color(0, 0, 0);
 	light_in_vec = compute_light(scene, obj, &specular);
 	*color = rgb_color_to_hex(add_rgb_light(multiply_rgbs(light_in_vec, \
 		(obj->color)), specular));
 }
+
 
 int	color_in_current_pixel(t_scene *scene)
 {
