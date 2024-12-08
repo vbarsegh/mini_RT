@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 14:53:05 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/08 22:38:22 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/08 23:27:30 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,19 @@ t_plane	*parse_plane(char **matrix, t_scene *scene)
 	init_color(&plane->color, matrix, scene, 3);
 	return (plane);
 }
+void	texture(char **matrix, t_sphere	*sphere, t_scene *scene)
+{
+	if (matrix[4])
+	{
+		if (init_texture(matrix[4], sphere))
+			exit_and_free_matrix(matrix, "Error: invalid xpm", scene);
+	}
+	if (matrix[5])
+	{
+		if (init_bump(matrix[5], sphere))
+			exit_and_free_matrix(matrix, "Error: invalid bmp", scene);
+	}
+}
 
 t_sphere	*parse_sphere(char **matrix, t_scene *scene)
 {
@@ -135,18 +148,7 @@ t_sphere	*parse_sphere(char **matrix, t_scene *scene)
 	sphere->radius = ft_atof(matrix[2]) / 2;
 	init_color(&sphere->color, matrix, scene, 3);
 	if (matrix_row(matrix) == 5 || matrix_row(matrix) == 6)
-	{
-		if (matrix[4])
-		{
-			if (init_texture(matrix[4], sphere))
-				exit_and_free_matrix(matrix, "Error: invalid xpm", scene);
-		}
-		if (matrix[5])
-		{
-			if (init_bump(matrix[5], sphere))
-				exit_and_free_matrix(matrix, "Error: invalid bmp", scene);
-		}
-	}
+		texture(matrix, sphere, scene);
 	return (sphere);
 }
 

@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 15:58:41 by adel              #+#    #+#             */
-/*   Updated: 2024/12/06 23:02:59 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/08 23:35:15 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ t_vector vector_normalize(t_vector v)
 
 	return normalized_vector;
 }
-
 
 t_vector vec_scale(t_vector v, double scalar)
 {

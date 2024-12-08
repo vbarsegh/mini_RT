@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:22:05 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/08 18:25:36 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/08 23:23:02 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -420,7 +420,7 @@ void	get_texture(t_scene *scene);
 t_vector vector_normalize(t_vector v);
 t_color get_texture_color(t_img *texture, double u, double v);
 void get_sphere_uv(t_sphere *sphere, t_vector point, double *u, double *v);
-int color_in_current_pixel2(t_scene *scene);
+
 t_vector vec_scale(t_vector v, double scalar);
 t_color create_color(double r, double g, double b);
 int create_int_from_color(t_color color);

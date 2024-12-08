@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 15:22:00 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/07 22:11:13 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/08 23:04:10 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ int	checkk(char *str)
 	i = 0;
 	while (str[i])
 		i++;
-	// printf("atoi = %lld\n",ft_atoi(str));
 	if (i > 11 || ft_atoi(str) > INT_MAX || ft_atoi(str) < INT_MIN)
 		return (-1);
 	return (1);
