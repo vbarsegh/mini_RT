@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 23:49:19 by adel              #+#    #+#             */
-/*   Updated: 2024/12/09 01:39:21 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/09 15:01:18 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,20 @@
 
 void	texture(char **matrix, t_sphere	*sphere, t_scene *scene)
 {
-	if (matrix[4])
+	if (matrix[4] || matrix[5])
 	{
-		if (init_texture(matrix[4], sphere))
+		if (matrix[4] && init_texture(matrix[4], sphere))
 			exit_and_free_matrix(matrix, "Error: invalid xpm", scene);
-	}
-	if (matrix[5])
-	{
-		if (init_bump(matrix[5], sphere))
-			exit_and_free_matrix(matrix, "Error: invalid bmp", scene);
+		if (matrix[5] && init_texture(matrix[4], sphere))
+			exit_and_free_matrix(matrix, "Error: invalid xpm", scene);
 	}
 }
 
 void	geting_texture(t_scene *scene)
 {
-	if (scene->figure->sphere->has_texture)
+	if (scene->figure->type == SPHERE && scene->figure->sphere->has_texture)
 		get_xpm(scene);
-	if (scene->figure->sphere->has_bump)
+	if (scene->figure->type == SPHERE && scene->figure->sphere->has_bump)
 		get_bmp(scene);
 }
 
@@ -65,7 +62,7 @@ void	get_bmp(t_scene *scene)
 	tmp = scene->figure;
 	while (tmp)
 	{
-		if (tmp->sphere->has_bump == true)
+		if (tmp->type == SPHERE && tmp->sphere->has_bump == true)
 		{
 			tmp->sphere->bump.img_ptr = mlx_xpm_file_to_image(scene->mlx->mlx,
 				tmp->sphere->bmp_map, &tmp->sphere->bump.width, &tmp->sphere->bump.height);

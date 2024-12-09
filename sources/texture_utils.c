@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_texture.c                                     :+:      :+:    :+:   */
+/*   texture_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 17:11:57 by adel              #+#    #+#             */
-/*   Updated: 2024/12/09 01:31:30 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/09 13:04:05 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	get_sphere_uv(t_sphere *sphere, t_vector point, double *u, double *v)
 	double		phi;
 
 	p = vec_subtract(point, sphere->center);
-	p = vector_normalize(p);
+	vec_normalize(&p);
 
 	theta = acos(p.y);
 	phi = atan2(p.z, p.x);
@@ -73,4 +73,3 @@ t_color	default_shading(t_scene *scene, t_figure *figure)
 
 	return (shaded_color);
 }
-

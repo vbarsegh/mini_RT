@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 01:04:47 by adel              #+#    #+#             */
-/*   Updated: 2024/12/09 02:22:34 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/09 14:58:01 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 
 void	perturb_normal(t_vector *normal, t_vector bump)
 {
-	*normal = vec_normalize2(sum_vect(*normal, bump));
+	t_vector	sum;
+
+	sum = sum_vect(*normal, bump);
+	vec_normalize(&sum);
 }
 
 void	get_pixel_color(int *color, t_figure *obj, t_scene *scene)
@@ -53,7 +56,7 @@ void	get_pixel_color(int *color, t_figure *obj, t_scene *scene)
 	obj->point.inter_pos = sum_vect(scene->camera->center, num_product_vect(scene->ray,
 		obj->point.dist));
 	set_inter_normal_vec(scene, obj);
-	if (obj && obj->type == SPHERE && obj->sphere->has_texture == true)
+	if (obj && obj->type == SPHERE && (obj->sphere->has_texture || obj->sphere->has_bump))
 	{
 		t_vector intersection_point = sum_vect(scene->camera->center, vec_scale(scene->ray, obj->point.dist));
 		get_sphere_uv(obj->sphere, intersection_point, &u, &v);
@@ -61,9 +64,11 @@ void	get_pixel_color(int *color, t_figure *obj, t_scene *scene)
 			texture_color = get_xpm_color(&obj->sphere->texture, u, v);
 		if (obj->sphere->has_bump)
 		{
+
 			t_color bump_sample = get_xpm_color(&obj->sphere->bump, u, v);
 			t_vector bump_vector = color_to_vector(bump_sample);
 			perturb_normal(&obj->point.inter_normal_vec, bump_vector);
+		// printf("daa\n");
 		}
 	}
 	*color = rgb_color_to_hex(obj->color);

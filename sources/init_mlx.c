@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 15:31:32 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/09 02:13:34 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/09 14:56:19 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,18 +56,7 @@ int	init_texture(char *xpm, t_sphere *sphere)
 		sphere->path = line[1];
 		return (0);
 	}
-	else
-		return (1);
-}
-
-int	init_bump(char *bmp, t_sphere *sphere)
-{
-	char	**line;
-	
-	if (!bmp || !sphere)
-		return (1);
-	line = split_char(bmp, ':');
-	if (!(ft_strcmp(line[0], "bmp")))
+	else if (!(ft_strcmp(line[0], "bmp")))
 	{
 		sphere->has_bump = true;
 		sphere->bmp_map = line[1];

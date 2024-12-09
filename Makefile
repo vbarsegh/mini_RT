@@ -16,29 +16,28 @@ SRCS_NAME = minirt.c \
 			get_next_line.c \
 			get_next_line_utils.c \
 			validation.c \
-			utils.c utils2.c\
+			validation_utils.c \
+			add_texture.c \
+			atof.c \
+			utils.c \
 			free_exit.c \
 			split.c split_char.c\
 			trim.c \
 			parsing.c init_func.c\
 			init_mlx.c \
 			parsing_utils.c \
-			atof.c \
-			add_texture.c \
 			color.c \
 			draw_utils.c \
 			init_utils.c \
-			validation_utils.c \
 			key_hooks.c \
 			list_utils.c \
-			ray_tracing_utils.c \
 			texture_utils.c \
 			add_texture.c \
 			vector.c ray_tracing.c init_mlx.c \
 			compute_light.c plane_inter.c cylinder.c matrix.c \
 			move_and_rottate.c figure_rotate.c sphere_inter.c \
 			shadow.c light_utils.c \
-			list_func.c free_objs.c vector_utils.c checking.c rotation.c\
+			list_func.c free_objs.c vector_utils.c rotation.c\
 
 OBJS = $(addprefix $(OBJS_DIR), $(OBJS_NAME))
 OBJS_NAME = $(SRCS_NAME:.c=.o)

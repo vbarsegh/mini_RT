@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:22:05 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/09 02:34:01 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/09 13:05:59 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -407,21 +407,11 @@ int			func_count_word_(const char *s, char c);
 char		**split_char(char const *s, char c);
 int			ft_strlen(const char *str);
 
-
-
-
-
-
 /////////////////utils///////////////////////////////
 int			ft_strcmp(const char *s1, const char *s2);
 char		*ft_strstr_alt(char *str, char *to_find);
-
-/////////////////utils2/////////////////////////////
 long long	ft_atoi(const char *str);
 int			have_this_char_in_set(char c, char *set);
-int			malloc_check(char *s);
-
-/////////////////checkings/////////////////////////////
 int			is_white_space(char c);
 
 /////////////////init_utils/////////////////////////////
@@ -430,36 +420,24 @@ int			if_str_and_digit(char *line, char *set);
 int			matrix_row(char **matrix);
 int			overflow_check(char *str);
 
-
-
-
-
 /////////////////vector.c////////////////////////////
-t_vector	new_vector(double x, double y, double z);
-t_vector	vec_subtract(t_vector vec1, t_vector vec2);
-double		vec_length(t_vector vec);
-double		vec_dot_product(t_vector vec1, t_vector vec2);
-void		vec_normalize(t_vector *vec);
-double		vec_dot_product(t_vector vec1, t_vector vec2);
-t_vector	num_product_vect(t_vector vec, double num);
-t_vector	sum_vect(t_vector v1, t_vector v2);
-double		dist_vect(t_vector v1, t_vector v2);
 t_vector	vec_cross_product(t_vector vec1, t_vector vec2);
+t_vector	sum_vect(t_vector v1, t_vector v2);
+t_vector	num_product_vect(t_vector vec, double num);
+double		dist_vect(t_vector v1, t_vector v2);
+double		vec_dot_product(t_vector vec1, t_vector vec2);
 
-
-double		plane_inter(t_vector pos, t_vector ray, t_figure *obj);
-int			color_in_current_pixel(t_scene *scene);
-
-
-
-
-
-
-void		set_inter_normal_vec(t_scene *scene, t_figure *obj);\
-
-//init_texture
-
-t_vector	vector_normalize(t_vector v);
+/////////////////vector_utils.c////////////////////////////
 t_vector	vec_scale(t_vector v, double scalar);
+void		vec_normalize(t_vector *vec);
+double		vec_length(t_vector vec);
+t_vector	vec_subtract(t_vector vec1, t_vector vec2);
+t_vector	new_vector(double x, double y, double z);
+
+/////////////////plane_inter.c////////////////////////////
+double		plane_inter(t_vector pos, t_vector ray, t_figure *obj);
+
+/////////////////atof.c////////////////////////////
 double		ft_atof(char *str);
+
 #endif
