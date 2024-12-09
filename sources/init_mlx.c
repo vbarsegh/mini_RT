@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 15:31:32 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/09 14:56:19 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/09 18:45:25 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,7 @@ void	init_mlx(t_scene *scene)
 int	init_texture(char *xpm, t_sphere *sphere)
 {
 	char	**line;
-
-	if (!xpm || !sphere)
-		return (1);
+	
 	line = split_char(xpm, ':');
 	if (!(ft_strcmp(line[0], "txm")))
 	{
@@ -56,9 +54,20 @@ int	init_texture(char *xpm, t_sphere *sphere)
 		sphere->path = line[1];
 		return (0);
 	}
-	else if (!(ft_strcmp(line[0], "bmp")))
+	else
+		return (1);
+}
+
+int	init_bump(char *bmp, t_sphere *sphere)
+{
+	char	**line;
+	
+	line = split_char(bmp, ':');
+	if (!(ft_strcmp(line[0], "bmp")))
 	{
 		sphere->has_bump = true;
+		if (open(line[1], O_RDONLY) <= 0)
+			return (1);
 		sphere->bmp_map = line[1];
 		return (0);
 	}

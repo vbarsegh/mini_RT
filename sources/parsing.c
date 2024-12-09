@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 14:53:05 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/08 23:49:35 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/09 18:56:26 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,13 @@ t_plane	*parse_plane(char **matrix, t_scene *scene)
 	return (plane);
 }
 
+void	set_texture(char **matrix, t_sphere *sphere, t_scene *scene)
+{
+	if (matrix[4] && init_texture(matrix[4], sphere))
+		exit_and_free_matrix(matrix, "Error: invalid xpm", scene);
+	if (matrix[5] && init_bump(matrix[5], sphere))
+		exit_and_free_matrix(matrix, "Error: invalid bmp", scene);
+}
 t_sphere	*parse_sphere(char **matrix, t_scene *scene)
 {
 	int			i;
@@ -106,9 +113,13 @@ t_sphere	*parse_sphere(char **matrix, t_scene *scene)
 	sphere->radius = ft_atof(matrix[2]) / 2;
 	init_color(&sphere->color, matrix, scene, 3);
 	if (matrix_row(matrix) == 5 || matrix_row(matrix) == 6)
-		texture(matrix, sphere, scene);
+	{
+		set_texture(matrix, sphere, scene);
+		printf("alo\n");
+	}
 	return (sphere);
 }
+
 
 t_light	*parse_light(char **matrix, t_scene *scene)
 {
