@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 17:11:57 by adel              #+#    #+#             */
-/*   Updated: 2024/12/09 21:47:33 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/10 01:17:45 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,8 @@ void	get_sphere_uv(t_sphere *sphere, t_vector point, double *u, double *v)
 
 	p = vec_subtract(point, sphere->center);
 	vec_normalize(&p);
-
 	theta = acos(p.y);
 	phi = atan2(p.z, p.x);
-
 	*u = (phi + M_PI) / (2 * M_PI);
 	*v = theta / M_PI;
 }
@@ -35,7 +33,8 @@ t_color	get_xpm_color(t_img *texture, double u, double v)
 	char	*pixel;
 	t_color	color;
 
-	if (!texture || !texture->img_pixels_ptr) {
+	if (!texture || !texture->img_pixels_ptr)
+	{
 		color.red = 0;
 		color.green = 0;
 		color.blue = 0;
@@ -50,7 +49,8 @@ t_color	get_xpm_color(t_img *texture, double u, double v)
 		color.blue = 0;
 		return (color);
 	}
-	pixel = texture->img_pixels_ptr + (y * texture->line_len + x * (texture->bits_per_pixel / 8));
+	pixel = texture->img_pixels_ptr + (y * texture->line_len + x \
+		* (texture->bits_per_pixel / 8));
 	color.red = *(unsigned char *)(pixel + 2);
 	color.green = *(unsigned char *)(pixel + 1);
 	color.blue = *(unsigned char *)(pixel);
@@ -62,21 +62,20 @@ t_color	default_shading(t_scene *scene, t_figure *figure)
 	t_color	object_color;
 	t_color	shaded_color;
 	double	intensity;
-	
+
 	intensity = scene->ambient->intensity;
 	object_color = figure->color;
 	shaded_color = create_color(
-		object_color.red * intensity,
-		object_color.green * intensity,
-		object_color.blue * intensity
-	);
-
+			object_color.red * intensity,
+			object_color.green * intensity,
+			object_color.blue * intensity
+			);
 	return (shaded_color);
 }
 
-t_vector vec_normalize2(t_vector v)
+t_vector	vec_normalize2(t_vector v)
 {
-	double magnitude;
+	double	magnitude;
 
 	magnitude = sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
 	if (magnitude == 0.0)

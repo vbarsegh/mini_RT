@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 13:15:48 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/09 01:36:43 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/10 01:10:11 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ char	*get_line(char *av)
 		if (!gnl)
 			break ;
 	}
-	if (!res || *res == '\0' || ft_strchr(res, '\t') != NULL || only_new_line_or_spaces(res) == 1)
+	if (!res || *res == '\0' || ft_strchr(res, '\t') != NULL \
+		|| only_new_line_or_spaces(res) == 1)
 	{
 		free(temp);
 		return (NULL);
@@ -55,12 +56,13 @@ char	**get_end_trim_map(char **map, t_scene *scene, int row, int j)
 	row = 0;
 	while (map[row])
 	{
-		if (!(only_trim_symbols(map[row]) == 1) && !(comment_line(map[row]) == 1))
-			trim_map[j] =  ft_strtrim(map[row], " \n\v\f\r    ");
+		if (!(only_trim_symbols(map[row]) == 1) \
+			&& !(comment_line(map[row]) == 1))
+			trim_map[j] = ft_strtrim(map[row], " \n\v\f\r    ");
 		else
 		{
 			row++;
-			continue;
+			continue ;
 		}
 		if (!trim_map[j])
 			exit_and_free_matrix(map, "cannot split", scene);
@@ -100,7 +102,8 @@ int	validation(int ac, char **av, t_scene *scene)
 	if (ac == 2)
 	{
 		if (is_rt(av[1]))
-			return(err("Error: Wrong argument: Try this way: ./rt filename.rt"));
+			return (err("Error: Wrong argument: \
+				Try this way: ./rt filename.rt"));
 		read_line = get_line(av[1]);
 		if (!read_line)
 			return (1);
@@ -111,4 +114,3 @@ int	validation(int ac, char **av, t_scene *scene)
 	}
 	return (0);
 }
-

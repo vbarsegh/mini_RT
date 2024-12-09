@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 00:45:57 by adel              #+#    #+#             */
-/*   Updated: 2024/12/09 01:36:43 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/10 01:05:25 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	is_rt(char *str)
 
 int	comment_line(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while ((str[i] && (str[i] >= 9 && str[i] <= 13)) || str[i] == 32)
@@ -48,16 +48,16 @@ int	comment_line(char *str)
 
 int	only_trim_symbols(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
 	{
-		if ((str[i] != '\n' && str[i] != '\v' 
-		&& str[i] != '\f' && str[i] != '\r'
-		&& str[i] != '\t') && ((str[i] < 9 || str[i] > 13) 
-		&& str[i] != 32))
-		return (-1);
+		if ((str[i] != '\n' && str[i] != '\v'
+				&& str[i] != '\f' && str[i] != '\r'
+				&& str[i] != '\t') && ((str[i] < 9 || str[i] > 13)
+				&& str[i] != 32))
+			return (-1);
 		else
 			i++;
 	}
@@ -69,7 +69,7 @@ int	only_new_line_or_spaces(char *res)
 	int	i;
 
 	i = 0;
-	while(res[i])
+	while (res[i])
 	{
 		if (res[i] == '\n' || res[i] == 32)
 			i++;
@@ -93,4 +93,3 @@ char	*ft_strchr(const char *s, int c)
 		return ((char *)s);
 	return (NULL);
 }
-

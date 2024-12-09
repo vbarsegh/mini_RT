@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 14:53:05 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/09 20:07:44 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/10 00:51:08 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	parsing(char **map, t_scene *scene)
 		i++;
 	}
 	ft_check_minimum_requirements(scene, map);
-		system("leaks miniRT");
+	system("leaks miniRT");
 }
 
 t_cylinder	*parse_cylinder(char **matrix, t_scene *scene)
@@ -38,20 +38,20 @@ t_cylinder	*parse_cylinder(char **matrix, t_scene *scene)
 	i = 0;
 	cylinder = malloc(sizeof(t_cylinder));
 	if (matrix_row(matrix) != 6)
-		exit_and_free_matrix(matrix,"Error: wrong qanaki arguments for cylinder", scene);
+		exit_and_free_matrix(matrix, "Error:wrong argument cylinder", scene);
 	while (matrix[++i])
 	{
 		if (matrix[i][0] == ',' || matrix[i][ft_strlen(matrix[i]) - 1] == ','
 			|| (ft_strstr_alt(matrix[i], ",,")))
-			exit_and_free_matrix(matrix,"Error: bad arguments cy", scene);
+			exit_and_free_matrix(matrix, "Error:wrong args cylinder", scene);
 	}
 	init_coords(&cylinder->center, matrix, scene, 1);
 	init_orient(&cylinder->orient, matrix, scene, 2);
 	if (if_char_and_digit(matrix[3], '.') == -1)
-		exit_and_free_matrix(matrix, "Error: bad simbols for cylinder diametr", scene);
+		exit_and_free_matrix(matrix, "Error:wrong argument cylinder", scene);
 	cylinder->radius = ft_atof(matrix[3]) / 2;
 	if (if_char_and_digit(matrix[4], '.') == -1)
-		exit_and_free_matrix(matrix, "Error: bad simbols for cylinder height", scene);
+		exit_and_free_matrix(matrix, "Error:wrong argument cylinder", scene);
 	cylinder->height = ft_atof(matrix[4]);
 	init_color(&cylinder->color, matrix, scene, 5);
 	cylinder->center1 = sum_vect(cylinder->center, \
@@ -81,16 +81,8 @@ t_plane	*parse_plane(char **matrix, t_scene *scene)
 	return (plane);
 }
 
-void	set_texture(char **matrix, t_sphere *sphere, t_scene *scene)
+t_sphere	*parse_sphere(char **matrix, t_scene *scene, int i)
 {
-	if (matrix[4] && init_texture(matrix[4], sphere))
-		exit_and_free_matrix(matrix, "Error: invalid xpm", scene);
-	if (matrix[5] && init_bump(matrix[5], sphere))
-		exit_and_free_matrix(matrix, "Error: invalid bmp", scene);
-}
-t_sphere	*parse_sphere(char **matrix, t_scene *scene)
-{
-	int			i;
 	t_sphere	*sphere;
 
 	sphere = malloc(sizeof(t_sphere));
@@ -98,9 +90,6 @@ t_sphere	*parse_sphere(char **matrix, t_scene *scene)
 	sphere->has_bump = false;
 	sphere->path = NULL;
 	sphere->bmp_map = NULL;
-
-
-	i = 0;
 	if (!(matrix_row(matrix) > 3 && matrix_row(matrix) < 7))
 		exit_and_free_matrix(matrix,
 			"Error: wrong arguments for sphere", scene);
@@ -119,7 +108,6 @@ t_sphere	*parse_sphere(char **matrix, t_scene *scene)
 		set_texture(matrix, sphere, scene);
 	return (sphere);
 }
-
 
 t_light	*parse_light(char **matrix, t_scene *scene)
 {

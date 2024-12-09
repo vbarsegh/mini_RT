@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sphere_intersect.c                                 :+:      :+:    :+:   */
+/*   sphere_inter.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 16:46:50 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/06 22:58:09 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/10 01:14:00 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,15 @@
 
 double	sphere_intersect(t_vector cam_center, t_vector ray, t_figure *obj)
 {
- 	t_vector	cam_sphere_vec;
+	t_vector	cam_sphere_vec;
 	t_math		math;
 
 	obj->point.dist = 0;
 	math.a = vec_dot_product(ray, ray);
 	cam_sphere_vec = vec_subtract(cam_center, obj->sphere->center);
 	math.b = 2.0 * vec_dot_product(cam_sphere_vec, ray);
-	math.c = vec_dot_product(cam_sphere_vec, cam_sphere_vec) - obj->sphere->radius * obj->sphere->radius;
+	math.c = vec_dot_product(cam_sphere_vec, cam_sphere_vec) \
+		- obj->sphere->radius * obj->sphere->radius;
 	math.disc = math.b * math.b - 4 * math.c * math.a;
 	if (math.disc < 0)
 		return (0);

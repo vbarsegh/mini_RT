@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 16:38:53 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/09 01:34:55 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/10 00:57:12 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ char	*ft_strtrim(char *s1, char *set)
 
 	if (!s1 || !set)
 		return (NULL);
-	
 	end = ft_strlen(s1);
 	start = 0;
 	j = 0;

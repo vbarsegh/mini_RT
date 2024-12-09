@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_func.c                                         :+:      :+:    :+:   */
+/*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 15:44:25 by adel              #+#    #+#             */
-/*   Updated: 2024/12/09 02:00:20 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/10 00:46:34 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_figure	*lst_create_figure(t_scene *scene, char **matrix, int type)
 	default_init_fig(figure);
 	if (type == SPHERE)
 	{
-		figure->sphere = parse_sphere(matrix, scene);
+		figure->sphere = parse_sphere(matrix, scene, 0);
 		figure->color = figure->sphere->color;
 	}
 	else if (type == PLANE)

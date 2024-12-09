@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 13:30:00 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/09 22:10:56 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/10 01:01:42 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ char	*ft_strstr_alt(char *str, char *to_find)
 
 long long	ft_atoi(const char *str)
 {
-	int	i;
+	int			i;
 	long long	num;
-	int	sign;
+	int			sign;
 
 	sign = 1;
 	i = 0;
@@ -76,7 +76,6 @@ long long	ft_atoi(const char *str)
 		num = (num * 10) + (str[i] - 48);
 		i++;
 	}
-	
 	return (sign * num);
 }
 

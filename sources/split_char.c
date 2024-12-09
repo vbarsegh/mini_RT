@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 17:26:30 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/06 22:58:09 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/10 01:14:58 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	foo_sum_tar_(char const *s, char c)
 	int	sum_tar;
 
 	sum_tar = 0;
-
 	while (*s == c)
 		s++;
 	while (*s != '\0')
@@ -104,7 +103,6 @@ char	**split_char(char const *s, char c)
 {
 	int		count_word;
 	char	**arr;
-
 
 	if (s == NULL)
 		return (NULL);

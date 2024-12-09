@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 15:58:41 by adel              #+#    #+#             */
-/*   Updated: 2024/12/09 13:04:08 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/10 01:08:00 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_vector	vec_subtract(t_vector vec1, t_vector vec2)
 double	vec_length(t_vector vec)
 {
 	double	res;
-	
+
 	res = sqrt((vec.x * vec.x) + (vec.y * vec.y) + (vec.z * vec.z));
 	return (res);
 }
@@ -42,17 +42,17 @@ double	vec_length(t_vector vec)
 void	vec_normalize(t_vector *vec)
 {
 	double	length;
-	
+
 	length = vec_length(*vec);
 	vec->x /= length;
 	vec->y /= length;
 	vec->z /= length;
 }
 
-t_vector vec_scale(t_vector v, double scalar)
+t_vector	vec_scale(t_vector v, double scalar)
 {
 	t_vector	result;
-	
+
 	result.x = v.x * scalar;
 	result.y = v.y * scalar;
 	result.z = v.z * scalar;

@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:09:09 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/08 23:27:56 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/10 01:02:53 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,12 @@ double	plane_inter(t_vector pos, t_vector ray, t_figure *obj)
 	norm_dot_dir = vec_dot_product(obj->plane->orient, ray);
 	if (fabs(norm_dot_dir) < __FLT_EPSILON__)
 		return (INFINITY);
-	p_in_cam_center = vec_subtract(obj->plane->coords, pos);//// P0 - O
-	obj->point.dist = vec_dot_product(p_in_cam_center, obj->plane->orient) / norm_dot_dir;//(N . (P - O) / N . D)
-	if (obj->point.dist < __FLT_EPSILON__) // Пересечение позади луча
+	p_in_cam_center = vec_subtract(obj->plane->coords, pos);
+	obj->point.dist = vec_dot_product(p_in_cam_center, obj->plane->orient) \
+		/ norm_dot_dir;
+	if (obj->point.dist < __FLT_EPSILON__)
 	{
-		obj->point.dist = 0;//asuma sra kariqy chka gpt-n
+		obj->point.dist = 0;
 		return (INFINITY);
 	}
 	return (obj->point.dist);

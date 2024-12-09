@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 15:22:00 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/09 02:33:36 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/10 01:06:52 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ void	init_color(t_color *color, char **matrix, t_scene *scene, int i)
 	if (matrix_row(split_2_line) != 3)
 		exit_and_free(matrix,
 			"Error:bad arguments for ambient", scene, split_2_line);
-	if (overflow_check(split_2_line[0]) == -1 || overflow_check(split_2_line[1]) == -1
+	if (overflow_check(split_2_line[0]) == -1 || \
+		overflow_check(split_2_line[1]) == -1
 		|| overflow_check(split_2_line[2]) == -1)
 		exit_and_free(matrix,
 			"Error:the color is out of range", scene, split_2_line);
