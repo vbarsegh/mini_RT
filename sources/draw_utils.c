@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 01:04:47 by adel              #+#    #+#             */
-/*   Updated: 2024/12/09 18:10:06 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/09 20:28:16 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_color get_texture_color(t_img *texture, double u, double v)
 
     // Ensure x and y are within the texture bounds
     if (x < 0 || x >= texture->width || y < 0 || y >= texture->height) {
-        printf("Warning: texture coordinates out of bounds (%f, %f)\n", u, v);
+        // printf("Warning: texture coordinates out of bounds (%f, %f)\n", u, v);
         color.red = 0;   // Default to black color
         color.green = 0;
         color.blue = 0;
@@ -111,8 +111,9 @@ void	get_pixel_color(int *color, t_figure *obj, t_scene *scene)
 	obj->point.inter_pos = sum_vect(scene->camera->center, num_product_vect(scene->ray,
 		obj->point.dist));
 	set_inter_normal_vec(scene, obj);
-	if (obj && obj->type == SPHERE && obj->sphere->has_texture == true)
+	if (obj && obj->type == SPHERE && (obj->sphere->has_texture == true || obj->sphere->has_bump == true))
 	{
+		printf("mtaaaaaaa %s\n",obj->sphere->path);
 		t_vector intersection_point = sum_vect(scene->camera->center, vec_scale(scene->ray, obj->point.dist));
 		get_sphere_uv(obj->sphere, intersection_point, &u, &v);
 		if (obj->sphere->has_texture)

@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 14:53:05 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/09 18:56:26 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/09 20:07:44 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,9 @@ t_sphere	*parse_sphere(char **matrix, t_scene *scene)
 	sphere = malloc(sizeof(t_sphere));
 	sphere->has_texture = false;
 	sphere->has_bump = false;
+	sphere->path = NULL;
+	sphere->bmp_map = NULL;
+
 
 	i = 0;
 	if (!(matrix_row(matrix) > 3 && matrix_row(matrix) < 7))
@@ -113,10 +116,7 @@ t_sphere	*parse_sphere(char **matrix, t_scene *scene)
 	sphere->radius = ft_atof(matrix[2]) / 2;
 	init_color(&sphere->color, matrix, scene, 3);
 	if (matrix_row(matrix) == 5 || matrix_row(matrix) == 6)
-	{
 		set_texture(matrix, sphere, scene);
-		printf("alo\n");
-	}
 	return (sphere);
 }
 

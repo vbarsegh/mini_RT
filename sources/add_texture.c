@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 23:49:19 by adel              #+#    #+#             */
-/*   Updated: 2024/12/09 18:41:20 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/09 21:08:17 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,51 +25,47 @@ void	texture(char **matrix, t_sphere	*sphere, t_scene *scene)
 
 void	geting_texture(t_scene *scene)
 {
-	if (scene->figure && scene->figure->type == SPHERE && scene->figure->sphere->has_texture)
-		get_xpm(scene);
-	if (scene->figure && scene->figure->type == SPHERE && scene->figure->sphere->has_bump)
-		get_bmp(scene);
+	t_figure *tmp = scene->figure;
+	while (scene->figure)
+	{
+		if (scene->figure->type == SPHERE && scene->figure->sphere->has_texture)
+			get_xpm(scene);
+		if (scene->figure->type == SPHERE && scene->figure->sphere->has_bump)
+			get_bmp(scene);
+		scene->figure = scene->figure->next;
+	}
+	scene->figure = tmp;
 }
 
 void	get_xpm(t_scene *scene)
 {
 	t_figure *tmp = scene->figure;
-	while (tmp)
+	if (tmp->type == SPHERE && tmp->sphere->has_texture == true)
 	{
-		if (tmp->type == SPHERE && tmp->sphere->has_texture == true)
+		tmp->sphere->texture.img_ptr = mlx_xpm_file_to_image(scene->mlx->mlx,
+			tmp->sphere->path, &tmp->sphere->texture.width, &tmp->sphere->texture.height);
+		if (!tmp->sphere->texture.img_ptr)
 		{
-			tmp->sphere->texture.img_ptr = mlx_xpm_file_to_image(scene->mlx->mlx,
-				tmp->sphere->path, &tmp->sphere->texture.width, &tmp->sphere->texture.height);
-			if (!tmp->sphere->texture.img_ptr)
-			{
-				err("no xpm");//avelacnel freenry
-				exit(777);
-			}
-			tmp->sphere->texture.img_pixels_ptr = mlx_get_data_addr(tmp->sphere->texture.img_ptr,
-					&tmp->sphere->texture.bits_per_pixel, &tmp->sphere->texture.line_len,
-					&tmp->sphere->texture.endian);
-			printf("%s\n",tmp->sphere->path);
+			err("no xpm");//avelacnel freenry
+			exit(777);
 		}
-		tmp = tmp->next;
+		tmp->sphere->texture.img_pixels_ptr = mlx_get_data_addr(tmp->sphere->texture.img_ptr,
+				&tmp->sphere->texture.bits_per_pixel, &tmp->sphere->texture.line_len,
+				&tmp->sphere->texture.endian);
 	}
-	
 }
 void	get_bmp(t_scene *scene)
 {
 	t_figure *tmp = scene->figure;
-	while (tmp)
+	if (tmp->type == SPHERE && tmp->sphere->has_bump == true)
 	{
-		if (tmp->type == SPHERE && tmp->sphere->has_bump == true)
-		{
-			tmp->sphere->bump.img_ptr = mlx_xpm_file_to_image(scene->mlx->mlx,
-				tmp->sphere->bmp_map, &tmp->sphere->bump.width, &tmp->sphere->bump.height);
-			if (!tmp->sphere->bump.img_ptr)
-				err("no bmp\n");
-			tmp->sphere->bump.img_pixels_ptr = mlx_get_data_addr(tmp->sphere->bump.img_ptr,
-					&tmp->sphere->bump.bits_per_pixel, &tmp->sphere->bump.line_len,
-					&tmp->sphere->bump.endian);
-		}
-		tmp = tmp->next;
+		tmp->sphere->bump.img_ptr = mlx_xpm_file_to_image(scene->mlx->mlx,
+			tmp->sphere->bmp_map, &tmp->sphere->bump.width, &tmp->sphere->bump.height);
+		if (!tmp->sphere->bump.img_ptr)
+			err("no bmp\n");
+		tmp->sphere->bump.img_pixels_ptr = mlx_get_data_addr(tmp->sphere->bump.img_ptr,
+				&tmp->sphere->bump.bits_per_pixel, &tmp->sphere->bump.line_len,
+				&tmp->sphere->bump.endian);
 	}
 	
 }
