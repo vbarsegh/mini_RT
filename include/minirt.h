@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:22:05 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/09 13:05:59 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/09 22:12:36 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -300,6 +300,7 @@ int			rgb_color_to_hex(t_color rgb);
 t_color		multiply_rgbs(t_color a, t_color b);
 t_color		create_color(double r, double g, double b);
 t_vector	color_to_vector(t_color bump_color);
+void		perturb_normal(t_vector *normal, t_vector bump);
 
 /////////////////validation////////////////////////
 char		*get_line(char *av);
@@ -356,6 +357,7 @@ t_matrix	new_zero_matrix(void);
 t_color		get_xpm_color(t_img *texture, double u, double v);
 void		get_sphere_uv(t_sphere *sphere, t_vector point, double *u, double *v);
 t_color		default_shading(t_scene *scene, t_figure *figure);
+t_vector	vec_normalize2(t_vector v);
 
 /////////////////init_mlx////////////////////////////
 void		init_mlx(t_scene *scene);
@@ -377,9 +379,8 @@ void		rotate_scene_down(t_scene *scene);
 int			draw(t_scene *scene);
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void		get_pixel_color(int *color, t_figure *obj, t_scene *scene);
-void		perturb_normal(t_vector *normal, t_vector bump);
 int			color_in_current_pixel(t_scene *scene);
-
+void		handle_intersection_and_texture(t_figure *obj, t_scene *scene, t_color *texture_color);
 /////////////////ray_tracing.c////////////////////////////
 t_vector	look_at(t_scene	*scene, double ray_x, double ray_y);
 t_vplane	*get_view_plane(t_scene *scene);
@@ -396,6 +397,7 @@ t_matrix	get_rotation_x(double angle);
 int			compute_shadow(t_scene *scene, t_figure *obj, t_light *light);
 int			in_shadow(t_scene *scene, t_vector ray, t_light	*light, \
 	t_figure **obj);
+void	get_pixel_color(int *color, t_figure *obj, t_scene *scene);
 
 /////////////////sphere_inter.c////////////////////////////
 double		sphere_intersect(t_vector center, t_vector ray, t_figure *obj);

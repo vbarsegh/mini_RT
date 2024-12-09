@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 17:11:57 by adel              #+#    #+#             */
-/*   Updated: 2024/12/09 13:04:05 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/09 21:47:33 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,18 @@ t_color	default_shading(t_scene *scene, t_figure *figure)
 	);
 
 	return (shaded_color);
+}
+
+t_vector vec_normalize2(t_vector v)
+{
+	double magnitude;
+
+	magnitude = sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+	if (magnitude == 0.0)
+		return ((t_vector){.x = 0, .y = 0, .z = 0});
+	return ((t_vector){
+		.x = v.x / magnitude,
+		.y = v.y / magnitude,
+		.z = v.z / magnitude
+	});
 }

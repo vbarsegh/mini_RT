@@ -49,3 +49,17 @@ int	compute_shadow(t_scene *scene, t_figure *obj, t_light *light)
 		return (1);
 	return (0);
 }
+
+void	get_pixel_color(int *color, t_figure *obj, t_scene *scene)
+{
+	t_color	specular;
+	t_color	light_in_vec;
+	t_color	texture_color;
+
+	handle_intersection_and_texture(obj, scene, &texture_color);
+
+	specular = create_color(0, 0, 0);
+	light_in_vec = compute_light(scene, obj, &specular);
+
+	*color = rgb_color_to_hex(add_rgb_light(multiply_rgbs(light_in_vec, texture_color), specular));
+}

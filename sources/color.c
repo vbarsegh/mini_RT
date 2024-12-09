@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 17:22:32 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/09 02:24:23 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/09 21:53:01 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,14 @@ t_vector	color_to_vector(t_color bump_color)
 	double	scale;
 
 	scale = 2.0 / 255.0;
-	return (t_vector){
+	return ((t_vector){
 		.x = (bump_color.red * scale - 1.0),
 		.y = (bump_color.green * scale - 1.0),
 		.z = (bump_color.blue * scale - 1.0)
-	};
+	});
+}
+
+void	perturb_normal(t_vector *normal, t_vector bump)
+{
+	*normal = vec_normalize2(sum_vect(*normal, bump));
 }
