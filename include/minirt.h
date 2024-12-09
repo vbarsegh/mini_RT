@@ -6,21 +6,21 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:22:05 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/09 22:12:36 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/10 01:23:34 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
-#  define ESC	53
-#  define LEFT	123
-#  define RIGHT	124
-#  define DOWN	125
-#  define UP	126
-#  define A	0
-#  define S	1
-#  define D	2
-#  define W	13
+# define ESC	53
+# define LEFT	123
+# define RIGHT	124
+# define DOWN	125
+# define UP	126
+# define A	0
+# define S	1
+# define D	2
+# define W	13
 # define WIDTH 1000
 # define HEIGHT 700
 # include <stdio.h>
@@ -104,7 +104,7 @@ typedef struct s_color
 
 typedef struct s_ambient
 {
-	double intensity;
+	double	intensity;
 	double	ratio_lighting;
 	t_color	light;
 	int		count;
@@ -123,7 +123,7 @@ typedef struct s_camera
 	t_vector	center;
 	t_vector	direction;//uxxutyun
 	double		fov;//size_t,կհաշվարկի տեսադաշտի լայնությունը
-	int		count;//petqa?
+	int			count;//petqa?
 }	t_camera;
 
 typedef struct s_light
@@ -139,8 +139,8 @@ typedef struct s_sphere
 	t_vector	center;
 	double		radius;
 	t_color		color;
-	t_img 		texture;
-	t_img 		bump;
+	t_img		texture;
+	t_img		bump;
 	bool		has_texture;
 	bool		has_bump;
 	char		*path;
@@ -151,7 +151,7 @@ typedef struct s_plane
 {
 	t_vector	coords;//center
 	t_color		color;
-	t_vector	orient;//uxxutyun,planei hamar ira uxxutyuny u normal@ hamynknum en kam -uxxutyuna normaly
+	t_vector	orient;
 }	t_plane;
 
 typedef struct s_cylinder
@@ -218,7 +218,7 @@ typedef struct s_count
 {
 	int	count_ambient;
 	int	count_camera;
-} t_count;
+}	t_count;
 
 typedef struct s_scene
 {
@@ -245,16 +245,19 @@ t_color		calc_rgb_light(t_color col, double ratio);
 t_color		add_rgb_light(t_color a, t_color b);
 
 //////////////cylinder//////////////
-void		solve_cylinder(t_vector pos, t_vector ray, t_figure *obj, t_math *dot);
-double		cylinder_intersection(t_vector pos, t_vector ray, t_figure *obj);
-double		caps_inter(t_vector pos, t_vector ray, t_vector norm, t_vector center);
+void		solve_cylinder(t_vector pos, t_vector ray, \
+	t_figure *obj, t_math *dot);
+double		cylinder_intersection(t_vector pos, t_vector ray, \
+	t_figure *obj);
+double		caps_inter(t_vector pos, t_vector ray, t_vector norm, \
+	t_vector center);
 double		check_caps(t_vector pos, t_vector ray, t_figure *obj, t_math *dot);
 int			solve_caps(t_vector pos, t_vector ray, t_figure *obj);
 
 /////////////////parsing//////////////////////////////
 void		parsing(char **map, t_scene *scene);
 t_light		*parse_light(char **matrix, t_scene *scene);
-t_sphere	*parse_sphere(char **matrix, t_scene *scene);
+t_sphere	*parse_sphere(char **matrix, t_scene *scene, int i);
 t_cylinder	*parse_cylinder(char **matrix, t_scene *scene);
 t_plane		*parse_plane(char **matrix, t_scene *scene);
 
@@ -284,10 +287,11 @@ void		set_inter_normal_vec(t_scene *scene, t_figure *obj);
 t_color		compute_light(t_scene *scene, t_figure *obj, t_color *specular);
 
 /////////////////add_texture//////////////////////////////
-void		texture(char **matrix, t_sphere	*sphere, t_scene *scene);
+void		set_texture(char **matrix, t_sphere *sphere, t_scene *scene);
 void		geting_texture(t_scene *scene);
 void		get_xpm(t_scene *scene);
 void		get_bmp(t_scene *scene);
+void		color_black(t_color *color);
 
 /////////////////////figure_rotate/////////////////
 void		rotate_sphere(t_sphere *sph, t_matrix matrix);
@@ -323,9 +327,11 @@ void		free_cam(t_scene *scene);
 void		free_ambient(t_scene *scene);
 
 /////////////////free_objs////////////////////////
-void		exit_and_free_str(char *str_free, char *str_err, t_scene *scene);
+void		exit_and_free_str(char *str_free, char *str_err, \
+	t_scene *scene);
 void		exit_and_free_matrix(char **map, char *str_err, t_scene *scene);
-void		exit_and_free(char **map, char *str_err, t_scene *scene, char **matrix);
+void		exit_and_free(char **map, char *str_err, \
+	t_scene *scene, char **matrix);
 void		free_matrix(char **matrix);
 void		free_scene_members(t_scene *scene);
 
@@ -355,7 +361,8 @@ t_matrix	new_zero_matrix(void);
 
 /////////////////////texture_utils/////////////////
 t_color		get_xpm_color(t_img *texture, double u, double v);
-void		get_sphere_uv(t_sphere *sphere, t_vector point, double *u, double *v);
+void		get_sphere_uv(t_sphere *sphere, t_vector point, \
+	double *u, double *v);
 t_color		default_shading(t_scene *scene, t_figure *figure);
 t_vector	vec_normalize2(t_vector v);
 
@@ -380,13 +387,17 @@ int			draw(t_scene *scene);
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void		get_pixel_color(int *color, t_figure *obj, t_scene *scene);
 int			color_in_current_pixel(t_scene *scene);
-void		handle_intersection_and_texture(t_figure *obj, t_scene *scene, t_color *texture_color);
+void		set_texture_color(t_figure *obj, t_scene *scene, \
+	t_color *texture_color);
+
 /////////////////ray_tracing.c////////////////////////////
 t_vector	look_at(t_scene	*scene, double ray_x, double ray_y);
 t_vplane	*get_view_plane(t_scene *scene);
-double		closest_inter(t_vector pos, t_vector ray, t_figure *figure, t_figure **tmp);
+double		closest_inter(t_vector pos, t_vector ray, \
+	t_figure *figure, t_figure **tmp);
 void		ray_tracing(t_scene *scene);
-double		closest_inter_dlya_shadow(t_vector pos, t_vector ray, t_figure *figure);
+double		closest_inter_dlya_shadow(t_vector pos, t_vector ray, \
+	t_figure *figure);
 
 /////////////////rotation///////////////////////////////
 t_matrix	get_rotation_z(double angle);
@@ -397,7 +408,7 @@ t_matrix	get_rotation_x(double angle);
 int			compute_shadow(t_scene *scene, t_figure *obj, t_light *light);
 int			in_shadow(t_scene *scene, t_vector ray, t_light	*light, \
 	t_figure **obj);
-void	get_pixel_color(int *color, t_figure *obj, t_scene *scene);
+void		get_pixel_color(int *color, t_figure *obj, t_scene *scene);
 
 /////////////////sphere_inter.c////////////////////////////
 double		sphere_intersect(t_vector center, t_vector ray, t_figure *obj);
@@ -417,7 +428,7 @@ int			have_this_char_in_set(char c, char *set);
 int			is_white_space(char c);
 
 /////////////////init_utils/////////////////////////////
-int 		if_char_and_digit(char *line, char c);
+int			if_char_and_digit(char *line, char c);
 int			if_str_and_digit(char *line, char *set);
 int			matrix_row(char **matrix);
 int			overflow_check(char *str);
