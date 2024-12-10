@@ -6,7 +6,7 @@
 /*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 23:49:19 by adel              #+#    #+#             */
-/*   Updated: 2024/12/10 19:38:28 by vbarsegh         ###   ########.fr       */
+/*   Updated: 2024/12/10 22:09:16 by vbarsegh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,10 @@ void	get_xpm(t_scene *scene)
 				&tmp->sphere->texture.height);
 		if (!tmp->sphere->texture.img_ptr)
 		{
-			err("no xpm");//avelacnel freenry
-
-			
+			err("no xpm");
+			///free petq chi, vortev mlx-i pahov pti mtni es caseov dus ga,bayc tenc ban chi lini:))
 			// system("miniRT leaks");
-			exit(1);
+			exit(11);
 		}
 		tmp->sphere->texture.img_pixels_ptr = \
 			mlx_get_data_addr(tmp->sphere->texture.img_ptr,
@@ -68,8 +67,9 @@ void	get_bmp(t_scene *scene)
 				&tmp->sphere->bump.height);
 		if (!tmp->sphere->bump.img_ptr)
 		{
-			
 			err("no bmp\n");
+			// system("miniRT leaks");
+			exit(11);
 		}
 		tmp->sphere->bump.img_pixels_ptr = \
 			mlx_get_data_addr(tmp->sphere->bump.img_ptr,

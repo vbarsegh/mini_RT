@@ -6,7 +6,7 @@
 /*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 15:42:20 by adel              #+#    #+#             */
-/*   Updated: 2024/12/10 19:15:16 by vbarsegh         ###   ########.fr       */
+/*   Updated: 2024/12/10 21:59:49 by vbarsegh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	exit_and_free_matrix(char **map, char *str_err, t_scene *scene)
 	free_matrix(map);
 	err(str_err);
 	free_scene_members(scene);
-	//system("leaks miniRT");
+	system("leaks miniRT");
 	exit(1);
 }
 
