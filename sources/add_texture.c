@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_texture.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 23:49:19 by adel              #+#    #+#             */
-/*   Updated: 2024/12/10 13:40:14 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/10 19:38:28 by vbarsegh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ void	get_xpm(t_scene *scene)
 		if (!tmp->sphere->texture.img_ptr)
 		{
 			err("no xpm");//avelacnel freenry
+
+			
+			// system("miniRT leaks");
 			exit(1);
 		}
 		tmp->sphere->texture.img_pixels_ptr = \
@@ -64,7 +67,10 @@ void	get_bmp(t_scene *scene)
 				&tmp->sphere->bump.width,
 				&tmp->sphere->bump.height);
 		if (!tmp->sphere->bump.img_ptr)
+		{
+			
 			err("no bmp\n");
+		}
 		tmp->sphere->bump.img_pixels_ptr = \
 			mlx_get_data_addr(tmp->sphere->bump.img_ptr,
 				&tmp->sphere->bump.bits_per_pixel,

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_objs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 15:42:20 by adel              #+#    #+#             */
-/*   Updated: 2024/12/10 01:13:18 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/10 19:15:16 by vbarsegh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	free_matrix(char **matrix)
 	while (matrix[i])
 		free(matrix[i++]);
 	free(matrix);
+	matrix = NULL;
 }
 
 void	free_scene_members(t_scene *scene)

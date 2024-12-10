@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 18:08:21 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/10 01:14:27 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/10 21:34:40 by vbarsegh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,22 +74,22 @@ void	*parse_ambient(char **matrix, t_scene *scene)
 	int			i;
 	t_ambient	*ambient;
 
-	i = -1;
+	i = 0;
 	if (scene->ambient)
 		free(scene->ambient);
 	ambient = malloc(sizeof (t_ambient));
 	if (matrix_row(matrix) != 3)
-		exit_and_free_matrix(matrix,
-			"Error: wrong qanaki arguments for ambient", scene);
+		exit_and_free_matrix(matrix, "Error: wrong qanaki args for amb", scene);
 	while (matrix[++i])
 	{
 		if (matrix[i][0] == ',' || matrix[i][ft_strlen(matrix[i]) - 1] == ','
 			|| (ft_strstr_alt(matrix[i], ",,")))
-			exit_and_free_matrix(matrix, "Error: bad arguments", scene);
+			exit_and_free_matrix(matrix, "Error: bad arguments for amb", scene);
 	}
 	if (if_char_and_digit(matrix[1], '.') == -1)
-		exit_and_free_matrix(matrix,
-			"Error: bad simbols for ambient ratio_lighting", scene);
+		exit_and_free_matrix(matrix, "Error: bad simbs amb ratio_light", scene);
+	if (fooo(matrix[1]) == -1)
+		exit_and_free_matrix(matrix, "Error: bad arg for ratio_light", scene);
 	ambient->ratio_lighting = ft_atof(matrix[1]);
 	if (!(ambient->ratio_lighting >= 0.0 && ambient->ratio_lighting <= 1.0))
 		exit_and_free_matrix(matrix,
@@ -104,25 +104,25 @@ void	ft_check_minimum_requirements(t_scene *scene, char **map)
 	{
 		free_matrix(map);
 		free_scene_members(scene);
-		//system("leaks miniRT");
 		write (1, "Requirement: non existing camera or count is not 1\n", 51);
+		//system("leaks miniRT");
 		exit(11);
 	}
 	if (!scene->ambient || scene->count.count_ambient != 1)
 	{
 		free_matrix(map);
 		free_scene_members(scene);
-		//system("leaks miniRT");
 		write (1,
 			"Requirement: non existing ambient light or count is not 1\n", 58);
+		//system("leaks miniRT");
 		exit(11);
 	}
 	if (!scene->light)
 	{
 		free_matrix(map);
 		free_scene_members(scene);
-		//system("leaks miniRT");
 		write (1, "Requirement: non existing light\n", 32);
+		//system("leaks miniRT");
 		exit(11);
 	}
 }
