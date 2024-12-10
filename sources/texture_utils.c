@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 17:11:57 by adel              #+#    #+#             */
-/*   Updated: 2024/12/10 14:40:22 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/10 15:08:31 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,14 @@ t_vector	vec_normalize2(t_vector v)
 		.y = v.y / magnitude,
 		.z = v.z / magnitude
 	});
+}
+
+t_color	drawing_texture(t_figure *obj, double u, double v, \
+	t_color	*texture_color)
+{
+	if (obj->sphere->has_check)
+		*texture_color = apply_checkerboard(obj);
+	if (obj->sphere->has_texture)
+		*texture_color = get_texture_color(&obj->sphere->texture, u, v);
+	return (*texture_color);
 }

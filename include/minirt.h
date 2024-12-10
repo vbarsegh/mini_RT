@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:22:05 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/10 14:35:56 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/10 15:25:10 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,8 +240,8 @@ typedef struct s_scene
 
 typedef struct s_check
 {
-	int	width;
-	int	height;
+	int		width;
+	int		height;
 	t_color	color;
 }	t_check;
 
@@ -315,7 +315,7 @@ t_vector	color_to_vector(t_color bump_color);
 void		perturb_normal(t_vector *normal, t_vector bump);
 
 /////////////////validation////////////////////////
-char		*get_line(char *av);
+char		*get_line(char *av, int fd, char *gnl, char *res);
 char		**get_end_trim_map(char **map, t_scene *scene, int row, int j);
 int			validation(int ac, char **av, t_scene *scene);
 char		**spliting(char *read_line, t_scene *scene);
@@ -373,6 +373,8 @@ void		get_sphere_uv(t_sphere *sphere, t_vector point, \
 	double *u, double *v);
 t_color		default_shading(t_scene *scene, t_figure *figure);
 t_vector	vec_normalize2(t_vector v);
+t_color		drawing_texture(t_figure *obj, double u, double v, \
+	t_color	*texture_color);
 
 /////////////////init_mlx////////////////////////////
 void		init_mlx(t_scene *scene);
@@ -394,10 +396,10 @@ void		rotate_scene_down(t_scene *scene);
 /////////////////draw_utils/////////////////////////////
 int			draw(t_scene *scene);
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
-void		get_pixel_color(int *color, t_figure *obj, t_scene *scene);
 int			color_in_current_pixel(t_scene *scene);
 void		set_texture_color(t_figure *obj, t_scene *scene, \
-	t_color *texture_color);
+	t_color *texture_color, double u);
+t_color		get_texture_color(t_img *texture, double u, double v);
 
 /////////////////ray_tracing.c////////////////////////////
 t_vector	look_at(t_scene	*scene, double ray_x, double ray_y);
@@ -462,4 +464,5 @@ double		plane_inter(t_vector pos, t_vector ray, t_figure *obj);
 /////////////////atof.c////////////////////////////
 double		ft_atof(char *str);
 t_color		apply_checkerboard(t_figure *obj);
+
 #endif

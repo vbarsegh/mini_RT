@@ -56,7 +56,7 @@ void	get_pixel_color(int *color, t_figure *obj, t_scene *scene)
 	t_color	light_in_vec;
 	t_color	texture_color;
 
-	set_texture_color(obj, scene, &texture_color);
+	set_texture_color(obj, scene, &texture_color, 0);
 	specular = create_color(0, 0, 0);
 	light_in_vec = compute_light(scene, obj, &specular);
 	*color = rgb_color_to_hex(add_rgb_light \

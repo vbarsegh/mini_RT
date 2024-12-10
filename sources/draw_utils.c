@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 01:04:47 by adel              #+#    #+#             */
-/*   Updated: 2024/12/10 14:37:29 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/10 15:23:15 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,12 @@ t_color	get_texture_color(t_img *texture, double u, double v)
 	return (color);
 }
 
-void	set_texture_color(t_figure *obj, t_scene *scene, t_color *texture_color)
+void	set_texture_color(t_figure *obj, t_scene *scene, \
+	t_color *texture_color, double u)
 {
 	t_vector	inter_p;
 	t_color		bump_sample;
 	t_vector	bump_vector;
-	double		u;
 	double		v;
 
 	if (!obj)
@@ -84,10 +84,7 @@ void	set_texture_color(t_figure *obj, t_scene *scene, t_color *texture_color)
 		inter_p = sum_vect(scene->camera->center, \
 			vec_scale(scene->ray, obj->point.dist));
 		get_sphere_uv(obj->sphere, inter_p, &u, &v);
-		if (obj->sphere->has_check)
-			*texture_color = apply_checkerboard(obj);
-		if (obj->sphere->has_texture)
-			*texture_color = get_texture_color(&obj->sphere->texture, u, v);
+		*texture_color = drawing_texture(obj, u, v, texture_color);
 		if (obj->sphere->has_bump)
 		{
 			bump_sample = get_texture_color(&obj->sphere->bump, u, v);

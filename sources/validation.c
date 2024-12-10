@@ -6,17 +6,14 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 13:15:48 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/10 14:58:25 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/10 15:01:34 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
 
-char	*get_line(char *av)
+char	*get_line(char *av, int fd, char *gnl, char *res)
 {
-	int		fd;
-	char	*gnl;
-	char	*res;
 	char	*temp;
 
 	fd = open(av, O_RDONLY);
@@ -106,7 +103,7 @@ int	validation(int ac, char **av, t_scene *scene)
 		if (is_rt(av[1]))
 			return (err("Error: Wrong argument: \
 				Try this way: ./rt filename.rt"));
-		read_line = get_line(av[1]);
+		read_line = get_line(av[1], 0, NULL, NULL);
 		if (!read_line)
 			return (1);
 		map = spliting(read_line, scene);
