@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 13:15:48 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/10 01:10:11 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/10 14:58:25 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ char	**get_end_trim_map(char **map, t_scene *scene, int row, int j)
 {
 	char	**trim_map;
 
-	while (map[row])
-		row++;
 	trim_map = malloc(sizeof(char *) * (row + 1));
 	if (!trim_map)
 		exit_and_free_matrix(map, "cannot split", scene);
@@ -78,6 +76,7 @@ char	**spliting(char *read_line, t_scene *scene)
 {
 	char	**map;
 	char	*trim_line;
+	int		row;
 
 	trim_line = ft_strtrim(read_line, " \n\v\f\r    ");
 	if (!trim_line)
@@ -87,7 +86,10 @@ char	**spliting(char *read_line, t_scene *scene)
 	if (!map)
 		exit_and_free_str(trim_line, "malloc error", scene);
 	free(trim_line);
-	return (get_end_trim_map(map, scene, 0, 0));
+	row = 0;
+	while (map[row])
+		row++;
+	return (get_end_trim_map(map, scene, row, 0));
 }
 
 int	validation(int ac, char **av, t_scene *scene)

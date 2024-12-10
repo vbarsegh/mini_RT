@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 17:11:57 by adel              #+#    #+#             */
-/*   Updated: 2024/12/10 01:17:45 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/10 14:40:22 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,6 @@ t_color	get_xpm_color(t_img *texture, double u, double v)
 	}
 	x = (int)(u * texture->width) % texture->width;
 	y = (int)(v * texture->height) % texture->height;
-	if (x < 0 || x >= texture->width || y < 0 || y >= texture->height)
-	{
-		color.red = 0;
-		color.green = 0;
-		color.blue = 0;
-		return (color);
-	}
 	pixel = texture->img_pixels_ptr + (y * texture->line_len + x \
 		* (texture->bits_per_pixel / 8));
 	color.red = *(unsigned char *)(pixel + 2);

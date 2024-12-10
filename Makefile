@@ -37,6 +37,7 @@ SRCS_NAME = minirt.c \
 			compute_light.c plane_inter.c cylinder.c matrix.c \
 			move_and_rottate.c figure_rotate.c sphere_inter.c \
 			shadow.c light_utils.c \
+			checkerboard.c \
 			list_func.c free_objs.c vector_utils.c rotation.c\
 
 OBJS = $(addprefix $(OBJS_DIR), $(OBJS_NAME))

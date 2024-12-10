@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 01:04:47 by adel              #+#    #+#             */
-/*   Updated: 2024/12/10 00:44:35 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/10 14:37:29 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,13 @@ void	set_texture_color(t_figure *obj, t_scene *scene, t_color *texture_color)
 		num_product_vect(scene->ray, obj->point.dist));
 	set_inter_normal_vec(scene, obj);
 	if (obj->type == SPHERE && (obj->sphere->has_texture \
-		|| obj->sphere->has_bump))
+		|| obj->sphere->has_bump || obj->sphere->has_check))
 	{
 		inter_p = sum_vect(scene->camera->center, \
 			vec_scale(scene->ray, obj->point.dist));
 		get_sphere_uv(obj->sphere, inter_p, &u, &v);
+		if (obj->sphere->has_check)
+			*texture_color = apply_checkerboard(obj);
 		if (obj->sphere->has_texture)
 			*texture_color = get_texture_color(&obj->sphere->texture, u, v);
 		if (obj->sphere->has_bump)
@@ -103,7 +105,8 @@ int	color_in_current_pixel(t_scene *scene)
 
 	closest_dot = INFINITY;
 	obj = NULL;
-	closest_dot = closest_inter(scene->camera->center, scene->ray, scene->figure, &obj);
+	closest_dot = closest_inter(scene->camera->center, scene->ray, \
+		scene->figure, &obj);
 	if (closest_dot == INFINITY)
 		color = 0;
 	else

@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 23:49:19 by adel              #+#    #+#             */
-/*   Updated: 2024/12/10 00:56:37 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/10 13:40:14 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	get_xpm(t_scene *scene)
 		if (!tmp->sphere->texture.img_ptr)
 		{
 			err("no xpm");//avelacnel freenry
-			exit(777);
+			exit(1);
 		}
 		tmp->sphere->texture.img_pixels_ptr = \
 			mlx_get_data_addr(tmp->sphere->texture.img_ptr,

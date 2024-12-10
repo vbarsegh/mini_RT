@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:22:05 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/10 01:23:34 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/10 14:35:56 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@ typedef struct s_sphere
 	t_img		bump;
 	bool		has_texture;
 	bool		has_bump;
+	bool		has_check;
 	char		*path;
 	char		*bmp_map;
 }	t_sphere;
@@ -236,6 +237,13 @@ typedef struct s_scene
 	int			i;
 	int			j;
 }	t_scene;
+
+typedef struct s_check
+{
+	int	width;
+	int	height;
+	t_color	color;
+}	t_check;
 
 /////////////////////light_utils/////////////////
 t_color		diffuse_light(t_figure *obj, t_light *light_fig);
@@ -370,6 +378,7 @@ t_vector	vec_normalize2(t_vector v);
 void		init_mlx(t_scene *scene);
 int			init_texture(char *xpm, t_sphere *sphere);
 int			init_bump(char *bmp, t_sphere *sphere);
+void		init_sphere(t_sphere *sphere);
 
 /////////////////key_hooks////////////////////////////
 int			handler(int keysym, t_scene *scene);
@@ -452,5 +461,5 @@ double		plane_inter(t_vector pos, t_vector ray, t_figure *obj);
 
 /////////////////atof.c////////////////////////////
 double		ft_atof(char *str);
-
+t_color		apply_checkerboard(t_figure *obj);
 #endif

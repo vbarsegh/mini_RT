@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 14:53:05 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/10 00:51:08 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/10 14:28:05 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,7 @@ t_sphere	*parse_sphere(char **matrix, t_scene *scene, int i)
 	t_sphere	*sphere;
 
 	sphere = malloc(sizeof(t_sphere));
-	sphere->has_texture = false;
-	sphere->has_bump = false;
-	sphere->path = NULL;
-	sphere->bmp_map = NULL;
+	init_sphere(sphere);
 	if (!(matrix_row(matrix) > 3 && matrix_row(matrix) < 7))
 		exit_and_free_matrix(matrix,
 			"Error: wrong arguments for sphere", scene);
@@ -104,7 +101,8 @@ t_sphere	*parse_sphere(char **matrix, t_scene *scene, int i)
 		exit_and_free_matrix(matrix, "Error: bad simbols for sphere", scene);
 	sphere->radius = ft_atof(matrix[2]) / 2;
 	init_color(&sphere->color, matrix, scene, 3);
-	if (matrix_row(matrix) == 5 || matrix_row(matrix) == 6)
+	if (matrix_row(matrix) == 5 || matrix_row(matrix) == 6 \
+		|| matrix_row(matrix) == 7)
 		set_texture(matrix, sphere, scene);
 	return (sphere);
 }
