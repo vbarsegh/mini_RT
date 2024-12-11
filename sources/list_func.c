@@ -6,12 +6,11 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 16:27:57 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/10 18:09:15 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/11 13:26:36 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
-
 
 t_light	*lst_create_light(t_scene *scene, char **matrix)
 {

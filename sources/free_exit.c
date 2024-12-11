@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_exit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 20:56:26 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/10 19:07:58 by vbarsegh         ###   ########.fr       */
+/*   Updated: 2024/12/11 13:27:46 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ void	free_list_of_figure(t_figure *figure)
 		tmp = figure;
 		if (tmp->sphere)
 		{
-			// if (tmp->sphere->path)
-				free(tmp->sphere->path);//
-			// if (tmp->sphere->bmp_map)
-				free(tmp->sphere->bmp_map);//
-			tmp->sphere->path = NULL;//
-			tmp->sphere->bmp_map = NULL;//
+			if (tmp->sphere->has_texture)
+				free(tmp->sphere->path);
+			if (tmp->sphere->has_bump)
+				free(tmp->sphere->bmp_map);
+			tmp->sphere->path = NULL;
+			tmp->sphere->bmp_map = NULL;
 			free(tmp->sphere);
 		}
 		if (tmp->plane)

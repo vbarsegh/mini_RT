@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 14:53:05 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/10 21:35:51 by vbarsegh         ###   ########.fr       */
+/*   Updated: 2024/12/11 13:21:22 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,13 @@ void	parsing(char **map, t_scene *scene)
 		matrix = NULL;
 		i++;
 	}
-	printf("tes de\n");
 	//system("leaks miniRT");
 	ft_check_minimum_requirements(scene, map);
 }
 
-t_cylinder	*parse_cylinder(char **matrix, t_scene *scene)
+t_cylinder	*parse_cylinder(char **matrix, t_scene *scene, \
+	t_cylinder *cylinder, int i)
 {
-	int			i;
-	t_cylinder	*cylinder;
-
-	i = 0;
-	cylinder = malloc(sizeof(t_cylinder));
 	if (matrix_row(matrix) != 6)
 		exit_and_free_matrix(matrix, "Error:wrong argument cylinder", scene);
 	while (matrix[++i])
@@ -50,7 +45,9 @@ t_cylinder	*parse_cylinder(char **matrix, t_scene *scene)
 	init_orient(&cylinder->orient, matrix, scene, 2);
 	if (if_char_and_digit(matrix[3], '.') == -1)
 		exit_and_free_matrix(matrix, "Error:wrong argument cylinder", scene);
-	//karelia kisel es funckcian erku masi ,u es masum avelacel en fooo funkcian, radiusi u heighi vra
+	if (fooo(matrix[2]) == -1)
+		exit_and_free_matrix(matrix, "Error: bad arguments for cylinder radius",
+			scene);
 	cylinder->radius = ft_atof(matrix[3]) / 2;
 	if (if_char_and_digit(matrix[4], '.') == -1)
 		exit_and_free_matrix(matrix, "Error:wrong argument cylinder", scene);
@@ -105,7 +102,6 @@ t_sphere	*parse_sphere(char **matrix, t_scene *scene, int i)
 		exit_and_free_matrix(matrix, "Error: bad arguments for sphere radius",
 			scene);
 	sphere->radius = ft_atof(matrix[2]) / 2;
-	printf("Addl%f\n",sphere->radius );
 	init_color(&sphere->color, matrix, scene, 3);
 	if (matrix_row(matrix) == 5 || matrix_row(matrix) == 6 \
 		|| matrix_row(matrix) == 7)

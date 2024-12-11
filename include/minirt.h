@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:22:05 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/10 21:39:45 by vbarsegh         ###   ########.fr       */
+/*   Updated: 2024/12/11 13:21:52 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,7 +266,8 @@ int			solve_caps(t_vector pos, t_vector ray, t_figure *obj);
 void		parsing(char **map, t_scene *scene);
 t_light		*parse_light(char **matrix, t_scene *scene);
 t_sphere	*parse_sphere(char **matrix, t_scene *scene, int i);
-t_cylinder	*parse_cylinder(char **matrix, t_scene *scene);
+t_cylinder	*parse_cylinder(char **matrix, t_scene *scene, \
+	t_cylinder *cylinder, int i);
 t_plane		*parse_plane(char **matrix, t_scene *scene);
 
 /////////////////parsing_utils//////////////////////////////

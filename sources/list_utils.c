@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 15:44:25 by adel              #+#    #+#             */
-/*   Updated: 2024/12/10 00:46:34 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/11 13:22:30 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ t_figure	*lst_create_figure(t_scene *scene, char **matrix, int type)
 	}
 	else if (type == CYLINDER)
 	{
-		figure->cylinder = parse_cylinder(matrix, scene);
+		figure->cylinder = parse_cylinder(matrix, scene, \
+			malloc(sizeof(t_cylinder)), 0);
 		figure->color = figure->cylinder->color;
 	}
 	figure->type = type;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_texture.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 23:49:19 by adel              #+#    #+#             */
-/*   Updated: 2024/12/10 22:09:16 by vbarsegh         ###   ########.fr       */
+/*   Updated: 2024/12/11 13:26:19 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,7 @@ void	get_xpm(t_scene *scene)
 		if (!tmp->sphere->texture.img_ptr)
 		{
 			err("no xpm");
-			///free petq chi, vortev mlx-i pahov pti mtni es caseov dus ga,bayc tenc ban chi lini:))
-			// system("miniRT leaks");
-			exit(11);
+			exit(1);
 		}
 		tmp->sphere->texture.img_pixels_ptr = \
 			mlx_get_data_addr(tmp->sphere->texture.img_ptr,
@@ -68,7 +66,6 @@ void	get_bmp(t_scene *scene)
 		if (!tmp->sphere->bump.img_ptr)
 		{
 			err("no bmp\n");
-			// system("miniRT leaks");
 			exit(11);
 		}
 		tmp->sphere->bump.img_pixels_ptr = \
