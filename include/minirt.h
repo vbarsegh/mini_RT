@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:22:05 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/10 15:25:10 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/10 21:39:45 by vbarsegh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -465,4 +465,6 @@ double		plane_inter(t_vector pos, t_vector ray, t_figure *obj);
 double		ft_atof(char *str);
 t_color		apply_checkerboard(t_figure *obj);
 
+int	fooo(char *str);
+int	fooo2(char *str, int i);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_mlx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 15:31:32 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/10 14:31:06 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/10 19:15:16 by vbarsegh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ void	init_mlx(t_scene *scene)
 	mlx_hook(scene->mlx->win, 2, 0, &handler, scene);
 	mlx_hook(scene->mlx->win, 17, 0, &mouse_close, scene);
 	mlx_loop_hook(scene->mlx->mlx, &draw, scene);
-	// // //system("leaks miniRT");	
+	//system("leaks miniRT");	
 	mlx_loop(scene->mlx->mlx);
-	//system("leaks miniRT");
+	////system("leaks miniRT");
 }
 
 int	init_texture(char *xpm, t_sphere *sphere)
@@ -50,18 +50,27 @@ int	init_texture(char *xpm, t_sphere *sphere)
 	{
 		sphere->has_texture = true;
 		if (open(line[1], O_RDONLY) <= 0)
+		{
+			free_matrix(line);//
 			return (1);
-		sphere->path = line[1];
+		}
+		sphere->path = ft_strdup(line[1]);//
+		free_matrix(line);//
 		return (0);
 	}
+	free_matrix(line);//
 	line = split(xpm);
 	if (!(ft_strcmp(line[0], "check")))
 	{
+		free_matrix(line);//
 		sphere->has_check = true;
 		return (0);
 	}
 	else
+	{
+		free_matrix(line);//
 		return (1);
+	}
 }
 
 int	init_bump(char *bmp, t_sphere *sphere)
@@ -73,12 +82,19 @@ int	init_bump(char *bmp, t_sphere *sphere)
 	{
 		sphere->has_bump = true;
 		if (open(line[1], O_RDONLY) <= 0)
+		{
+			free_matrix(line);//
 			return (1);
-		sphere->bmp_map = line[1];
+		}
+		sphere->bmp_map = ft_strdup(line[1]);//
+		free_matrix(line);//
 		return (0);
 	}
 	else
+	{
+		free_matrix(line);//
 		return (1);
+	}
 }
 
 void	init_sphere(t_sphere *sphere)

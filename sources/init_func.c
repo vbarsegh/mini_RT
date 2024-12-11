@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 15:22:00 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/11 00:10:17 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/11 13:07:55 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,17 @@ void	init_coords(t_vector *coords, char **matrix, t_scene *scene, int i)
 	char	**split_2_line;
 
 	if (if_str_and_digit(matrix[i], ".,") == -1)
-		exit_and_free_matrix(matrix, "Error: bad arguments for camera",
+		exit_and_free_matrix(matrix, "Error: bad arguments for center",
 			scene);
 	split_2_line = split_char(matrix[1], ',');
 	if (!split_2_line)
 		exit_and_free_matrix(matrix, "Error:allocation failled", scene);
 	if (matrix_row(split_2_line) != 3)
-		exit_and_free(matrix, "Error: bad arguments for camera",
+		exit_and_free(matrix, "Error: bad arguments for center",
+			scene, split_2_line);
+	if (fooo(split_2_line[0]) == -1 || fooo(split_2_line[1]) == -1
+			|| fooo(split_2_line[2]) == -1)
+		exit_and_free(matrix, "Error: bad arguments for center",
 			scene, split_2_line);
 	coords->x = -ft_atof(split_2_line[0]);
 	coords->y = ft_atof(split_2_line[1]);
@@ -33,17 +37,22 @@ void	init_coords(t_vector *coords, char **matrix, t_scene *scene, int i)
 	//system("leaks miniRT");
 }
 
+
 void	init_orient(t_vector *orient, char **matrix, t_scene *scene, int i)
 {
 	char	**split_2_line;
 
 	if (if_str_and_digit(matrix[i], ".,") == -1)
-		exit_and_free_matrix(matrix, "Error:bad arguments for camera", scene);
+		exit_and_free_matrix(matrix, "Error:bad arguments for dir", scene);
 	split_2_line = split_char(matrix[i], ',');
 	if (!split_2_line)
 		exit_and_free_matrix(matrix, "Error:allocation failled", scene);
 	if (matrix_row(split_2_line) != 3)
-		exit_and_free(matrix, "Error:bad arguments for camera",
+		exit_and_free(matrix, "Error:bad arguments for dir",
+			scene, split_2_line);
+	if (fooo(split_2_line[0]) == -1 || fooo(split_2_line[1]) == -1
+			|| fooo(split_2_line[2]) == -1)
+		exit_and_free(matrix, "Error: bad arguments for center",
 			scene, split_2_line);
 	orient->x = ft_atof(split_2_line[0]);
 	orient->y = ft_atof(split_2_line[1]);
@@ -64,13 +73,13 @@ void	init_color(t_color *color, char **matrix, t_scene *scene, int i)
 
 	if (if_char_and_digit(matrix[i], ',') == -1)
 		exit_and_free_matrix(matrix,
-			"Error:bad arguments for ambient", scene);
+			"Error:bad arguments for color", scene);
 	split_2_line = split_char(matrix[i], ',');
 	if (!split_2_line)
 		exit_and_free_matrix(matrix, "Error:allocation failled", scene);
 	if (matrix_row(split_2_line) != 3)
 		exit_and_free(matrix,
-			"Error:bad arguments for ambient", scene, split_2_line);
+			"Error:bad arguments for color", scene, split_2_line);
 	if (overflow_check(split_2_line[0]) == -1 || \
 		overflow_check(split_2_line[1]) == -1
 		|| overflow_check(split_2_line[2]) == -1)
@@ -86,6 +95,62 @@ void	init_color(t_color *color, char **matrix, t_scene *scene, int i)
 			"Error:the color is out of range", scene, split_2_line);
 	free_matrix(split_2_line);
 	//system("leaks miniRT");
+}
+
+int	fooo2(char *str, int i)
+{
+	int	count;
+
+	while (str[i])
+	{
+		count = 0;
+		while (str[i] && str[i] != ',')
+		{
+			if (str[i] == '.')
+				count++;
+			i++;
+		}
+		if (count > 1)
+			return (-1);
+		if (str[i])
+			i++;
+	}
+	return (1);
+}
+
+int	fooo(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[i] == '.')
+		return (-1);
+	i++;
+	while (str[i])
+	{
+		if (str[i] == '.')
+			if (!(str[i + 1] >= '0' && str[i + 1] <= '9')
+					|| !(str[i - 1] >= '0' && str[i - 1] <= '9'))
+				return (-1);
+		i++;
+	}
+	i = 0;
+	return (fooo2(str, i));
+	// while (str[i])
+	// {
+	// 	count = 0;
+	// 	while (str[i] && str[i] != ',')
+	// 	{
+	// 		if (str[i] == '.')
+	// 			count++;
+	// 		i++;
+	// 	}
+	// 	if (count > 1)
+	// 		return (-1);
+	// 	if (str[i])
+	// 		i++;
+	// }
+	// return (1);
 }
 
 void	init_scene(t_scene *scene)
