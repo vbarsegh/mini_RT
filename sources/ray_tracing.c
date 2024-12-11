@@ -6,7 +6,7 @@
 /*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 19:40:50 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/10 01:12:49 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/11 18:42:15 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	ray_tracing(t_scene *scene)
 		scene->vplane->mlx_y++;
 		scene->vplane->y_angle--;
 	}
+	free(scene->vplane);
 }
 
 double	closest_inter(t_vector pos, t_vector ray, \

@@ -3,22 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 13:15:48 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/11 15:41:50 by vbarsegh         ###   ########.fr       */
+/*   Updated: 2024/12/11 18:27:39 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
 
-char	*get_line(char *av, int fd, char *gnl, char *res)
+char	*get_line(char *av, int fd, char *gnl, char *res, t_scene *scene)
 {
 	char	*temp;
 
 	fd = open(av, O_RDONLY);
 	if (fd < 0)
+	{
+		free(scene);
 		exit(err("Error: cannot open the file"));
+	}
 	res = NULL;
 	temp = ft_strdup("");
 	gnl = get_next_line(fd);
@@ -103,7 +106,7 @@ int	validation(int ac, char **av, t_scene *scene)
 		if (is_rt(av[1]))
 			return (err("Error: Wrong argument: \
 				Try this way: ./rt filename.rt"));
-		read_line = get_line(av[1], 0, NULL, NULL);
+		read_line = get_line(av[1], 0, NULL, NULL, scene);
 		if (!read_line)
 			return (1);
 		map = spliting(read_line, scene);
