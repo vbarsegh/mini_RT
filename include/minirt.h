@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:22:05 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/11 13:21:52 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/11 15:03:38 by vbarsegh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,13 @@ typedef enum e_figure_type
 
 typedef struct n_img
 {
-	void	*img_ptr;//pixelnerov stacvac yndhanur nkari hascena
-	char	*img_pixels_ptr;//pixeli hascena
-	int		bits_per_pixel;//mi piqselyb te qani bita zbaxecnum
+	void	*img_ptr;
+	char	*img_pixels_ptr;
+	int		bits_per_pixel;
 	int		endian;
-	int		line_len;//plangi erkarutyan vra qani pixela texavorvum
-	int		height;//ha vor?
-	int		width;//ha vor?
+	int		line_len;
+	int		height;
+	int		width;
 }	t_img;
 
 typedef struct s_atof
@@ -107,7 +107,6 @@ typedef struct s_ambient
 	double	intensity;
 	double	ratio_lighting;
 	t_color	light;
-	int		count;
 }	t_ambient;
 
 typedef struct s_vector
@@ -115,15 +114,14 @@ typedef struct s_vector
 	double	x;
 	double	y;
 	double	z;
-	double	w;//chgitem xi,karoxa vor matricy 4*4a dra ahamar?
+	double	w;
 }	t_vector;
 
 typedef struct s_camera
 {
 	t_vector	center;
-	t_vector	direction;//uxxutyun
-	double		fov;//size_t,կհաշվարկի տեսադաշտի լայնությունը
-	int			count;//petqa?
+	t_vector	direction;
+	double		fov;
 }	t_camera;
 
 typedef struct s_light
@@ -179,10 +177,10 @@ typedef struct s_math
 	double	m2;
 }	t_math;
 
-typedef struct s_matrix
-{
-	double	m[4][4];
-}	t_matrix;
+// typedef struct s_matrix
+// {
+// 	double	m[4][4];
+// }	t_matrix;
 
 typedef struct s_crossing
 {
@@ -303,10 +301,10 @@ void		get_bmp(t_scene *scene);
 void		color_black(t_color *color);
 
 /////////////////////figure_rotate/////////////////
-void		rotate_sphere(t_sphere *sph, t_matrix matrix);
-void		rotate_plane(t_plane *plane, t_matrix matrix);
-void		rotate_light(t_light *light, t_matrix matrix);
-void		rotate_cylinder(t_cylinder *cylinder, t_matrix matrix);
+// void		rotate_sphere(t_sphere *sph, t_matrix matrix);
+// void		rotate_plane(t_plane *plane, t_matrix matrix);
+// void		rotate_light(t_light *light, t_matrix matrix);
+// void		rotate_cylinder(t_cylinder *cylinder, t_matrix matrix);
 
 //////////////////color/////////////////////
 int			rgb_color_to_hex(t_color rgb);
@@ -365,8 +363,8 @@ char		*ft_strjoin(const char *s1, const char *s2);
 char		*ft_strchr_gnl(const char *str, int c);
 
 /////////////////////matrix/////////////////
-t_vector	multi_mat_vect(t_matrix m, t_vector v);
-t_matrix	new_zero_matrix(void);
+// t_vector	multi_mat_vect(t_matrix m, t_vector v);
+// t_matrix	new_zero_matrix(void);
 
 /////////////////////texture_utils/////////////////
 t_color		get_xpm_color(t_img *texture, double u, double v);
@@ -380,6 +378,7 @@ t_color		drawing_texture(t_figure *obj, double u, double v, \
 /////////////////init_mlx////////////////////////////
 void		init_mlx(t_scene *scene);
 int			init_texture(char *xpm, t_sphere *sphere);
+int			has_checkerboard(char **line, t_sphere *sphere);
 int			init_bump(char *bmp, t_sphere *sphere);
 void		init_sphere(t_sphere *sphere);
 
@@ -412,9 +411,9 @@ double		closest_inter_dlya_shadow(t_vector pos, t_vector ray, \
 	t_figure *figure);
 
 /////////////////rotation///////////////////////////////
-t_matrix	get_rotation_z(double angle);
-t_matrix	get_rotation_y(double angle);
-t_matrix	get_rotation_x(double angle);
+// t_matrix	get_rotation_z(double angle);
+// t_matrix	get_rotation_y(double angle);
+// t_matrix	get_rotation_x(double angle);
 
 /////////////////////shadow.c/////////////////
 int			compute_shadow(t_scene *scene, t_figure *obj, t_light *light);
@@ -438,6 +437,11 @@ char		*ft_strstr_alt(char *str, char *to_find);
 long long	ft_atoi(const char *str);
 int			have_this_char_in_set(char c, char *set);
 int			is_white_space(char c);
+
+/////////////////utils2.c////////////////////////////
+
+int			fooo(char *str);
+int			fooo2(char *str, int i);
 
 /////////////////init_utils/////////////////////////////
 int			if_char_and_digit(char *line, char c);
@@ -466,6 +470,4 @@ double		plane_inter(t_vector pos, t_vector ray, t_figure *obj);
 double		ft_atof(char *str);
 t_color		apply_checkerboard(t_figure *obj);
 
-int	fooo(char *str);
-int	fooo2(char *str, int i);
 #endif

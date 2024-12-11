@@ -2,9 +2,9 @@ NAME = miniRT
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -I mlx #-g3 -fsanitize=address
-# MLXFLAGS = -lmlx -framework OpenGL -framework AppKit
-MLXFLAGS = -Lminilibx-linux -lmlx -lX11 -lXext -lm
+CFLAGS = -Wall -Wextra -Werror -I mlx -g3 -fsanitize=address
+MLXFLAGS = -lmlx -framework OpenGL -framework AppKit
+# MLXFLAGS = -Lminilibx-linux -lmlx -lX11 -lXext -lm
 
 HEADERS = include/get_next_line.h include/minirt.h include/mlx.h
 
@@ -19,7 +19,7 @@ SRCS_NAME = minirt.c \
 			validation_utils.c \
 			add_texture.c \
 			atof.c \
-			utils.c \
+			utils.c utils2.c\
 			free_exit.c \
 			split.c split_char.c\
 			trim.c \
@@ -34,11 +34,11 @@ SRCS_NAME = minirt.c \
 			texture_utils.c \
 			add_texture.c \
 			vector.c ray_tracing.c init_mlx.c \
-			compute_light.c plane_inter.c cylinder.c matrix.c \
-			move_and_rottate.c figure_rotate.c sphere_inter.c \
+			compute_light.c plane_inter.c cylinder.c \
+			sphere_inter.c \
 			shadow.c light_utils.c \
 			checkerboard.c \
-			list_func.c free_objs.c vector_utils.c rotation.c\
+			list_func.c free_objs.c vector_utils.c \
 
 OBJS = $(addprefix $(OBJS_DIR), $(OBJS_NAME))
 OBJS_NAME = $(SRCS_NAME:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 01:04:47 by adel              #+#    #+#             */
-/*   Updated: 2024/12/10 19:38:38 by vbarsegh         ###   ########.fr       */
+/*   Updated: 2024/12/11 15:40:27 by vbarsegh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	draw(t_scene *scene)
 	ray_tracing(scene);
 	mlx_put_image_to_window(scene->mlx->mlx,
 		scene->mlx->win, scene->img->img_ptr, 0, 0);
-	// system("miniRT leaks");
 	return (0);
 }
 

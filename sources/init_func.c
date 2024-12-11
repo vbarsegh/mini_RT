@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_func.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 15:22:00 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/11 13:07:55 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/11 15:42:10 by vbarsegh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	init_coords(t_vector *coords, char **matrix, t_scene *scene, int i)
 		exit_and_free(matrix, "Error: bad arguments for center",
 			scene, split_2_line);
 	if (fooo(split_2_line[0]) == -1 || fooo(split_2_line[1]) == -1
-			|| fooo(split_2_line[2]) == -1)
+		|| fooo(split_2_line[2]) == -1)
 		exit_and_free(matrix, "Error: bad arguments for center",
 			scene, split_2_line);
 	coords->x = -ft_atof(split_2_line[0]);
@@ -34,9 +34,7 @@ void	init_coords(t_vector *coords, char **matrix, t_scene *scene, int i)
 	coords->z = ft_atof(split_2_line[2]);
 	coords->w = 1.0;
 	free_matrix(split_2_line);
-	//system("leaks miniRT");
 }
-
 
 void	init_orient(t_vector *orient, char **matrix, t_scene *scene, int i)
 {
@@ -51,7 +49,7 @@ void	init_orient(t_vector *orient, char **matrix, t_scene *scene, int i)
 		exit_and_free(matrix, "Error:bad arguments for dir",
 			scene, split_2_line);
 	if (fooo(split_2_line[0]) == -1 || fooo(split_2_line[1]) == -1
-			|| fooo(split_2_line[2]) == -1)
+		|| fooo(split_2_line[2]) == -1)
 		exit_and_free(matrix, "Error: bad arguments for center",
 			scene, split_2_line);
 	orient->x = ft_atof(split_2_line[0]);
@@ -63,7 +61,6 @@ void	init_orient(t_vector *orient, char **matrix, t_scene *scene, int i)
 		|| !(orient->z >= -1.0 && orient->z <= 1.0))
 		exit_and_free(matrix, "Error:bad value", scene, split_2_line);
 	free_matrix(split_2_line);
-	//system("leaks miniRT");
 	vec_normalize(orient);
 }
 
@@ -94,63 +91,6 @@ void	init_color(t_color *color, char **matrix, t_scene *scene, int i)
 		exit_and_free(matrix,
 			"Error:the color is out of range", scene, split_2_line);
 	free_matrix(split_2_line);
-	//system("leaks miniRT");
-}
-
-int	fooo2(char *str, int i)
-{
-	int	count;
-
-	while (str[i])
-	{
-		count = 0;
-		while (str[i] && str[i] != ',')
-		{
-			if (str[i] == '.')
-				count++;
-			i++;
-		}
-		if (count > 1)
-			return (-1);
-		if (str[i])
-			i++;
-	}
-	return (1);
-}
-
-int	fooo(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (str[i] == '.')
-		return (-1);
-	i++;
-	while (str[i])
-	{
-		if (str[i] == '.')
-			if (!(str[i + 1] >= '0' && str[i + 1] <= '9')
-					|| !(str[i - 1] >= '0' && str[i - 1] <= '9'))
-				return (-1);
-		i++;
-	}
-	i = 0;
-	return (fooo2(str, i));
-	// while (str[i])
-	// {
-	// 	count = 0;
-	// 	while (str[i] && str[i] != ',')
-	// 	{
-	// 		if (str[i] == '.')
-	// 			count++;
-	// 		i++;
-	// 	}
-	// 	if (count > 1)
-	// 		return (-1);
-	// 	if (str[i])
-	// 		i++;
-	// }
-	// return (1);
 }
 
 void	init_scene(t_scene *scene)

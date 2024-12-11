@@ -6,7 +6,7 @@
 /*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 18:08:21 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/10 21:50:24 by vbarsegh         ###   ########.fr       */
+/*   Updated: 2024/12/11 15:41:40 by vbarsegh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ void	ft_check_minimum_requirements(t_scene *scene, char **map)
 		free_matrix(map);
 		free_scene_members(scene);
 		write (1, "Requirement: non existing camera or count is not 1\n", 51);
-		//system("leaks miniRT");
 		exit(11);
 	}
 	if (!scene->ambient || scene->count.count_ambient != 1)
@@ -114,7 +113,6 @@ void	ft_check_minimum_requirements(t_scene *scene, char **map)
 		free_scene_members(scene);
 		write (1,
 			"Requirement: non existing ambient light or count is not 1\n", 58);
-		//system("leaks miniRT");
 		exit(11);
 	}
 	if (!scene->light)
@@ -122,7 +120,6 @@ void	ft_check_minimum_requirements(t_scene *scene, char **map)
 		free_matrix(map);
 		free_scene_members(scene);
 		write (1, "Requirement: non existing light\n", 32);
-		//system("leaks miniRT");
 		exit(11);
 	}
 }

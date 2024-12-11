@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 14:53:05 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/11 13:21:22 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/11 15:41:44 by vbarsegh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	parsing(char **map, t_scene *scene)
 		matrix = NULL;
 		i++;
 	}
-	//system("leaks miniRT");
 	ft_check_minimum_requirements(scene, map);
 }
 
@@ -45,9 +44,9 @@ t_cylinder	*parse_cylinder(char **matrix, t_scene *scene, \
 	init_orient(&cylinder->orient, matrix, scene, 2);
 	if (if_char_and_digit(matrix[3], '.') == -1)
 		exit_and_free_matrix(matrix, "Error:wrong argument cylinder", scene);
-	if (fooo(matrix[2]) == -1)
-		exit_and_free_matrix(matrix, "Error: bad arguments for cylinder radius",
-			scene);
+	if (fooo(matrix[3]) == -1 || fooo(matrix[4]) == -1)
+		exit_and_free_matrix(matrix,
+			"Error: bad arguments for cylinder radius or height", scene);
 	cylinder->radius = ft_atof(matrix[3]) / 2;
 	if (if_char_and_digit(matrix[4], '.') == -1)
 		exit_and_free_matrix(matrix, "Error:wrong argument cylinder", scene);

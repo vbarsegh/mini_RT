@@ -1,4 +1,4 @@
-sp  -2,0,0      2     255,255,255 check1
+sp  -2,0,0      2     255,255,255 check
 sp  2,0,0      2     255,255,255 txm:xpms/checkerboard.xpm
 
 
