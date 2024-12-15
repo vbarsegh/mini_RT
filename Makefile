@@ -2,9 +2,9 @@ NAME = miniRT
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -I mlx -g3 -fsanitize=address
-# MLXFLAGS = -lmlx -framework OpenGL -framework AppKit
-MLXFLAGS = -Lminilibx-linux -lmlx -lX11 -lXext -lm
+CFLAGS = -Wall -Wextra -Werror -I mlx #-g3 -fsanitize=address
+MLXFLAGS = -lmlx -framework OpenGL -framework AppKit
+# MLXFLAGS = -Lminilibx-linux -lmlx -lX11 -lXext -lm
 
 HEADERS = include/get_next_line.h include/minirt.h include/mlx.h
 
@@ -59,6 +59,6 @@ fclean: clean
 	@$(RM) $(NAME)
 	rm -rf $(OBJS_DIR)
 
-re: clean all
+re: fclean all
 
 .PHONY: all clean fclean re

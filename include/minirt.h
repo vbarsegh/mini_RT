@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:22:05 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/11 18:28:30 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/15 14:37:14 by vbarsegh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,6 +234,7 @@ typedef struct s_scene
 	double		height;
 	int			i;
 	int			j;
+	int			fd;
 }	t_scene;
 
 typedef struct s_check
@@ -314,11 +315,11 @@ t_vector	color_to_vector(t_color bump_color);
 void		perturb_normal(t_vector *normal, t_vector bump);
 
 /////////////////validation////////////////////////
-char		*get_line(char *av, int fd, char *gnl, char *res, t_scene *scene);
+char		*get_line(char *av, char *gnl, char *res, t_scene *scene);
 char		**get_end_trim_map(char **map, t_scene *scene, int row, int j);
 int			validation(int ac, char **av, t_scene *scene);
 char		**spliting(char *read_line, t_scene *scene);
-
+void		chmod000(t_scene *scene);
 /////////////////validation_utils////////////////////////
 int			only_trim_symbols(char *str);
 int			is_rt(char *str);

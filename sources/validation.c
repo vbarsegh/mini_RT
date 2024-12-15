@@ -3,35 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adel <adel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 13:15:48 by aeminian          #+#    #+#             */
-/*   Updated: 2024/12/11 18:27:39 by adel             ###   ########.fr       */
+/*   Updated: 2024/12/15 14:38:18 by vbarsegh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
 
-char	*get_line(char *av, int fd, char *gnl, char *res, t_scene *scene)
+char	*get_line(char *av, char *gnl, char *res, t_scene *scene)
 {
 	char	*temp;
 
-	fd = open(av, O_RDONLY);
-	if (fd < 0)
-	{
-		free(scene);
-		exit(err("Error: cannot open the file"));
-	}
+	scene->fd = open(av, O_RDONLY);
+	if (scene->fd < 0)
+		chmod000(scene);
 	res = NULL;
 	temp = ft_strdup("");
-	gnl = get_next_line(fd);
+	gnl = get_next_line(scene->fd);
 	while (gnl)
 	{
 		res = ft_strjoin(temp, gnl);
 		free(temp);
 		temp = res;
 		free(gnl);
-		gnl = get_next_line(fd);
+		gnl = get_next_line(scene->fd);
 		if (!gnl)
 			break ;
 	}
@@ -106,7 +103,7 @@ int	validation(int ac, char **av, t_scene *scene)
 		if (is_rt(av[1]))
 			return (err("Error: Wrong argument: \
 				Try this way: ./rt filename.rt"));
-		read_line = get_line(av[1], 0, NULL, NULL, scene);
+		read_line = get_line(av[1], NULL, NULL, scene);
 		if (!read_line)
 			return (1);
 		map = spliting(read_line, scene);
@@ -114,4 +111,10 @@ int	validation(int ac, char **av, t_scene *scene)
 		free_matrix(map);
 	}
 	return (0);
+}
+
+void	chmod000(t_scene *scene)
+{
+	free(scene);
+	exit(err("Error: cannot open the file"));
 }

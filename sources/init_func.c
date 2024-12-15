@@ -6,7 +6,7 @@
 /*   By: vbarsegh <vbarsegh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 15:22:00 by vbarsegh          #+#    #+#             */
-/*   Updated: 2024/12/11 15:42:10 by vbarsegh         ###   ########.fr       */
+/*   Updated: 2024/12/15 14:34:10 by vbarsegh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void	init_scene(t_scene *scene)
 	scene->vplane = NULL;
 	scene->i = 0;
 	scene->j = 0;
+	scene->fd = 0;
 	scene->ray = new_vector(0, 0, 0);
 	scene->mlx = NULL;
 	scene->img = NULL;
